@@ -6,13 +6,10 @@ import MobileMenu from "./MobileMenu";
 
 const Header = () => {
   return (
-    <header
-      id="header"
-      className="fixed top-0 left-0 w-full flex items-center justify-between bg-white z-[999] p-2 px-10 rounded-bl-3xl rounded-br-3xl shadow-lg"
-    >
-      <img src={logo} className="h-[80px]" alt="Logo" />
+    <header>
+      <img src={logo} alt="Logo" />
       <nav>
-        <ul className="hidden list-none text-[24.32px] gap-[40px] font-extralight xl:flex">
+        <ul>
           <li >
             <Link to="/">Home</Link>
           </li>

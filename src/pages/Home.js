@@ -3,7 +3,7 @@ import "../styles/pages/Home.css";
 import HomePageImage1 from "../assets/home_page_image1.webp";
 import USAMapImage from "../assets/usa_map.webp";
 import { ReactComponent as CaliforniaMapSvg } from "../assets/california_map.svg";
-import { addCityMarkers } from "../utils/californiaMapUtils";
+import { addCityMarkers } from "../utils/CaliforniaMapUtils";
 
 function Home() {
 	//Load the markers for the california map svg

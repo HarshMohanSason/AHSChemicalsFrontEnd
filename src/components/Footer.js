@@ -9,7 +9,7 @@ const Footer = () => {
 			<section className="first-row">
 				<div className="logo-with-caption">
 					<figure>
-						<img src={Logo} />
+						<img src={Logo} alt="logo"/>
 						<figcaption>AHS CHEMICALS</figcaption>
 					</figure>
 					<p>

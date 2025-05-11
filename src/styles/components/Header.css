@@ -1,15 +1,39 @@
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  z-index: 999;
+  padding: 8px 40px; 
+  border-bottom-left-radius: 30px; 
+  border-bottom-right-radius: 30px; 
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+}
+/* AHS Logo image*/
+header img{ 
+  height: 80px;
+}
+header nav ul{
+  display: flex;
+  list-style: none;
+  font-size: 24.32px;
+  gap: 40px;
+  font-weight: 300;
+}
 header nav ul li a {
   font-weight: 300;
   text-decoration: none;
   color: rgba(0, 0, 0, 0.56);
   transition: color 0.3s ease;
 }
-
 header nav ul li a:hover {
   color: black;
   text-shadow: 0 0 1px black;
 }
-
 .bar {
   background-color: #405493;
   height: 6px;
@@ -17,7 +41,6 @@ header nav ul li a:hover {
   border-radius: 20px;
   transition: transform 0.3s ease-in-out;
 }
-
 .mobile-menu-sheet {
   position: fixed;
   width: 100%;
@@ -35,7 +58,7 @@ header nav ul li a:hover {
 .menu-open {
   top: 95px;
 }
-.mobile-menu-sheet ul{
+.mobile-menu-sheet ul {
   display: flex;
   flex-direction: column;
   gap: 25px;
@@ -49,13 +72,18 @@ header nav ul li a:hover {
 }
 .mobile-menu-sheet li {
   width: 100%;
-  transition:
-    color 0.3s ease-in;
+  transition: color 0.3s ease-in;
 }
 .mobile-menu-sheet li:hover {
   color: #456206;
 }
 .mobile-menu-sheet li:hover hr {
-  background-color: #456206; 
+  background-color: #456206;
   transition: background-color 0.3s ease;
+}
+
+@media (max-width: 1200px) {
+  header nav {
+    display: none;
+  }
 }
