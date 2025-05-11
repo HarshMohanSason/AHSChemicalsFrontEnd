@@ -1,0 +1,81 @@
+.about-us {
+	display: flex;
+	flex-direction: column;
+	width: 100vw;
+}
+.about-us-first-section {
+	margin-top: 100px;
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+}
+.about-us-first-section .text-area {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-left: 10%;
+	gap: 40px;
+	color: #777777;
+}
+.about-us-first-section .text-area h1 {
+	font-size: 46.53px;
+	font-weight: 500;
+}
+.about-us-first-section .text-area p {
+	width: 700px;
+	font-size: 21px;
+	font-weight: 400;
+}
+.about-us-first-section img {
+	width: 55%;
+	mask-image: linear-gradient(to left, white 2%, transparent 95%);
+}
+.our-mission-vision-section {
+	display: flex;
+	justify-content: center;
+	background-color: #f7fceb;
+	background-image: url("/public/assets/our_mission_vision_background.webp");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	box-shadow: inset 0 0 1000px 350px #f7fceb;
+}
+.oval-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	width: 900px;
+	height: 1000px;
+	position: relative;
+	z-index: 10;
+	top: -100px;
+	border: 1px solid black;
+	background: white;
+	border-radius: 50%;
+}
+.our-mission,
+.our-vision {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	justify-content: center;
+	align-items: center;
+}
+.our-mission p,
+.our-vision p {
+	width: 500px;
+	font-size: 25px;
+	font-weight: 600;
+	color: #777777;
+	text-align: center;
+}
+.logos {
+	width: 74px;
+	height: 74px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	border-radius: 30px;
+	background: #a5c759;
+}
