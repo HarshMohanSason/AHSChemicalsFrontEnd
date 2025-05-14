@@ -1,5 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getDatabase } from "firebase/database";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
+import { initializeFirestore } from "firebase/firestore";
 
 //Load env variables
 const firebaseConfig = {
@@ -17,11 +21,22 @@ const firebaseConfig = {
 
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
 
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
-
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
+
+// Initialize Firebase Services
 const auth = getAuth(firebaseApp);
-export {auth}
+const realtimeDb = getDatabase(firebaseApp);
+const firestoreDb = initializeFirestore(
+  firebaseApp,
+  {
+    experimentalAutoDetectLongPolling: true,
+  },
+  "ahschemicalsdb",
+);
+const storage = getStorage(firebaseApp);
+
+export { auth, realtimeDb, firestoreDb, storage };

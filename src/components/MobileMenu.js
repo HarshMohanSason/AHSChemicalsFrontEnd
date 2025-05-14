@@ -1,54 +1,49 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import "../styles/components/MobileMenu.css";
 
 const MobileMenu = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
-      setTimeout(() => {
-    setMenuOpen(!menuOpen);
-  }, 200);
+    setTimeout(() => {
+      setMenuOpen(!menuOpen);
+    }, 200);
   };
 
   return (
-    <div className="flex items-center justify-between p-4 xl:hidden">
-      {/* Hamburger Button */}
+    <div className="hamburger-wrapper">
       <button
         onClick={toggleMenu}
-        className="flex flex-col justify-center items-center space-y-2 w-10 h-10 focus:outline-none relative"
+        className={`hamburger-button ${menuOpen ? "menu-open" : ""}`}
       >
-        <span
-          className={`bar transform transition-all duration-300 ease-in-out ${menuOpen ? "translate-y-3.5 rotate-45" : ""}`}
-        />
-        <span
-          className={`bar transform transition-all duration-300 ease-in-out ${menuOpen ? "opacity-0 scale-0" : "opacity-100 scale-100"}`}
-        />
-        <span
-          className={`bar transform transition-all duration-300 ease-in-out ${menuOpen ? "-translate-y-3.5 -rotate-45" : ""}`}
-        />
+        <span className="bar top-bar"></span>
+        <span className="bar middle-bar"></span>
+        <span className="bar bottom-bar"></span>
       </button>
-      {/* Menu Sheet */}
       {menuOpen && (
-        <section className={`mobile-menu-sheet ${menuOpen ? 'menu-open' : ''}`}>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-              <hr/>
-            </li>
-            <li>
-              <Link to="/about-us">About Us</Link>
-              <hr/>
-            </li>
-            <li>
-              <Link to="/products">Products</Link>
-              <hr/>
-            </li>
-            <li>
-              <Link to="/account">Account</Link>
-              <hr/>
-            </li>
-            <hr />
-          </ul>
+        <section className={`mobile-menu-sheet ${menuOpen ? "menu-open" : ""}`}>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+                <hr />
+              </li>
+              <li>
+                <Link to="/about-us">About Us</Link>
+                <hr />
+              </li>
+              <li>
+                <Link to="/products">Products</Link>
+                <hr />
+              </li>
+              <li>
+                <Link to="/account">Account</Link>
+                <hr />
+              </li>
+              <hr />
+            </ul>
+          </nav>
         </section>
       )}
     </div>

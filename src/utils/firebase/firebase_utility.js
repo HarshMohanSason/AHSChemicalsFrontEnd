@@ -1,3 +1,96 @@
+import { firestoreDb, storage } from "../../firebase.config";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  listAll,
+  deleteObject,
+} from "firebase/storage";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
+
+//Returns urls of the files uploaded.
+export async function uploadMultipleFilesToStorage(
+  files,
+  mainDirName,
+  fileDirName,
+) {
+  try {
+    const fileUrls = [];
+    for (let file of files) {
+      if (file) {
+        // Create a reference to the file in Firebase Storage
+        const fileRef = ref(
+          storage,
+          `${mainDirName}/${fileDirName}/${file.name}`,
+        );
+        const metadata = {
+          contentType: file.type || "application/octet-stream",
+        };
+        // Upload the file to Firebase Storage
+        await uploadBytes(fileRef, file, metadata);
+
+        // Get the download URL for the uploaded file
+        const fileUrl = await getDownloadURL(fileRef);
+        fileUrls.push(fileUrl);
+      }
+    }
+    return fileUrls;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function uploadSingleFileToStorage(
+  file,
+  mainDirName,
+  fileDirName,
+) {
+  try {
+    const fileRef = ref(storage, `${mainDirName}/${fileDirName}/${file.name}`);
+    const metadata = {
+      contentType: file.type || "application/octet-stream",
+    };
+    await uploadBytes(fileRef, file, metadata);
+
+    const fileUrl = await getDownloadURL(fileRef);
+    return fileUrl;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function uploadJsonToFirestore(mainCollectionName, data) {
+  try {
+    const collectionRef = collection(firestoreDb, mainCollectionName);
+    // This will create a new document with a random ID
+    await addDoc(collectionRef, data);
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function fetchParentCollectionDataFromFirestore(collectionName) {
+  try {
+    const collectionRef = collection(firestoreDb, collectionName);
+    const querySnapshot = await getDocs(collectionRef);
+    const documents = [];
+    querySnapshot.forEach((doc) => {
+      documents.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+    });
+    return documents;
+  } catch (error) {
+    throw error;
+  }
+}
 
 export function handleFirebaseError(error) {
   const errorCode = error.code;

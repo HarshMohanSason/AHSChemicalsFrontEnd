@@ -1,0 +1,44 @@
+.product-image-and-sds-view{
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	gap: 40px;
+}
+.product-image-and-sds-view .image-section{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: start;
+	gap: 30px;
+}
+ .product-image-and-sds-view .custom-file-upload {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	padding: 12px 24px;
+	cursor: pointer;
+	background: linear-gradient(135deg, #7ebc59, #a5c759);
+	color: white;
+	border-radius: 10px;
+	font-size: 16px;
+	font-weight: 600;
+	border: none;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease;
+}
+
+.custom-file-upload:hover {
+	background: linear-gradient(135deg, #6aa943, #8ca94c);
+	box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+	transform: translateY(-1px);
+}
+
+.custom-file-upload:active {
+	transform: translateY(0);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.custom-file-upload input[type="file"] {
+	display: none;
+}

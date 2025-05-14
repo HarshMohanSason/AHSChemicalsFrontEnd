@@ -12,25 +12,16 @@ import { AlertBox } from "../components/AlertBox";
 import { handleFirebaseError } from "../utils/firebase/firebase_utility";
 import { LoadingOverlay } from "../components/LoadingOverlay";
 import { useAuth } from "../utils/firebase/AuthContext";
+import useAlert from "../hooks/UseAlertHook";
+import useLoadingOverlay from "../hooks/LoadingOverlayHook";
 
 function Account() {
 	const { user, isLoading } = useAuth();
 	const navigate = useNavigate();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [isAlertOpen, setIsAlertOpen] = useState(false);
-	const [errorMessage, setErrorMessage] = useState("");
-	const [showLoadingOverlay, setLoadingOverlay] = useState(false);
-	const [alertType, setAlertType] = useState("Error");
-
-	const handleAlert = (type, message) => {
-		setAlertType(type);
-		setErrorMessage(message);
-		setIsAlertOpen(true);
-	};
-	const triggerLoadingOverlay = (show) => {
-		setLoadingOverlay(show);
-	}
+	const {showLoadingOverlay, triggerLoadingOverlay, hideLoadingOverlay} = useLoadingOverlay();
+	const { isAlertOpen, alertType, errorMessage, showAlert, closeAlert } = useAlert();
 
 	const checkIfUserIsLoggedIn = async () => {
 		// if the user is logged in, redirect them based on their role
@@ -40,7 +31,7 @@ function Account() {
 		// if the app is still loading user data
 		if (user) {
 			if (user.isAdmin) {
-				triggerLoadingOverlay(true);
+				triggerLoadingOverlay();
 				navigate("/admin-panel");
 			} else {
 				navigate("/");
@@ -50,7 +41,7 @@ function Account() {
 
 	function handleSubmit(e) {
 		e.preventDefault();
-		triggerLoadingOverlay(true);
+		triggerLoadingOverlay();
 		signInWithEmailAndPassword(auth, email, password)
 			.then(async (userCredential) => {
 				const token = await getIdTokenResult(userCredential.user);
@@ -61,28 +52,24 @@ function Account() {
 				}
 			})
 			.catch((error) => {
-				console.log(error);
-				handleAlert("Error", handleFirebaseError(error));
+				showAlert(handleFirebaseError(error), "Error")
 			})
 			.finally(() => {
-				triggerLoadingOverlay(false);
+				hideLoadingOverlay()
 			});
 	}
 
 	const handlePasswordReset = () => {
-		triggerLoadingOverlay(true);
+		triggerLoadingOverlay()
 		sendPasswordResetEmail(auth, email)
 			.then(() => {
-				handleAlert(
-					"Success",
-					"If a user exists with that email, a reset password link has been sent to that email",
-				);
+				showAlert("If a user exists with that email, a reset password link has been sent to that email", "Success")
 			})
 			.catch((error) => {
-				handleAlert("Error", handleFirebaseError(error));
+				showAlert(handleFirebaseError(error), "Error");
 			})
 			.finally(() => {
-				triggerLoadingOverlay(false);
+				hideLoadingOverlay()
 			});
 	};
 
@@ -96,7 +83,7 @@ function Account() {
 				type={alertType}
 				message={errorMessage}
 				isOpen={isAlertOpen}
-				isClose={() => setIsAlertOpen(false)}
+				isClose={closeAlert}
 			/>
 			<LoadingOverlay showOverlay={showLoadingOverlay} />
 			<form className="login-form" onSubmit={handleSubmit}>

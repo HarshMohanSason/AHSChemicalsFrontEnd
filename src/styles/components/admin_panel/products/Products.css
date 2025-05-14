@@ -1,0 +1,159 @@
+.products-section {
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+	width: 100%;
+	margin: 50px;
+}
+.filters-and-product-display-section {
+	display: flex;
+	gap: 100px;
+	width: 100%;
+}
+.filters-section {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	width: 350px;
+	margin-top: 100px;
+}
+.filters-section h1 {
+	border: 1px solid #a5c759;
+	width: 350.6px;
+	border-radius: 10px;
+	font-size: 25px;
+	color: #777777;
+	font-weight: 700;
+	padding-left: 60px;
+}
+.filters-fieldset {
+  display: flex;
+  padding-left: 60px;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+  border: none;
+  font-size: 25.28px;
+  font-weight: 600;
+  color: #777777;
+}
+.filters-fieldset legend{
+	color: #777777;
+	font-weight: 600;
+	font-size: 25px;
+	margin-bottom: 10px;
+}
+.filters-fieldset label {
+  display: flex;
+  width: 100%;
+  align-items: start;
+  gap: 10px;
+  font-size: 25px;
+  color: #777777;
+}
+.filters-fieldset label:has(input:checked) {
+  color: #a5c759;
+}
+.filters-fieldset input[type="checkbox"] {
+	margin-top: 5px;
+  appearance: none;
+  width: 29px;
+  height: 29px;
+  outline: none;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  position: relative;
+}
+
+.filters-fieldset input[type="checkbox"]:checked {
+  background-color: #a5c759;
+}
+
+.products-display-section {
+  box-sizing: border-box;
+  height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-top: 100px;
+  padding-left: 10%;
+  padding-bottom: 100px;
+  background: #f7fceb;
+  width: 100%;
+  max-width: 1150px;
+  display: flex;
+  gap: 100px;
+  flex-wrap: wrap;
+  border-radius: 20px;
+}
+.product-tile {
+  display: flex;
+  flex-direction: column;
+  max-width: 315px;
+  gap: 10px;
+}
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 310px;
+}
+.product-tile img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+.product-tile button{
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-weight: 600;
+  padding: 6px 20px;
+  font-size: 15px;
+  background-color: #a5c759;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.product-tile h2 {
+  font-size: 27.61px;
+  color: #a5c759;
+  margin: 0;
+  padding: 0;
+}
+.product-tile p {
+  margin: 0;
+  padding: 0;
+  font-size: 16.41px;
+  color: #777777;
+}
+.add-a-product-section {
+	margin: 0 60px;
+	width: 90%;
+	display: flex;
+	border-radius: 80px;
+	justify-content: space-between;
+	align-items: center;
+	padding: 30px 60px;
+	background: #f7fceb;
+}
+.add-a-product-section h3 {
+	color: #777777;
+	font-size: 32px;
+}
+.add-a-product-section button {
+	cursor: pointer;
+	border-radius: 50%;
+	width: 81px;
+	height: 81px;
+	color: white;
+	background: #a5c759;
+	font-size: 45.05px;
+	transition: transform 0.3s ease;
+}
+.add-a-product-section button:hover {
+	transform: scale(1.05);
+}

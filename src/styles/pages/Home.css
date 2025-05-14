@@ -39,7 +39,9 @@
 }
 .home-page-intro-section .text-area button {
 	background: #a5c759;
+	border: none;
 	width: 230px;
+	font-size: 18px;
 	border-radius: 40px;
 	height: 54px;
 	color: white;
@@ -81,6 +83,7 @@
 }
 #property-list-text {
 	margin-top: 60px;
+	margin-bottom: 50px;
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;

@@ -7,32 +7,32 @@ footer {
   border-radius: 50px 50px 0 0;
   padding: 80px;
 }
-.first-row {
+footer .first-row {
   color: white;
   display: flex;
   width: 100%;
   justify-content: space-between;
   padding-bottom: 30px;
 }
-.logo-with-caption {
+footer .logo-with-caption {
   display: block;
 }
-.logo-with-caption figure {
+footer .logo-with-caption figure {
   display: flex;
   align-items: center;
   margin: 0;
   padding: 0;
   width: auto;
 }
-.logo-with-caption figure img {
+footer .logo-with-caption figure img {
   width: 60px;
   margin-right: 5px;
 }
-.logo-with-caption figure figcaption {
+footer .logo-with-caption figure figcaption {
   font-weight: 600;
   font-size: 24px;
 }
-.logo-with-caption p {
+footer .logo-with-caption p {
   width: 300px;
   line-height: 1.2em;
 }
@@ -54,6 +54,8 @@ footer {
   font-weight: 400;
 }
 .footer-menu nav a {
+  text-decoration: none;
+  color: white;
   font-weight: 300;
   transition: color 0.3s ease-in-out;
 }
@@ -62,18 +64,18 @@ footer {
   cursor: pointer;
 }
 
-.social-media {
+footer .social-media {
   display: flex;
   gap: 60px;
   margin-bottom: 20px;
 }
-.social-media i {
+footer .social-media i {
   color: white;
   font-size: 20px;
   text-decoration: none;
   transition: color 0.3s ease-in-out;
 }
-.social-media i:hover {
+footer .social-media i:hover {
   color: #ccc;
   cursor: pointer;
 }

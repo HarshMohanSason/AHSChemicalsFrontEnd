@@ -1,7 +1,35 @@
-.admin-panel{
+.admin-panel {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	width: 100vw;
-	height: 100vh;
+}
+.admin-panel menu {
+	margin-top: 250px;
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	gap: 50px;
+}
+.admin-panel menu button {
+	max-width: 400px;
+	width: 350px;
+	font-weight: 700;
+	border-radius: 10px;
+	padding: 15px;
+	font-size: 25px;
+	color: #777777;
+	border: 2px solid #a5c759;
+	background: #f4f4f4;
+	transition:
+		color 0.3s ease-in,
+		background 0.3s ease-in;
+} 
+.admin-panel menu button.active{
+	background: #a5c759;
+	color: #000000;
+}
+.admin-panel menu button:hover {
+	cursor: pointer;
+	background: #a5c759;
+	color: #000000;
 }

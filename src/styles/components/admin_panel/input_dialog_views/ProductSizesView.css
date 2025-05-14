@@ -1,0 +1,57 @@
+.input-dialog-product-sizes-view{
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+.input-dialog-product-sizes-view label {
+  display: flex;
+  flex-direction: column;
+  font-size: 17px;
+  font-weight: 500;
+  color: #333;
+  gap: 6px;
+}
+.input-dialog-product-sizes-view input[type="tel"], .input-dialog-product-sizes-view select {
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	font-size: 15px;
+	transition:
+		border-color 0.3s,
+		box-shadow 0.3s;
+	width: 100%;
+	box-sizing: border-box;
+}
+.input-dialog-product-sizes-view input[type="tel"]:focus, .input-dialog-product-sizes-view select:focus{
+  border-color: #a5c759;
+  box-shadow: 0 0 5px rgba(165, 199, 89, 0.5);
+  outline: none;
+}
+.size-action-button-div{
+	display: flex;
+}
+.size-action-button {
+  background-color: #A5C759; /* your green tone */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin: 5px;
+}
+
+.size-action-button:hover {
+  background-color: #8bb648; /* darker green on hover */
+  transform: scale(1.1);
+}
+
+.size-action-button:active {
+  transform: scale(0.95);
+}

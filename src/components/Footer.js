@@ -9,7 +9,7 @@ const Footer = () => {
 			<section className="first-row">
 				<div className="logo-with-caption">
 					<figure>
-						<img src={Logo} alt="logo"/>
+						<img src={Logo} alt="logo" />
 						<figcaption>AHS CHEMICALS</figcaption>
 					</figure>
 					<p>
@@ -51,7 +51,16 @@ const Footer = () => {
 			<hr />
 			<section className="below-hr-text">
 				<p>© 2025 All rights reserved</p>
-				<p>Developed by Harsh Mohan Sason</p>
+				<p>
+					Developed by{" "}
+					<a style={{ textDecoration: 'none', color: 'white'}}
+						href="https://github.com/HarshMohanSason"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						Harsh Mohan Sason
+					</a>
+				</p>
 			</section>
 		</footer>
 	);

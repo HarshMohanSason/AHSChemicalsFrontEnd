@@ -1,0 +1,29 @@
+.product-tags-view .tags{
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+}
+.product-tags-view label {
+  font-size: 17px;
+  font-weight: 500;
+  color: #333;
+  gap: 6px;
+  padding-right: 10px;
+}
+.product-tags-view input[type="text"] {
+	padding: 12px;
+	border: 1px solid #ccc;
+	max-width: 200px;
+	border-radius: 8px;
+	font-size: 15px;
+	transition:
+		border-color 0.3s,
+		box-shadow 0.3s;
+	width: 100%;
+	box-sizing: border-box;
+}
+.product-tags-view input[type="text"]:focus{
+  border-color: #a5c759;
+  box-shadow: 0 0 5px rgba(165, 199, 89, 0.5);
+  outline: none;
+}
