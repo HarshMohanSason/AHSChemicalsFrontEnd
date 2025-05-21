@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../styles/pages/AdminPanel.css";
 import Products from "../components/admin_panel/products/Products";
+import Accounts from "../components/admin_panel/accounts/Accounts";
 
 function AdminPanel(){
 
@@ -14,6 +15,7 @@ function AdminPanel(){
 				<button className={currentMenuOption === "orders" ? 'active': ''} onClick={()=> setMenuOption("orders")}>Orders</button>
 			</menu>
 		{currentMenuOption === "products" && <Products />}
+		{currentMenuOption === "accounts" && <Accounts />}
 		</section>
 		);
 }

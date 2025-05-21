@@ -6,8 +6,9 @@ import ProductSizesView from "../input_dialog_views/ProductSizesView";
 import ProductSkuView from "../input_dialog_views/ProductSkuView";
 import ProductDescView from "../input_dialog_views/ProductDescView";
 import ProductImageAndSDSView from "../input_dialog_views/ProductImageAndSDSView";
+import ProductsTagsView from "../input_dialog_views/ProductTagsView";
 import {
-	handleFirebaseError,
+	handleFirebaseError, 
 	uploadMultipleFilesToStorage,
 	uploadSingleFileToStorage,
 	uploadJsonToFirestore,
@@ -15,7 +16,6 @@ import {
 import useAlert from "../../../hooks/UseAlertHook";
 import useLoadingOverlay from "../../../hooks/LoadingOverlayHook";
 import { AlertBox } from "../../AlertBox";
-import { ProductsTagsView } from "../input_dialog_views/ProductTagsView";
 import { ProductsFilterAndTileSection } from "./ProductsFilterAndTileSection";
 
 function Products() {
@@ -64,6 +64,7 @@ function Products() {
 			setProductData={setProductData}
 		/>,
 	];
+
 	const startUploadingProduct = async (e) => {
 		e.preventDefault();
 		triggerLoadingOverlay();
@@ -102,7 +103,7 @@ function Products() {
 			/>
 			<ProductsFilterAndTileSection />
 			<section className="add-a-product-section">
-				<h3>Add a product</h3>
+				<h3>Add a new product</h3>
 				<button
 					onClick={() => {
 						dialogRef.current.showModal();

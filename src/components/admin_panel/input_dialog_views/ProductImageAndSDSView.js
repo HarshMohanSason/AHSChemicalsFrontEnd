@@ -71,9 +71,25 @@ export default function ProductImageAndSDSView({
 					Add the Safety Data Sheet(SDS)
 				</label>
 				<label className="custom-file-upload">
-					{productData.sds
-						? productData.sds.name
-						: "Upload SDS (PDF)"}
+					{productData.sds && typeof productData.sds === "object" ? (
+						productData.sds.name //show the file name if its not a http url
+					) : productData.sds &&
+					  typeof productData.sds === "string" ? (
+						// When editing and sds is a URL
+						<a
+							href={productData.sds}
+							target="_blank"
+							rel="noopener noreferrer"
+							style={{
+								color: "#007bff",
+								textDecoration: "underline",
+							}}
+						>
+							View SDS
+						</a>
+					) : (
+						"Upload SDS (PDF)"
+					)}
 					<input
 						type="file"
 						accept="application/pdf"

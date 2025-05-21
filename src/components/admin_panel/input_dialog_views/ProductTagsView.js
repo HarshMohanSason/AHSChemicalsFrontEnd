@@ -2,7 +2,7 @@ import React from "react";
 import InputField from "../../InputField";
 import "../../../styles/components/admin_panel/input_dialog_views/ProductTagsView.css";
 
-export const ProductsTagsView = ({ productData, setProductData }) => {
+const ProductsTagsView = ({ productData, setProductData }) => {
 
 	const addTag = () => {
 		const oldTags = [...productData.tags]
@@ -14,7 +14,6 @@ export const ProductsTagsView = ({ productData, setProductData }) => {
 		oldTags.pop()
 		setProductData({...productData, tags: oldTags})
 	}
-	console.log(productData.tags);
 
 	return <section className="product-tags-view">
 		<div className="tags">
@@ -55,3 +54,4 @@ export const ProductsTagsView = ({ productData, setProductData }) => {
 		</div>
 	</section>;
 };
+export default ProductsTagsView;

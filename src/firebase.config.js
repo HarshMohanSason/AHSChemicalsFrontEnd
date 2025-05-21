@@ -34,8 +34,7 @@ const firestoreDb = initializeFirestore(
   firebaseApp,
   {
     experimentalAutoDetectLongPolling: true,
-  },
-  "ahschemicalsdb",
+  }
 );
 const storage = getStorage(firebaseApp);
 

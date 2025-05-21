@@ -36,12 +36,13 @@ const InputFormDialog = ({
 					}}
 				></div>
 			</div>
-			<form ref={formRef} className="input-form" onSubmit={submitFunc}>
+			<form ref={formRef} className="input-form">
 				{currentView >= 0 &&
 					currentView < views.length &&
 					views[currentView]}
 				{currentView === 0 && (
 					<button
+						type="button"
 						className="input-dialog-navigate-button"
 						onClick={selectNextView}
 					>
@@ -67,7 +68,8 @@ const InputFormDialog = ({
 							</button>
 						) : (
 							<button
-								type="submit"
+								type="button"
+								onClick={submitFunc}
 								className="input-dialog-navigate-button"
 							>
 								Submit

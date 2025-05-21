@@ -1,33 +1,29 @@
 /* Main Skeleton Wrapper */
 .products-skeleton-loader {
-  width: 90vw;
-  box-sizing: border-box;
   display: flex;
-  gap: 100px;
-  margin: 30px 50px;
+  gap: 140px;
+  width: 100%;
 }
 /* Sidebar Skeleton */
 .skeleton-filters {
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  width: 350px;
+  margin-top: 90px;
 }
 /* Filter type heading */
 .skeleton-filter-main-heading {
   height: 40px;
-  width: 100%;
-  border-radius: 10px;
+  width: 120%;
+  border-radius: 13px;
   background: linear-gradient(90deg, #eee 25%, #ddd 50%, #eee 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
 /* Filter fieldset section */
 .skeleton-filter-types {
-  margin-left: 60px;
   flex-direction: column;
   display: flex;
   gap: 10px;
+  margin-left: 58px;
 }
 /* Filter name heading */
 .skeleton-filter-type-heading {
@@ -42,8 +38,7 @@
 }
 .skeleton-filter-options {
   display: flex;
-  gap: 10px;
-  width: 120%;
+  gap: 20px;
   justify-content: center;
 }
 .skeleton-checkbox-circular {
@@ -56,7 +51,7 @@
 }
 .skeleton-filter-name {
   width: 100%;
-  height: 25px;
+  height: 29px;
   border-radius: 5px;
   background: linear-gradient(90deg, #eee 25%, #ddd 50%, #eee 75%);
   background-size: 200% 100%;
@@ -64,17 +59,22 @@
 }
 /* Product Section */
 .skeleton-products {
-  padding: 150px;
-  box-sizing: border-box;
-  justify-content: center;
-  width: 100%;
-  border-radius: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 50px;
+  overflow-y: auto;
+  position: relative;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-top: 100px;
+  padding-left: 10%;
+  padding-bottom: 100px;
   background: linear-gradient(90deg, #eee 25%, #ddd 50%, #eee 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
+  width: 100%;
+  max-width: 947px;
+  display: flex;
+  gap: 100px;
+  border-radius: 61px;
+  flex-wrap: wrap;
 }
 
 .skeleton-product-card {
