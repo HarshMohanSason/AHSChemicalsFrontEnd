@@ -4,7 +4,7 @@ import "../styles/pages/AboutUs.css";
 import { ReactComponent as OurMissionSvg } from "../assets/our_mission_logo.svg";
 import { ReactComponent as OurVisionSvg } from "../assets/our_vision_logo.svg";
 
-function AboutUs() {
+const AboutUs = () => {
 	return (
 		<section className="about-us">
 			<section className="about-us-first-section">

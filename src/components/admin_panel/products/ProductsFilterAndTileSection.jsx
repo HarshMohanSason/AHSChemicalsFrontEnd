@@ -1,38 +1,48 @@
 import { useEffect, useState, useRef } from "react";
 import {
-	fetchParentCollectionDataFromFirestore,
+	fetchProductsFromFirestore,
 	handleFirebaseError,
-	updateJsonToFirestore,
+	updateProductInFirestore,
 	uploadMultipleFilesToStorage,
 	uploadSingleFileToStorage,
 } from "../../../utils/firebase/firebase_utility";
 import { ProductsSkeletonLoader } from "./ProductsSkeletonLoader";
 import useAlert from "../../../hooks/UseAlertHook";
 import DOMPurify from "dompurify";
-import InputFormDialog from "../input_dialog_views/InputFormDialog";
-import ProductInfoView from "../input_dialog_views/ProductInfoView";
-import ProductSizesView from "../input_dialog_views/ProductSizesView";
-import ProductSkuView from "../input_dialog_views/ProductSkuView";
-import ProductDescView from "../input_dialog_views/ProductDescView";
-import ProductImageAndSDSView from "../input_dialog_views/ProductImageAndSDSView";
-import ProductsTagsView from "../input_dialog_views/ProductTagsView";
+import InputFormDialog from "../InputFormDialog";
+import ProductInfoView from "./ProductInfoView";
+import ProductSizesView from "./ProductSizesView";
+import ProductSkuView from "./ProductSkuView";
+import ProductDescView from "./ProductDescView";
+import ProductImageAndSDSView from "./ProductImageAndSDSView";
+import ProductsTagsView from "./ProductTagsView";
 import useLoadingOverlay from "../../../hooks/LoadingOverlayHook";
-import { AlertBox } from "../.././AlertBox";
+import AlertBox from "../.././AlertBox";
+import { useProducts } from "../../../hooks/ProductsHook";
 
-export const ProductsFilterAndTileSection = () => {
-	const [products, setProducts] = useState([]);
-	const [filteredProducts, setFilteredProducts] = useState([]);
-	const [showSkeletonLoader, setSkeletonLoader] = useState(false);
-	const [selectedBrands, setSelectedBrands] = useState([]);
-	const [selectedTypes, setSelectedTypes] = useState([]);
-
+const ProductsFilterAndTileSection = () => {
 	const { showLoadingOverlay, triggerLoadingOverlay, hideLoadingOverlay } =
 		useLoadingOverlay();
 	const { isAlertOpen, alertType, errorMessage, showAlert, closeAlert } =
 		useAlert();
-	const editFormDialogRef = useRef(null);
+	const {
+		filteredProducts,
+		loading,
+		error,
+		fetchProducts,
+		handleBrandChange,
+		handleTypeChange,
+		brands,
+		types,
+	} = useProducts();
 
-	//Whenever the edit button is clicked, this keeps track of which product is being edited to pass it down to the views
+	useEffect(() => {
+		if (error) {
+			showAlert(errorMessage, "Error");
+		}
+	}, [error, errorMessage]);
+
+	//To track the current product which is being edited
 	const [currentProduct, setCurrentProduct] = useState({
 		brandName: "",
 		name: "",
@@ -43,6 +53,8 @@ export const ProductsFilterAndTileSection = () => {
 		sds: null,
 		tags: [""],
 	});
+
+	const editFormDialogRef = useRef(null);
 
 	const views = [
 		<ProductInfoView
@@ -71,20 +83,6 @@ export const ProductsFilterAndTileSection = () => {
 		/>,
 	];
 
-	const fetchProducts = async () => {
-		setSkeletonLoader(true);
-		try {
-			const getProducts =
-				await fetchParentCollectionDataFromFirestore("products");
-
-			setProducts(getProducts);
-		} catch (error) {
-			showAlert(handleFirebaseError(error), "Error");
-		} finally {
-			setSkeletonLoader(false);
-		}
-	};
-
 	const updateProduct = async (event) => {
 		event.preventDefault();
 		triggerLoadingOverlay();
@@ -93,10 +91,12 @@ export const ProductsFilterAndTileSection = () => {
 			if (currentProduct.id != null) {
 				let updatedProduct = { ...currentProduct };
 
+				//Only get the images which are updated
 				const imagesWithFileType = currentProduct.images.filter(
 					(image) => image instanceof File,
 				);
 
+				//update the images to storage and get url
 				if (imagesWithFileType.length > 0) {
 					const imageUrls = await uploadMultipleFilesToStorage(
 						imagesWithFileType,
@@ -104,13 +104,15 @@ export const ProductsFilterAndTileSection = () => {
 						currentProduct.name,
 					);
 					updatedProduct.images = [
+						//separate the not changed images. 
 						...currentProduct.images.filter(
 							(img) => img instanceof String,
 						),
-						...imageUrls,
+						...imageUrls, //add the uploaded url
 					];
 				}
 
+				//Change the sds file for the product 
 				if (currentProduct.sds instanceof File) {
 					const sdsUrl = await uploadSingleFileToStorage(
 						currentProduct.sds,
@@ -124,7 +126,7 @@ export const ProductsFilterAndTileSection = () => {
 				setCurrentProduct(updatedProduct);
 
 				// Upload to Firestore using the updated version
-				await updateJsonToFirestore("products", updatedProduct);
+				await updateProductInFirestore("products", updatedProduct);
 			}
 			editFormDialogRef.current.close();
 			showAlert("Succesfully updated the product", "Success");
@@ -136,66 +138,9 @@ export const ProductsFilterAndTileSection = () => {
 		}
 	};
 
-	const handleBrandChange = (brand) => {
-		setSelectedBrands((prev) =>
-			prev.includes(brand)
-				? prev.filter((b) => b !== brand)
-				: [...prev, brand],
-		);
-	};
-
-	const handleTypeChange = (type) => {
-		setSelectedTypes((prev) =>
-			prev.includes(type)
-				? prev.filter((t) => t !== type)
-				: [...prev, type],
-		);
-	};
-
-	const filterProducts = () => {
-		const filteredProducts = products.filter((product) => {
-			const matchesBrand =
-				selectedBrands.length === 0 ||
-				selectedBrands.includes(product.brandName?.toLowerCase());
-			const matchesType =
-				selectedTypes.length === 0 ||
-				selectedTypes.includes(product.type?.toLowerCase());
-			return matchesBrand && matchesType;
-		});
-		setFilteredProducts(filteredProducts);
-	};
-
-	//Called once initially when the products load
-	useEffect(() => {
-		fetchProducts();
-	}, []);
-
-	//Trigger refresh whenever a filter is applied
-	useEffect(() => {
-		filterProducts();
-	}, [selectedBrands, selectedTypes, products]);
-
-	const brands = [
-		...new Set(
-			products
-				.map((p) => p.brandName?.trim().toLowerCase()),
-		),
-	];
-
-	const types = [
-		...new Set(
-			products.map((p) => p.type?.trim().toLowerCase()),
-		),
-	];
-
-	const handleProductEdit = (product) => {
-		setCurrentProduct(product);
-		editFormDialogRef.current.showModal();
-	};
-
 	return (
 		<>
-			{showSkeletonLoader && <ProductsSkeletonLoader />}
+			{loading && <ProductsSkeletonLoader />}
 			<AlertBox
 				type={alertType}
 				message={errorMessage}
@@ -204,7 +149,9 @@ export const ProductsFilterAndTileSection = () => {
 			/>
 			<section
 				className="filters-and-product-display-section"
-				style={{ display: products.length !== 0 ? 'flex' : "none" }}
+				style={{
+					display: filteredProducts.length !== 0 ? "flex" : "none",
+				}}
 			>
 				<section className="filters-section">
 					<h1>Filters</h1>
@@ -249,22 +196,15 @@ export const ProductsFilterAndTileSection = () => {
 										alt="product-image"
 									/>
 									<button
-										onClick={() =>
-											handleProductEdit(product)
-										}
+										onClick={() => {
+											setCurrentProduct(product);
+											editFormDialogRef.current.showModal();
+										}}
 									>
 										Edit
 									</button>
 								</div>
 								<h2>{product.name}</h2>
-
-								<p
-									dangerouslySetInnerHTML={{
-										__html: DOMPurify.sanitize(
-											product.description,
-										),
-									}}
-								/>
 							</div>
 						);
 					})}
@@ -280,3 +220,5 @@ export const ProductsFilterAndTileSection = () => {
 		</>
 	);
 };
+
+export default ProductsFilterAndTileSection;

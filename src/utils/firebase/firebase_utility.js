@@ -13,11 +13,9 @@ import {
   setDoc,
   doc,
   updateDoc,
+  getDoc,
 } from "firebase/firestore";
-import {
-  createUserWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 //Returns urls of the files uploaded.
 export async function uploadMultipleFilesToStorage(
@@ -70,28 +68,27 @@ export async function uploadSingleFileToStorage(
   }
 }
 
-export async function uploadJsonToFirestore(mainCollectionName, data) {
+export async function uploadProductToFirestore(product) {
   try {
-    const collectionRef = collection(firestoreDb, mainCollectionName);
-    // This will create a new document with a random ID
-    await addDoc(collectionRef, data);
+    const collectionRef = collection(firestoreDb, "products");
+    await addDoc(collectionRef, product);
   } catch (error) {
     throw error;
   }
 }
 
-export async function updateJsonToFirestore(mainCollectionName, data) {
+export async function updateProductInFirestore(product) {
   try {
-    const docRef = doc(firestoreDb, mainCollectionName, data.id);
-    await updateDoc(docRef, data);
+    const docRef = doc(firestoreDb, "products", product.id);
+    await updateDoc(docRef, product);
   } catch (error) {
     throw error;
   }
 }
 
-export async function fetchParentCollectionDataFromFirestore(collectionName) {
+export async function fetchProductsFromFirestore() {
   try {
-    const collectionRef = collection(firestoreDb, collectionName);
+    const collectionRef = collection(firestoreDb, "products");
     const querySnapshot = await getDocs(collectionRef);
     const documents = [];
     querySnapshot.forEach((doc) => {
@@ -106,7 +103,7 @@ export async function fetchParentCollectionDataFromFirestore(collectionName) {
   }
 }
 
-export async function createAccount(user) {
+export async function createManagerAccount(user) {
   try {
     //1. Create the user
     const userCredential = await createUserWithEmailAndPassword(
@@ -126,10 +123,22 @@ export async function createAccount(user) {
       properties: user.properties,
       createdAt: new Date(),
     });
-  } catch (error){
+  } catch (error) {
     throw error;
   }
 }
+
+export const fetchCartItems = async (docId) => {
+  try {
+    const docRef = doc(firestoreDb, "users", docId);
+    const docSnapsot = await getDoc(docRef);
+    if (docSnapsot.exists()) {
+      return docSnapsot.data().cartItems;
+    }
+  } catch (error) {
+    throw error; 
+  }
+};
 
 export function handleFirebaseError(error) {
   const errorCode = error.code;

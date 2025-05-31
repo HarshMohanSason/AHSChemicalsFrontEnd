@@ -16,12 +16,24 @@ header {
 header img{ 
   height: 80px;
 }
+header nav {
+  display: flex;
+  flex: 1;
+  justify-content: center; 
+}
 header nav ul{
   display: flex;
   list-style: none;
   font-size: 24.32px;
   gap: 40px;
   font-weight: 300;
+}
+nav ul:first-of-type {
+  justify-content: center;
+  flex: 1; 
+}
+nav ul:last-of-type {
+  justify-content: flex-end;
 }
 header nav ul li a {
   font-weight: 300;

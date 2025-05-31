@@ -3,7 +3,7 @@ import "../styles/pages/AdminPanel.css";
 import Products from "../components/admin_panel/products/Products";
 import Accounts from "../components/admin_panel/accounts/Accounts";
 
-function AdminPanel(){
+const AdminPanel = () => {
 
 	const [currentMenuOption, setMenuOption] = useState("products");
 

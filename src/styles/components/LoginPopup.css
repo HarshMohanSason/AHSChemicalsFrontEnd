@@ -1,0 +1,51 @@
+.login-popup{
+	border: none;
+	position: relative;
+	background-color: #B6B5B5;
+	background-image: url('/public/assets/our_mission_vision_background.webp');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	box-shadow: inset 0 0 400px 186px white;
+	border-radius: 50px;
+	overflow: hidden;
+	height: 40vh;
+	width: 40vw;
+}
+.login-popup .inner-box{
+	border: 4px solid #A5C759;
+	height: 100%;
+	border-radius: 50px;
+}
+
+.login-popup button {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  background: none;
+  border: none;
+  font-size: 35px;
+  cursor: pointer;
+  color: #A5C759;
+  transition: transform 0.2s ease;
+}
+
+.login-popup button:hover {
+  transform: rotate(90deg);
+  color: #7AA44F;
+}
+.login-popup h1{
+	font-weight:700;
+	padding-top: 8%;
+	color: #A5C759;
+	text-align: center;
+	font-size: 38px;
+}
+.login-popup p{
+	width: 65%;
+	font-weight: 400;
+	margin: 0 auto;
+	align-content: center;
+	text-align: center;
+	font-size: 25.34px;
+}

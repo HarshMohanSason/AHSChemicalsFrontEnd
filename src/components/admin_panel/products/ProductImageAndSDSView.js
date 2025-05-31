@@ -1,5 +1,5 @@
 import React from "react";
-import { ImageUploaderContainer } from "../../ImageUploaderContainer";
+import ImageUploaderContainer from "../../ImageUploaderContainer";
 import "../../../styles/components/admin_panel/input_dialog_views/ProductImageAndSDSView.css";
 
 export default function ProductImageAndSDSView({

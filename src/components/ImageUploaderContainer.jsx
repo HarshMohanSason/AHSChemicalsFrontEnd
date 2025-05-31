@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import "../styles/components/ImageUploaderContainer.css";
 
-export const ImageUploaderContainer = ({ image, updateImage }) => {
+const ImageUploaderContainer = ({ image, updateImage }) => {
 	const fileInputRef = useRef();
 	const [imageURL, setImageUrl] = useState("");
 
@@ -51,3 +51,5 @@ export const ImageUploaderContainer = ({ image, updateImage }) => {
 		</>
 	);
 };
+
+export default ImageUploaderContainer;

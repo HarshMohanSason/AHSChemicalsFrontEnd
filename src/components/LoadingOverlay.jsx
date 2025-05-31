@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/components/LoadingOverlay.css"
 
-export const LoadingOverlay = ({ showOverlay }) => {
+const LoadingOverlay = ({ showOverlay }) => {
 	return (
 		<>
 			{showOverlay && (
@@ -12,4 +12,5 @@ export const LoadingOverlay = ({ showOverlay }) => {
 		</>
 	);
 }
+export default LoadingOverlay;
 

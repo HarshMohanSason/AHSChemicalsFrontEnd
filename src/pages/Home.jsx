@@ -5,7 +5,7 @@ import USAMapImage from "../assets/usa_map.webp";
 import { ReactComponent as CaliforniaMapSvg } from "../assets/california_map.svg";
 import { addCityMarkers } from "../utils/CaliforniaMapUtils";
 
-function Home() {
+const Home = () => {
 	//Load the markers for the california map svg
 	useEffect(() => {
 		const svg = document.getElementById("california-svg"); 

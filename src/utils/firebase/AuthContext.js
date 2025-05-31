@@ -16,6 +16,7 @@ export default function AuthProvider({ children }) {
         setUser({
           ...firebaseUser,
           isAdmin,
+          token,
         });
       } else {
         setUser(null);

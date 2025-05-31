@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
-import "../../../styles/components/admin_panel/input_dialog_views/InputFormDialog.css";
-import { LoadingOverlay } from "../../LoadingOverlay";
+import "../../styles/components/admin_panel/input_dialog_views/InputFormDialog.css";
+import LoadingOverlay from "../LoadingOverlay";
 const InputFormDialog = ({
 	title,
 	dialogRef,

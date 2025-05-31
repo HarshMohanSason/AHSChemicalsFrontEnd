@@ -1,24 +1,24 @@
 import React, { useState, useRef } from "react";
 import "../../../styles/components/admin_panel/products/Products.css";
-import InputFormDialog from "../input_dialog_views/InputFormDialog";
-import ProductInfoView from "../input_dialog_views/ProductInfoView";
-import ProductSizesView from "../input_dialog_views/ProductSizesView";
-import ProductSkuView from "../input_dialog_views/ProductSkuView";
-import ProductDescView from "../input_dialog_views/ProductDescView";
-import ProductImageAndSDSView from "../input_dialog_views/ProductImageAndSDSView";
-import ProductsTagsView from "../input_dialog_views/ProductTagsView";
+import InputFormDialog from "../InputFormDialog";
+import ProductInfoView from "./ProductInfoView";
+import ProductSizesView from "./ProductSizesView";
+import ProductSkuView from "./ProductSkuView";
+import ProductDescView from "./ProductDescView";
+import ProductImageAndSDSView from "./ProductImageAndSDSView";
+import ProductsTagsView from "./ProductTagsView";
 import {
 	handleFirebaseError, 
 	uploadMultipleFilesToStorage,
 	uploadSingleFileToStorage,
-	uploadJsonToFirestore,
+	uploadProductToFirestore,
 } from "../../../utils/firebase/firebase_utility";
 import useAlert from "../../../hooks/UseAlertHook";
 import useLoadingOverlay from "../../../hooks/LoadingOverlayHook";
-import { AlertBox } from "../../AlertBox";
-import { ProductsFilterAndTileSection } from "./ProductsFilterAndTileSection";
+import AlertBox from "../../AlertBox";
+import ProductsFilterAndTileSection from "./ProductsFilterAndTileSection"
 
-function Products() {
+const Products = () => {
 	const dialogRef = useRef(null);
 	
 	const { showLoadingOverlay, triggerLoadingOverlay, hideLoadingOverlay } =
@@ -81,10 +81,11 @@ function Products() {
 			);
 			const finalProductData = {
 				...productData,
+				id: crypto.randomUUID(),
 				images: filesUrls,
 				sds: sdsUrl,
 			};
-			await uploadJsonToFirestore("products", finalProductData);
+			await uploadProductToFirestore(finalProductData);
 			showAlert("Product was uploaded successfully!", "Success");
 			dialogRef.current.close(); 
 		} catch (error) {
@@ -93,6 +94,7 @@ function Products() {
 			hideLoadingOverlay();
 		}
 	};
+	
 	return (
 		<section className="products-section">
 			<AlertBox

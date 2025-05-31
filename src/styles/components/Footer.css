@@ -36,30 +36,29 @@ footer .logo-with-caption p {
   width: 300px;
   line-height: 1.2em;
 }
-.footer-menu {
+footer .footer-menu {
   display: flex;
   gap: 80px;
 }
-.footer-menu h2 {
+footer .footer-menu h2 {
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 20px;
 }
-.footer-menu nav {
+footer .footer-menu nav {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-.footer-menu nav {
+footer .footer-menu nav {
   font-weight: 400;
 }
-.footer-menu nav a {
+footer .footer-menu nav a {
   text-decoration: none;
   color: white;
   font-weight: 300;
-  transition: color 0.3s ease-in-out;
 }
-.footer-menu nav a:hover {
+footer .footer-menu nav a:hover {
   color: #ccc;
   cursor: pointer;
 }
@@ -73,7 +72,6 @@ footer .social-media i {
   color: white;
   font-size: 20px;
   text-decoration: none;
-  transition: color 0.3s ease-in-out;
 }
 footer .social-media i:hover {
   color: #ccc;
@@ -91,6 +89,14 @@ footer .below-hr-text {
   justify-content: space-between;
   font-size: 16.79px;
   color: white;
+}
+footer .below-hr-text p a{
+  text-decoration: none;
+  color: white;
+}
+footer .below-hr-text p a:hover{
+  color: #ccc;
+  cursor: pointer;
 }
 
 /* When the screen is 1158px and below, the footer menu row goes below the logo */

@@ -1,5 +1,9 @@
 {
   "projects": {
-    "default": "ahschemicalsdebug"
-  }
+    "default": "ahschemicalsdebug",
+    "prod": "ahschemicalsprod",
+    "debug": "ahschemicalsdebug"
+  },
+  "targets": {},
+  "etags": {}
 }

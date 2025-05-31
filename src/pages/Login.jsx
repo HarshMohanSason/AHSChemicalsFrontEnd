@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import InputField from "../components/InputField";
-import "../styles/pages/Account.css";
+import "../styles/pages/Login.css";
 import { useNavigate } from "react-router-dom";
 import {
 	signInWithEmailAndPassword,
@@ -8,14 +8,14 @@ import {
 	getIdTokenResult,
 } from "firebase/auth";
 import { auth } from "../firebase.config";
-import { AlertBox } from "../components/AlertBox";
+import AlertBox from "../components/AlertBox";
 import { handleFirebaseError } from "../utils/firebase/firebase_utility";
-import { LoadingOverlay } from "../components/LoadingOverlay";
+import LoadingOverlay from "../components/LoadingOverlay";
 import { useAuth } from "../utils/firebase/AuthContext";
 import useAlert from "../hooks/UseAlertHook";
 import useLoadingOverlay from "../hooks/LoadingOverlayHook";
 
-function Account() {
+function Login() {
 	const { user, isLoading } = useAuth();
 	const navigate = useNavigate();
 	const [email, setEmail] = useState("");
@@ -111,9 +111,9 @@ function Account() {
 				/>
 				<button type="submit">Submit</button>
 			</form>
-			<button onClick={handlePasswordReset}>Forgot Password?</button>
+			<button onClick={handlePasswordReset} className="forgot-password-button">Forgot Password?</button>
 		</section>
 	);
 }
 
-export default Account;
+export default Login;

@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useRef } from "react";
 import Logo from "../assets/logo_without_text.webp";
 import { Link } from "react-router-dom";
 import "../styles/components/Footer.css";
+import { useAuth } from "../utils/firebase/AuthContext";
+import LoginPopup from "./LoginPopup";
 
 const Footer = () => {
+	const dialogRef = useRef(null);
+	const {user} = useAuth();
+
 	return (
 		<footer>
 			<section className="first-row">
@@ -21,8 +26,18 @@ const Footer = () => {
 					<section className="quick-links">
 						<h2>QUICK LINKS</h2>
 						<nav>
-							<Link to="/about_us">About Us</Link>
-							<Link to="/products">Products</Link>
+							<Link to="/about-us">About Us</Link>
+							<Link
+								to="/products"
+								onClick={(e) => {
+									if (!user) {
+										e.preventDefault();
+										dialogRef.current.showModal();
+									}
+								}}
+							>
+								Products
+							</Link>
 							<Link to="/account">Account</Link>
 						</nav>
 					</section>
@@ -53,7 +68,7 @@ const Footer = () => {
 				<p>© 2025 All rights reserved</p>
 				<p>
 					Developed by{" "}
-					<a style={{ textDecoration: 'none', color: 'white'}}
+					<a
 						href="https://github.com/HarshMohanSason"
 						target="_blank"
 						rel="noopener noreferrer"
@@ -62,6 +77,7 @@ const Footer = () => {
 					</a>
 				</p>
 			</section>
+			<LoginPopup dialogRef={dialogRef} title="Login Required" bodyText="You need Log in your account to view products. This helps us provide a better and safer experience for you"/>
 		</footer>
 	);
 };

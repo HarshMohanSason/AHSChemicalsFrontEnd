@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import "../styles/components/AlertBox.css";
 
-export const AlertBox = ({
+const AlertBox = ({
   message = "an error occurred",
   isOpen,
   isClose,
@@ -37,3 +37,5 @@ export const AlertBox = ({
     </dialog>
   );
 };
+
+export default AlertBox;
