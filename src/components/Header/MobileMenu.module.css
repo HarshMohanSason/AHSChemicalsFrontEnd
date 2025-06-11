@@ -1,0 +1,77 @@
+.hamburgerButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 55px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.hamburgerButton .bar {
+  background-color: #405493;
+  height: 6px;
+  width: 100%;
+  border-radius: 20px;
+  transition:
+    transform 0.3s ease-in-out,
+    opacity 0.2s ease-in-out;
+}
+.hamburgerButton.menu-open .top-bar {
+  transform: translateY(13.5px) rotate(45deg);
+}
+
+.hamburgerButton.menu-open .middle-bar {
+  opacity: 0;
+  transform: scale(0);
+}
+.hamburgerButton.menu-open .bottom-bar {
+  transform: translateY(-13.5px) rotate(-45deg);
+}
+.mobileMenuSheet {
+  position: absolute;
+  width: 100%;
+  height: 75vh;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  background: #a5c759;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  top: 100%;
+  left: 0;
+  transition: top 0.3s ease-in-out;
+}
+.mobileMenuSheet nav{
+  display: flex;
+  width: 100%;
+  padding: 20px;
+}
+.mobileMenuSheet nav ul{
+  display: flex;
+  list-style: none;
+  color: rgba(0, 0, 0, 0.56);
+  flex-direction: column;
+  width: 100%;
+  gap: 20px;
+}
+.mobileMenuSheet nav ul a{
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 21px;
+  color: #FFFFFF;
+  transition: color 0.3s ease;
+}
+.mobileMenuSheet nav ul a:hover{
+  color: #456206;
+}
+.mobileMenuSheet nav ul hr{
+  border: none;
+  height: 2px;
+  background-color: #456206;
+}
+@media (min-width: 1200px) {
+  .hamburgerWrapper {
+    display: none;
+  }
+}

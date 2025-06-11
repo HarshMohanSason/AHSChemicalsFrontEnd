@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase.config";
-
+import { onIdTokenChanged } from "firebase/auth";
+import { auth } from "./firebase.config";
+import { signOut } from "firebase/auth";
 const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
@@ -9,22 +9,28 @@ export default function AuthProvider({ children }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+    const unsubscribe = onIdTokenChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
-        const token = await firebaseUser.getIdTokenResult(true);
-        const isAdmin = token.claims.admin;
-        setUser({
-          ...firebaseUser,
-          isAdmin,
-          token,
-        });
+        try {
+          const tokenResult = await firebaseUser.getIdTokenResult(true);
+          const isAdmin = tokenResult.claims.admin;
+          const token = tokenResult.token;
+          setUser({
+            ...firebaseUser,
+            isAdmin,
+            token,
+          });
+        } catch (error) {
+          //Logging out if any error occurres
+          await signOut(auth);
+          setUser(null);
+        }
       } else {
         setUser(null);
       }
       setIsLoading(false);
     });
 
-    // Clean up the listener when component unmounts
     return () => unsubscribe();
   }, []);
 

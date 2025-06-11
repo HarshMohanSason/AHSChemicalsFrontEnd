@@ -1,9 +1,0 @@
-.product-page{
-	display: flex;
-	flex-direction: column;
-	padding: 8% 2%;
-}
-.product-page .not-available-section h2{
-	font-size: clamp(20px, 5vw, 60px);
-	text-align: center;
-}

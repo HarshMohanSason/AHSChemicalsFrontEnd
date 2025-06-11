@@ -1,0 +1,113 @@
+.inputFormDialogWizard {
+	position: relative;
+	width: 65vw;
+	height: 70vh;
+	border: none;
+	border-radius: 13px;
+	overflow-x: hidden;
+}
+.dialogContent {
+	display: flex;
+	box-sizing: border-box;
+	padding-top: 5%;
+	flex-direction: column;
+	gap: 30px;
+	width: 100%;
+}
+.closeButton {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	background: none;
+	border: none;
+	color: #a5c759;
+	font-size: 50px;
+	cursor: pointer;
+}
+
+/* Step circles */
+.stepperContainer {
+	display: flex;
+	justify-content: center;
+	gap: 35px;
+}
+.stepCircles {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.stepCircle {
+	border-radius: 50%;
+	width: 3.6vw;
+	height: 3.6vw;
+	background-color: #F4F4F4;
+	transition: background-color 0.3s ease-in;
+}
+.activeCircle {
+	background-color: #a5c759;
+	box-shadow: 0 0 8px 2px rgba(165, 199, 89, 0.6);
+}
+.completedCircle {
+	background-color: #a5c759;
+}
+.stepLabel {
+	font-size: 15px;
+}
+.stepLine {
+	z-index: -5;
+	position: absolute;
+	top: 25%;
+	left: 50px;
+	height: 10px;
+	width: 100%;
+	background-color: #F4F4F4;
+	transition: background-color 0.3s ease-in;
+}
+.activeStepLine {
+	background-color: #a5c759;
+}
+.stepperHR{
+	width: 100%;
+	border: none;
+	height: 1px;
+	background: #ccc;
+}
+
+/*Form section */
+.inputFormDialogWizard form {
+	display: flex;
+	flex-direction: column;
+	height: auto;
+	gap: 10px;
+}
+.inputFormDialogWizard form hr {
+	width: 100%;
+	margin-top: 100px;
+	border: none;
+	height: 1px;
+	background: #ccc;
+}
+.viewButtonDiv{
+	display: flex;
+	justify-content: space-between;
+	width:100%;
+}
+.onlyNext{
+	justify-content: flex-end;
+}
+.formSubmitButton {
+	width: 15%;
+	align-self: end;
+	padding: 0.75rem;
+	background-color: #a5c759;
+	color: white;
+	border: none;
+	border-radius: 13px;
+	cursor: pointer;
+	font-size: 1rem;
+	transition: background-color 0.3s ease;
+}
+.formSubmitButton:hover {
+	background-color: #94b84e;
+}

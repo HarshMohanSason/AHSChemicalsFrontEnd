@@ -1,21 +1,17 @@
-import { auth, firestoreDb, storage } from "../../firebase.config";
+import {firestoreDb, storage } from "./firebase.config";
 import {
   ref,
   uploadBytes,
   getDownloadURL,
-  listAll,
-  deleteObject,
 } from "firebase/storage";
 import {
   addDoc,
   collection,
   getDocs,
-  setDoc,
   doc,
   updateDoc,
   getDoc,
 } from "firebase/firestore";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 //Returns urls of the files uploaded.
 export async function uploadMultipleFilesToStorage(
@@ -98,31 +94,6 @@ export async function fetchProductsFromFirestore() {
       });
     });
     return documents;
-  } catch (error) {
-    throw error;
-  }
-}
-
-export async function createManagerAccount(user) {
-  try {
-    //1. Create the user
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      user.email,
-      user.password,
-    );
-    const uid = userCredential.user.uid;
-
-    // 2. Update displayName in Firebase Auth
-    await updateProfile(userCredential.user, {
-      displayName: `${user.firstName} ${user.lastName}`,
-    });
-
-    // 3. Save the list of properties for that user to firestore
-    await setDoc(doc(firestoreDb, "users", uid), {
-      properties: user.properties,
-      createdAt: new Date(),
-    });
   } catch (error) {
     throw error;
   }

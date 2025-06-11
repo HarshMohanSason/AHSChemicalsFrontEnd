@@ -1,0 +1,24 @@
+.addDataTile{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 12px 50px;
+	border-radius: 63.97px;
+	background: #F7FCEB;
+	cursor: pointer;
+}
+.addDataTile p{
+	font-size: 31.91px;
+	font-weight: 400;
+	color: #777777;
+}
+.addDataTile button{
+	border-radius: 50%;
+	height: 81px;
+	width: 81px;
+	color: white;
+	font-size: 50.50px;
+	border: none;
+	background-color: #A5C759;
+	cursor: pointer;
+}

@@ -1,0 +1,129 @@
+.footer {
+  margin-top: 0;
+  display: flex;
+  font-family: 'Poppins';
+  flex-direction: column;
+  background: #415391;
+  height: auto;
+  border-radius: 50px 50px 0 0;
+  padding: 80px;
+}
+.firstRow {
+  color: white;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding-bottom: 30px;
+}
+.logoWithCaption {
+  display: block;
+}
+.logoWithCaption figure {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  width: auto;
+}
+.logoWithCaption figure img {
+  width: 60px;
+  margin-right: 5px;
+}
+.logoWithCaption figure figcaption {
+  font-weight: 600;
+  font-size: 24px;
+}
+.logoWithCaption p {
+  width: 300px;
+  line-height: 1.2em;
+}
+.footerMenu {
+  display: flex;
+  gap: 80px;
+}
+.footerMenu h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.footerMenu nav {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.footerMenu nav {
+  font-weight: 400;
+}
+.footerMenu nav a {
+  text-decoration: none;
+  color: white;
+  font-weight: 300;
+}
+.footerMenu nav a:hover {
+  color: #ccc;
+  cursor: pointer;
+}
+
+.socialMedia {
+  display: flex;
+  gap: 60px;
+  margin-bottom: 20px;
+}
+.socialMedia i {
+  color: white;
+  font-size: 20px;
+  text-decoration: none;
+}
+.socialMedia i:hover {
+  color: #ccc;
+  cursor: pointer;
+}
+.footer hr {
+  border: none;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 100%;
+}
+.belowHrtext {
+  display: flex;
+  margin: 10px 50px;
+  justify-content: space-between;
+  font-size: 16.79px;
+  color: white;
+}
+.belowHrtext p a{
+  text-decoration: none;
+  color: white;
+}
+.belowHrtext p a:hover{
+  color: #ccc;
+  cursor: pointer;
+}
+
+/* When the screen is 1158px and below, the footer menu row goes below the logo */
+@media screen and (max-width: 1158px) {
+  .footer{
+    gap: 30px;
+  }
+  .firstRow {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .footerMenu {
+    margin-top: 15px;
+  }
+}
+
+@media screen and (max-width: 622px) {
+  .footerMenu {
+    gap: 30px;
+    margin-top: 15px;
+    flex-direction: column;
+  }
+  .belowHrtext {
+    flex-direction: column;
+    justify-content: start;
+    gap: 10px;
+    align-items: start;
+  }
+}

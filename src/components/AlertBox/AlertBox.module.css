@@ -1,0 +1,66 @@
+.alertDialog, .confirmationAlertDialog{
+  border: none;
+  border-radius: 12px;
+  padding: 20px 30px;
+  background-color: #ffffff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  animation: fade-in 0.3s ease-out;
+}
+.alertDialog h3 {
+  margin-top: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #e63946;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.alertDialog p {
+  margin: 0 0 20px 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.alertDialog button {
+  background-color: #e63946;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.confirmationAlertDialog h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  color: #000; /* Black */
+}
+.confirmationAlertDialog p {
+  margin: 0 0 1.5rem 0;
+  color: #333; /* Light black / dark gray */
+  font-size: 1rem;
+}
+.confirmationAlertDialog div {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.cancelButton,
+.confirmButton {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.cancelButton {
+  background-color: #666; /* Default fallback color if getColor() fails */
+}
+.confirmButton {
+  background-color: #d32f2f; /* Default confirm red */
+}

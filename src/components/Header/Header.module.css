@@ -1,0 +1,69 @@
+.header {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  z-index: 999;
+  box-sizing: border-box;
+  padding: 8px 40px; 
+  border-bottom-left-radius: 30px; 
+  border-bottom-right-radius: 30px; 
+  box-shadow: 0 2px 8px #0000002B; 
+}
+/* AHS Logo image*/
+.header img{ 
+  height: 80px;
+}
+.header nav {
+  display: flex;
+  flex: 1;
+  justify-content: center; 
+}
+.header nav ul{
+  display: flex;
+  list-style: none;
+  font-size: 24.32px;
+  gap: 40px;
+}
+.header nav ul:first-of-type {
+  justify-content: center;
+  flex: 1; 
+}
+.header nav ul:last-of-type {
+  justify-content: flex-end;
+}
+.header nav ul:first-of-type li a {
+  font-weight: 400;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.56);
+  transition: color 0.3s ease;
+}
+.header nav ul:first-of-type li a.active{
+  color: black;
+  font-weight: 600;
+}
+.header nav ul:first-of-type li a:hover {
+  text-shadow: 0 0 1px black;
+}
+.header nav ul:last-of-type li a {
+  font-weight: 300;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.56);
+  transition: color 0.3s ease;
+}
+.header nav ul:last-of-type li a.active{
+   color: #A5C759;
+   font-weight: 600;
+}
+.header nav ul:last-of-type li a:hover {
+  text-shadow: 0 0 1px #A5C759;;
+}
+
+/* Hide the header when width is less than 1200px */ 
+@media (max-width: 1200px) {
+  .header nav {
+    display: none;
+  }
+}
