@@ -1,11 +1,14 @@
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import InputField from "../../../InputField/InputField";
+import { FormValidationResult } from "../../InputDialogWizard/FormValidationResult";
 import styles from "./InputDialogWizardShared.module.css";
 
 export const InputProductSizes = ({ product, setProduct, error }) => {
 	const addVariant = () => {
 		const oldVariants = [...product.variants];
-		oldVariants.push({ size: "", unit: "gallons", price: "", sku: "" });
+		oldVariants.push({ size: "", price: "", sku: "" });
 		setProduct({ ...product, variants: oldVariants });
 	};
 
@@ -29,63 +32,63 @@ export const InputProductSizes = ({ product, setProduct, error }) => {
 	};
 
 	return (
-		<section className={styles.variantSection}>
+		<section className={styles.sizeInputSection}>
 			{product.variants &&
 				product.variants.map((variant, index) => (
-					<React.Fragment key={index}>
-						<InputField
-							label={`Size ${index + 1}`}
-							type="tel"
-							value={variant.size}
-							error={error}
-							onChange={(e) => updateSizeVariant(e, index)}
-						/>
-						<select onChange={(e) => updateSizeUnitVariant(e, index)}>
-							<option>gallons</option>
-							<option>litres</option>
-							<option>kilograms</option>
-							<option>grams</option>
-						</select>
-						{index > 0 && (
-							<button
-								type="button"
-								className={styles.removeVariantButton}
-								onClick={() => removeVariant(index)}
-							>
-								-
-							</button>
-						)}
-					</React.Fragment>
+					<div className={styles.sizeInputList} key={index}>
+						<div className={styles.sizeInputFieldDiv}>
+							<InputField
+								label={`Size ${index + 1}`}
+								type="tel"
+								value={variant.size}
+								error={error?.[index]?.size}
+								onChange={(e) => updateSizeVariant(e, index)}
+							/>
+							{index > 0 && (
+								<button type="button" style={{marginTop: "50px", width: "40px", cursor: "pointer"}}onClick={() => removeVariant(index)}><FontAwesomeIcon icon={faTrashCan} /></button>	
+								
+							)}
+						</div>
+					</div>
 				))}
-			<button
-				type="button"
-				className={styles.addVariantButton}
-				onClick={addVariant}
-			>
-				+
-			</button>
+			<div className={styles.sizeUnitSelectDiv}>
+				<select
+					onChange={(e) =>{
+						setProduct({ ...product, sizeUnit: e.target.value })
+					}}
+				>
+					<option>gallons</option>
+					<option>litres</option>
+					<option>kilograms</option>
+					<option>grams</option>
+				</select>
+				<button
+					type="button"
+					style={{borderRadius: "50%", border: "none", height: "30px", width: "30px", cursor: "pointer"}}
+					onClick={addVariant}
+				>
+					+
+				</button>
+			</div>
 		</section>
 	);
 };
 
 export const validateProductSize = (variants) => {
-	const sizeErrors = [];
-
-	for (const variant of variants) {
+	// Check for whole numbers with one decimal point
+	const validPattern = /^\d+(\.\d+)?$/;
+	const sizeErrors = variants.map((variant) => {
 		if (!variant.size || variant.size.length === 0) {
-			sizeErrors.push({ size: "Product size cannot be empty" });
-		}
-
-		// Pattern allows whole numbers or numbers with one decimal point
-		const validPattern = /^\d+(\.\d+)?$/;
-		if (!validPattern.test(variant.size)) {
+			return { size: "Product size cannot be empty" };
+		} else if (!validPattern.test(variant.size)) {
 			return {
-				isValid: false,
-				message:
-					"A size can contain only one decimal point and numbers",
+				size: "A size can contain only one decimal point and numbers",
 			};
 		}
-	}
+		return { size: null };
+	});
 
-	return { isValid: true };
+	const hasErrors = sizeErrors.some((variant) => variant.size !== null);
+
+	return new FormValidationResult(!hasErrors, sizeErrors);
 };

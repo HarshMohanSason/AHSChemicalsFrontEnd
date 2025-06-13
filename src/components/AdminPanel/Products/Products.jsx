@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useRef } from "react";
 import styles from "./Products.module.css";
 import sharedStyles from "../AdminPanel.module.css";
-import useFetchProducts from "../../../hooks/Products/UseFetchProducts";
 import { extractFiltersFromProducts } from "../../../utils/Products/ProductsUtil";
 import InputDialogWizard from "../InputDialogWizard/InputDialogWizard";
 import {
@@ -16,31 +15,89 @@ import {
 	InputProductType,
 	validateProductType,
 } from "./InputDialogWizardViews/InputProductType";
-import { InputProductPrice } from "./InputDialogWizardViews/InputProductPrice";
+import {
+	InputProductPrice,
+	validateProductPrice,
+} from "./InputDialogWizardViews/InputProductPrice";
 import { useAuth } from "../../../utils/firebase/AuthContext";
 import {
 	InputProductSizes,
 	validateProductSize,
 } from "./InputDialogWizardViews/InputProductSizes";
-import { InputProductSkus } from "./InputDialogWizardViews/InputProductSkus";
+import {
+	InputProductSkus,
+	validateProductSKU,
+} from "./InputDialogWizardViews/InputProductSkus";
+import useProducts from "../../../hooks/Products/UseProducts";
+import { useAlert } from "../../../hooks/Alert/UseAlertHook";
+import AlertBox from "../../AlertBox/AlertBox";
+import {
+	InputProductDescription,
+	validateDescription,
+} from "./InputDialogWizardViews/InputProductDescription";
+import {
+	InputProductImages,
+	validateImages,
+} from "./InputDialogWizardViews/InputProductImages";
+import {
+	InputProductSDS,
+	validatePDF,
+} from "./InputDialogWizardViews/InputProductSDS";
+import {
+	InputProductTags,
+	validateTags,
+} from "./InputDialogWizardViews/InputProductTags";
+import ProductTileButton from "./ProductTileButton";
+import ConfirmAlertBox from "../../AlertBox/ConfirmationAlertBox";
+import { useConfirmationAlert } from "../../../hooks/Alert/UseAlertHook";
+import LoadingOverlay from "../../LoadingOverlay/LoadingOverlay";
+import useLoadingOverlay from "../../../hooks/LoadingOverlay/LoadingOverlayHook";
 
 const Products = ({
 	hideAddProductSection = false,
 	productTileButtonText = "Edit",
 }) => {
-	const { products, loading, error, refetch } = useFetchProducts();
-	const filters = extractFiltersFromProducts(products);
+	const { isAlertOpen, alertType, showAlert, alertMessage, alertId } =
+		useAlert();
+	const {
+		isConfirmationOpen,
+		confirmationTitle,
+		confirmationFunc,
+		confirmationId,
+		confirmationText,
+		confirmButtonColor,
+		confirmButtonText,
+		showConfirmationAlert,
+	} = useConfirmationAlert();
+	const { showLoadingOverlay, triggerLoadingOverlay, hideLoadingOverlay } =
+		useLoadingOverlay();
+	const {
+		fetchedProducts,
+		fetchProductsLoading,
+		deleteProduct,
+		updateProduct,
+		productDialogLoading,
+		uploadProduct,
+		refetch,
+	} = useProducts(showAlert, triggerLoadingOverlay, hideLoadingOverlay);
+	const filters = extractFiltersFromProducts(fetchedProducts);
 	const { user } = useAuth();
-	const inputDialogWizardRef = useRef(null);
-	const [viewProductData, setViewProductData] = useState({
+	const defaultProduct = {
+		id: crypto.randomUUID(),
 		name: "",
-		brandName: "",
+		brand: "",
 		type: "",
-		variants: [
-			{size: "", unit: "gallons", price: "", sku: ""}
-		],
-	});
+		sizeUnit: "gallons",
+		variants: [{ size: "", price: "", sku: "" }],
+		description: "",
+		images: [""],
+		sds: null,
+		tags: [""],
+	};
+	const [product, setProduct] = useState(defaultProduct);
 
+	const inputDialogWizardRef = useRef(null);
+	const [currentView, setCurrentView] = useState(0);
 	const [selectedFilters, setSelectedFilters] = useState({
 		filters,
 	});
@@ -60,23 +117,24 @@ const Products = ({
 	};
 
 	const filteredProducts = useMemo(() => {
-		return products.filter((product) => {
+		return fetchedProducts.filter((product) => {
 			return Object.entries(selectedFilters).every(
 				([category, values]) => {
 					if (values.length === 0) return true;
 					if (category === "Brand")
-						return values.includes(product.brandName);
+						return values.includes(product.brand);
 					if (category === "Type")
 						return values.includes(product.type);
 					return true;
 				},
 			);
 		});
-	}, [products, selectedFilters]);
+	}, [fetchedProducts, selectedFilters]);
 
+	const [dialogFunction, setDialogFunction] = useState(null);
 	//Each step has its own error state
 	const [wizardStepErrors, setWizardStepErrors] = useState(
-		Array(8).fill(null),
+		Array(10).fill(null),
 	);
 	const triggerWizardStepError = (error, index) => {
 		const oldErrors = [...wizardStepErrors];
@@ -89,83 +147,102 @@ const Products = ({
 			step: "Name",
 			view: (
 				<InputProductName
-					product={viewProductData}
-					setProduct={setViewProductData}
+					product={product}
+					setProduct={setProduct}
 					error={wizardStepErrors[0]}
 				/>
 			),
-			validate: () => {
-				const error = validateProductName(viewProductData.name);
-				return error
-					? { isValid: false, message: error }
-					: { isValid: true };
-			},
+			validate: () => validateProductName(product.name),
 		},
 		{
 			step: "Brand",
 			view: (
 				<InputProductBrandName
-					product={viewProductData}
-					setProduct={setViewProductData}
+					product={product}
+					setProduct={setProduct}
 					error={wizardStepErrors[1]}
 				/>
 			),
-			validate: () => {
-				const error = validateBrandName(viewProductData.brandName);
-				return error
-					? { isValid: false, message: error }
-					: { isValid: true };
-			},
+			validate: () => validateBrandName(product.brand),
 		},
 		{
 			step: "Type",
 			view: (
 				<InputProductType
-					product={viewProductData}
-					setProduct={setViewProductData}
+					product={product}
+					setProduct={setProduct}
 					error={wizardStepErrors[2]}
 				/>
 			),
-			validate: () => {
-				const error = validateProductType(viewProductData.type);
-				return error
-					? { isValid: false, message: error }
-					: { isValid: true };
-			},
+			validate: () => validateProductType(product.type),
 		},
 		{
 			step: "Sizes",
 			view: (
 				<InputProductSizes
-					product={viewProductData}
-					setProduct={setViewProductData}
+					product={product}
+					setProduct={setProduct}
 					error={wizardStepErrors[3]}
 				/>
 			),
-			validate: () => validateProductSize(viewProductData.variants),
+			validate: () => validateProductSize(product.variants),
 		},
 		{
 			step: "Price",
 			view: (
 				<InputProductPrice
-					product={viewProductData}
-					setProduct={setViewProductData}
+					product={product}
+					setProduct={setProduct}
 					error={wizardStepErrors[4]}
 				/>
 			),
-			validator: null,
+			validate: () => validateProductPrice(product.variants),
 		},
 		{
 			step: "Skus",
 			view: (
 				<InputProductSkus
-					product={viewProductData}
-					setProduct={setViewProductData}
+					product={product}
+					setProduct={setProduct}
 					error={wizardStepErrors[5]}
 				/>
 			),
-			validate: null,
-		}
+			validate: () => validateProductSKU(product.variants),
+		},
+		{
+			step: "Description",
+			view: (
+				<InputProductDescription
+					product={product}
+					setProduct={setProduct}
+					error={wizardStepErrors[6]}
+				/>
+			),
+			validate: () => validateDescription(product.description),
+		},
+		{
+			step: "Images",
+			view: (
+				<InputProductImages product={product} setProduct={setProduct} />
+			),
+			validate: () => validateImages(product.images, showAlert),
+		},
+		{
+			step: "SDS",
+			view: <InputProductSDS product={product} setProduct={setProduct} />,
+			validate: () => validatePDF(product.sds, showAlert),
+		},
+		{
+			step: "Tags",
+			view: (
+				<InputProductTags
+					product={product}
+					setProduct={setProduct}
+					error={wizardStepErrors[9]}
+				/>
+			),
+			validate: () => validateTags(product.tags),
+		},
 	];
 
 	return (
@@ -180,8 +257,8 @@ const Products = ({
 								{filterCategory}
 							</h4>
 							<ul className={styles.filterInputList}>
-								{values.map((value) => (
-									<li key={value}>
+								{values.map((value, index) => (
+									<li key={index}>
 										<label className={styles.filterInput}>
 											<input
 												type="checkbox"
@@ -220,9 +297,37 @@ const Products = ({
 											className={styles.productImageTile}
 										>
 											<img src={product.images[0]} />
-											<button>
-												{productTileButtonText}
-											</button>
+											{user?.isAdmin &&
+											!hideAddProductSection ? (
+												<ProductTileButton
+													onDelete={() =>
+														showConfirmationAlert(
+															"Delete Product?",
+															`Are you sure you want to delete the product ${product.name}?`,
+															() =>
+																deleteProduct(
+																	product.id,
+																),
+															"Delete",
+															"red",
+														)
+													}
+													onEdit={() => {
+														setProduct(product);
+														setDialogFunction(
+															() => (latestProduct) => {
+																updateProduct(
+																	latestProduct,
+																);
+															},
+														);
+														setCurrentView(0);
+														inputDialogWizardRef.current.showModal();
+													}}
+												/>
+											) : (
+												<button>Add</button>
+											)}
 										</div>
 										<h2>{product.name}</h2>
 									</div>
@@ -236,7 +341,14 @@ const Products = ({
 				<section className={sharedStyles.addDataTile}>
 					<p>Add a new product</p>
 					<button
-						onClick={() => inputDialogWizardRef.current.showModal()}
+						onClick={() => {
+							setCurrentView(0);
+							setDialogFunction(() => (latestProduct) => {
+								uploadProduct(latestProduct);
+							});
+							setProduct(defaultProduct);
+							inputDialogWizardRef.current.showModal();
+						}}
 					>
 						+
 					</button>
@@ -246,8 +358,28 @@ const Products = ({
 			<InputDialogWizard
 				dialogRef={inputDialogWizardRef}
 				steps={wizardSteps}
-				stepError={triggerWizardStepError}
+				setStepError={triggerWizardStepError}
+				handleSubmit={() => dialogFunction(product)}
+				currentView={currentView}
+				setCurrentView={setCurrentView}
+				isLoading={productDialogLoading}
 			/>
+			<AlertBox
+				key={alertId}
+				message={alertMessage}
+				isOpen={isAlertOpen}
+				type={alertType}
+			/>
+			<ConfirmAlertBox
+				key={confirmationId}
+				isOpen={isConfirmationOpen}
+				confirmationTitle={confirmationTitle}
+				confirmationFunc={confirmationFunc}
+				confirmationText={confirmationText}
+				confirmButtonColor={confirmButtonColor}
+				confirmButtonText={confirmButtonText}
+			/>
+			<LoadingOverlay showOverlay={showLoadingOverlay} />
 		</section>
 	);
 };

@@ -1,4 +1,5 @@
 import InputField from "../../../InputField/InputField";
+import { FormValidationResult } from "../../InputDialogWizard/FormValidationResult";
 import styles from "./InputDialogWizardShared.module.css";
 
 /**
@@ -37,16 +38,15 @@ export const InputProductName = ({ product, setProduct, error}) => {
 };
 
 export const validateProductName = (input) => {
-	if (input.length == 0)
-		return "Product name cannot be empty";
-	if (input.length > 30)
-		return "Product length cannot be greater than 30 characters";
-
-	// Allow only letters, numbers, spaces, and hyphens
+	let error = null
 	const validPattern = /^[a-zA-Z0-9\- ]+$/;
-	if (!validPattern.test(input)) {
-		return "Product name can only contain letters, numbers, spaces, and hyphens";
+	if (input.length === 0)
+		error =  "Product name cannot be empty";
+	else if (input.length > 30)
+		error = "Product length cannot be greater than 30 characters";
+	// Allow only letters, numbers, spaces, and hyphens
+	else if (!validPattern.test(input)) {
+		error = "Product name can only contain letters, numbers, spaces, and hyphens";
 	}
-
-	return null
+	return new FormValidationResult(!error, error)
 }

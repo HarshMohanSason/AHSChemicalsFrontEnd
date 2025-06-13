@@ -22,7 +22,7 @@ const InputDialogWizard = ({
 	handleSubmit,
 	currentView,
 	setCurrentView,
-	isLoading = false, 
+	isLoading = false,
 }) => {
 	//Check if the user is allowed to navigate to the next view. Returns the error object
 	const isViewCompleted = () => {
@@ -35,7 +35,7 @@ const InputDialogWizard = ({
 			}
 		}
 	};
-	
+
 	const nextView = (nextViewIndex) => {
 		setCurrentView(nextViewIndex);
 	};
@@ -72,7 +72,9 @@ const InputDialogWizard = ({
 				</div>
 				<hr className={styles.stepperHR} />
 				<form method="post">
-					{steps.length != 0 && currentView < steps.length && steps[currentView].view}
+					{steps.length != 0 &&
+						currentView < steps.length &&
+						steps[currentView].view}
 					<hr />
 					<div
 						className={`${styles.viewButtonDiv} ${
@@ -96,16 +98,17 @@ const InputDialogWizard = ({
 							type="button"
 							className={styles.formSubmitButton}
 							onClick={() => {
-								if (currentView === steps.length - 1) {
-									handleSubmit();
-								} else {
-									const error = isViewCompleted();
-									if (!error) {
+								const error = isViewCompleted();
+								if (!error) {
+									//Check if it is the last step to submit the form
+									if (currentView === steps.length - 1) {
+										handleSubmit();
+									} else {
 										setStepError(null, currentView);
 										nextView(currentView + 1);
-									} else {
-										setStepError(error, currentView);
 									}
+								} else {
+									setStepError(error, currentView);
 								}
 							}}
 						>
@@ -122,9 +125,7 @@ const InputDialogWizard = ({
 					&times;
 				</button>
 			</div>
-		<LoadingOverlay 
-			showOverlay={isLoading}
-		/>
+			<LoadingOverlay showOverlay={isLoading} />
 		</dialog>
 	);
 };

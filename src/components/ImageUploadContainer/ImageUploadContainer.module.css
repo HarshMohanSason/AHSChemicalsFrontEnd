@@ -1,3 +1,8 @@
+.imageContainerDiv{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 .imageContainer {
   width: 200px;
   height: 200px;
@@ -13,4 +18,8 @@
 .imageContainer:hover {
   transform: scale(1.05);
   cursor: pointer;
+}
+.imageContainerDiv button{
+  cursor: pointer;
+  align-self: center;
 }

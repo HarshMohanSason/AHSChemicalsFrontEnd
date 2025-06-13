@@ -27,6 +27,7 @@ import styles from "./InputField.module.css"
  * />
  */
 const InputField = ({ label, type, name, value, onChange, placeholder, error=null, ...rest }) => {
+
   return (
     <div className={styles.inputFieldDiv}>
       {label && <label htmlFor={name} className={styles.label}>{label}</label>}

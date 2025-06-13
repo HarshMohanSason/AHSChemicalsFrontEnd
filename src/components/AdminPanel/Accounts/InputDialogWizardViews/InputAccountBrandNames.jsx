@@ -1,17 +1,17 @@
-import useFetchProducts from "../../../../hooks/Products/UseFetchProducts";
+import useProducts from "../../../../hooks/Products/UseProducts";
 import { extractFiltersFromProducts } from "../../../../utils/Products/ProductsUtil";
 import styles from "./InputDialogWizardShared.module.css";
 
 export const InputAccountBrandName = ({ user, setUser}) => {
-	const { products, loading } = useFetchProducts();
-	const filters = extractFiltersFromProducts(products);
+	const { fetchedProducts, fetchProductsLoading } = useProducts();
+	const filters = extractFiltersFromProducts(fetchedProducts);
 
 	return (
 		<section className={styles.inputAccountBrandName}>
-			{loading && (
+			{fetchProductsLoading && (
 				<p className={styles.loadingBrandsText}>Loading Brands</p>
 			)}
-			{!loading &&
+			{!fetchProductsLoading &&
 				filters.Brand &&
 				filters.Brand.map((brand, index) => (
 					<label key={index} className={styles.brandPill}>
@@ -20,7 +20,7 @@ export const InputAccountBrandName = ({ user, setUser}) => {
 							value={brand}
 							className={styles.checkboxInput}
 							checked={user.brands.some(
-								(value) => value == brand,
+								(value) => value === brand,
 							)}
 							onChange={(e) => {
 								const isChecked = e.target.checked;

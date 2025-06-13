@@ -6,8 +6,8 @@ import AboutUs from "./pages/AboutUs/AboutUs";
 import Login from "./pages/Login/Login";
 import AdminPanel from "./pages/AdminPanel/AdminPanel";
 import ProtectedRoute from "./utils/ProtectedRoute";
-import Products from "./pages/Products/Products";
 import Cart from "./pages/Cart/Cart";
+import ProductsPage from "./pages/Products/ProductsPage";
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/account" element={<Login />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/products" element={<Products/>} />
+        <Route path="/products" element={<ProductsPage/>} />
         <Route
           path="/admin-panel"
           element={

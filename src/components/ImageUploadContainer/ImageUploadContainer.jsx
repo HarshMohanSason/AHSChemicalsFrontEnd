@@ -1,7 +1,9 @@
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useRef, useState, useEffect } from "react";
 import styles from "./ImageUploadContainer.module.css";
 
-const ImageUploadContainer = ({ image, updateImage }) => {
+const ImageUploadContainer = ({ image, index = null, updateImage, removeImage}) => {
 	const fileInputRef = useRef();
 	const [imageURL, setImageUrl] = useState("");
 
@@ -22,13 +24,20 @@ const ImageUploadContainer = ({ image, updateImage }) => {
 
 	const handleFileChange = (e) => {
 		const file = e.target.files[0];
-		if (file) {
-			updateImage(file);
+		if (file && index !== null) {
+			updateImage(file, index);
 		}
 	};
 
+	const deleteImage = () => {
+		setImageUrl("")
+		if(index !== null){
+			removeImage(index)
+		}
+	}
+
 	return (
-		<>
+		<div className={styles.imageContainerDiv}>
 			<div
 				className={styles.imageContainer}
 				style={{
@@ -48,7 +57,8 @@ const ImageUploadContainer = ({ image, updateImage }) => {
 				accept="image/*"
 				style={{ display: "none" }}
 			/>
-		</>
+			{index!== null && index > 0 && <button type="button" onClick={deleteImage}><FontAwesomeIcon icon={faTrashCan} /></button>}
+		</div>
 	);
 };
 

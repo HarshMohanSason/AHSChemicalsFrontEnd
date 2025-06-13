@@ -4,7 +4,7 @@ export function extractFiltersFromProducts(products){
 		return {};
 	}
 
-	const brands = [...new Set(products.map((product)=> product.brandName))];
+	const brands = [...new Set(products.map((product)=> product.brand))];
 	const types = [...new Set(products.map((products)=> products.type))];
 
 	return {

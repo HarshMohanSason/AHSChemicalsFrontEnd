@@ -1,4 +1,5 @@
 import InputField from "../../../InputField/InputField";
+import { FormValidationResult } from "../../InputDialogWizard/FormValidationResult";
 import styles from "./InputDialogWizardShared.module.css";
 
 /**
@@ -25,10 +26,10 @@ export const InputProductBrandName = ({product, setProduct, error}) => {
 			<InputField
 				label="Brand Name"
 				type="text"
-				value={product.brandName}
+				value={product.brand}
 				error={error}
 				onChange={(e) =>
-					setProduct({ ...product, brandName: e.target.value })
+					setProduct({ ...product, brand: e.target.value })
 				}
 			/>
 		</section>
@@ -36,16 +37,17 @@ export const InputProductBrandName = ({product, setProduct, error}) => {
 };
 
 export const validateBrandName = (input) => {
-	if (input.length == 0)
-		return "Brand name cannot be empty";
-	if (input.length > 30)
-		return "Brand name length cannot be greater than 30 characters";
-
-	// Allow only letters, spaces, and hyphens
+	let error = null;
 	const validPattern = /^[a-zA-Z\- ]+$/;
-	if (!validPattern.test(input)) {
-		return "Product brand name can only contain letters, spaces, and hyphens";
+	if (input.length === 0){
+		error =  "Brand name cannot be empty";
 	}
-
-	return null
+	else if (input.length > 30){
+		error = "Brand name length cannot be greater than 30 characters";
+	}
+	// Allow only letters, spaces, and hyphens
+	else if (!validPattern.test(input)) {
+		error = "Product brand name can only contain letters, spaces, and hyphens";
+	}
+	return new FormValidationResult(!error, error)
 }

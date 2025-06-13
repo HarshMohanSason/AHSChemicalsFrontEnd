@@ -1,4 +1,5 @@
 import InputField from "../../../InputField/InputField";
+import { FormValidationResult } from "../../InputDialogWizard/FormValidationResult";
 import styles from "./InputDialogWizardShared.module.css";
 
 /**
@@ -18,24 +19,47 @@ import styles from "./InputDialogWizardShared.module.css";
  * />
  */
 export const InputProductPrice = ({ product, setProduct, error }) => {
+		
+	const updatePriceVariant = (e, index) => {
+		const oldVariants = [...product.variants];
+		oldVariants[index].price = e.target.value;
+		setProduct({ ...product, variants: oldVariants });
+	};
 	return (
-		<section className={styles.inputField}>
+		<section className={styles.productPriceSection}>
 			{product.variants &&
 				product.variants.map((variant, index) => (
 					<InputField
 						key={index}
-						label={`Price for size ${variant.size} ${variant.unit}`}
+						placeholder="$"
+						label={`Price for size ${variant.size} ${product.sizeUnit}`}
 						type="tel"
 						value={variant.price}
-						error={error}
+						error={error?.[index]?.price}
 						onChange={(e) =>
-							setProduct({
-								...product,
-								price: e.target.value,
-							})
+							updatePriceVariant(e, index)
 						}
 					/>
 				))}
 		</section>
 	);
 };
+
+export const validateProductPrice = (variants) => {
+	// Check for whole numbers with one decimal point
+	const validPattern = /^\d+(\.\d+)?$/;
+
+	const priceErrors = variants.map((variant) => {
+		if (!variant.price || variant.price.length === 0) {
+			return { price: "Product price cannot be empty" }; 
+		} else if (!validPattern.test(variant.price)) {
+			return { price: "Price must be a number, optionally with one decimal point" }; // ✅ fixed message
+		}
+		return { price: null };
+	});
+
+	const hasErrors = priceErrors.some((variant) => variant.price !== null);
+
+	return new FormValidationResult(!hasErrors, priceErrors);
+};
+

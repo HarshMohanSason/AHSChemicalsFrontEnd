@@ -1,4 +1,5 @@
 import InputField from "../../../InputField/InputField";
+import { FormValidationResult } from "../../InputDialogWizard/FormValidationResult";
 import styles from "./InputDialogWizardShared.module.css";
 
 export const InputProductType = ({ product, setProduct, error }) => {
@@ -21,15 +22,17 @@ export const InputProductType = ({ product, setProduct, error }) => {
 };
 
 export const validateProductType = (input) => {
-	if (input.length == 0) return "Product type cannot be empty";
-	if (input.length > 30)
-		return "Product type cannot be greater than 30 characters";
-
-	// Allow only letters
+	let error = null;
 	const validPattern = /^[a-zA-Z]+$/;
-	if (!validPattern.test(input)) {
-		return "Product type can only contain letters";
+
+	if (input.length === 0) {
+		error = "Product type cannot be empty";
+	} else if (input.length > 30)
+		error = "Product type cannot be greater than 30 characters";
+	// Allow only letters
+	else if (!validPattern.test(input)) {
+		error = "Product type can only contain letters";
 	}
 
-	return null;
+	return new FormValidationResult(!error, error);
 };
