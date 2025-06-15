@@ -1,16 +1,18 @@
 import React from "react";
+import { useAlertContext } from "../../contexts/AlertBoxContext";
 import styles from "./AlertBox.module.css";
 
-const ConfirmationAlertBox = ({
-	confirmationTitle,
-	confirmationText,
-	confirmButtonText,
-	confirmButtonColor,
-	confirmationFunc,
-	isOpen,
-}) => {
+const ConfirmationAlertBox = () => {
 	const dialogRef = React.useRef(null);
-
+	const {
+		confirmationTitle,
+		confirmationText,
+		confirmButtonText,
+		confirmButtonColor,
+		confirmationFunc,
+		isOpen,
+	} = useAlertContext();
+	
 	React.useEffect(() => {
 		if (isOpen) {
 			dialogRef.current?.showModal();

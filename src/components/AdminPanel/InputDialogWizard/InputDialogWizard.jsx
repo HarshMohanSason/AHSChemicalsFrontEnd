@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLoadingOverlayContext } from "../../../contexts/LoadingOverlayContext";
 import LoadingOverlay from "../../LoadingOverlay/LoadingOverlay";
 import styles from "./InputDialogWizard.module.css";
 
@@ -22,13 +23,12 @@ const InputDialogWizard = ({
 	handleSubmit,
 	currentView,
 	setCurrentView,
-	isLoading = false,
 }) => {
 	//Check if the user is allowed to navigate to the next view. Returns the error object
 	const isViewCompleted = () => {
 		if (currentView < steps.length) {
 			const check = steps[currentView].validate?.();
-			if (check.isValid) {
+			if (!check || check.isValid) {
 				return null;
 			} else {
 				return check.message;
@@ -40,6 +40,8 @@ const InputDialogWizard = ({
 		setCurrentView(nextViewIndex);
 	};
 
+	const loadingOverlay = useLoadingOverlayContext();
+	
 	return (
 		<dialog ref={dialogRef} className={styles.inputFormDialogWizard}>
 			<div className={styles.dialogContent}>
@@ -124,8 +126,8 @@ const InputDialogWizard = ({
 				>
 					&times;
 				</button>
+				{loadingOverlay.show && <LoadingOverlay />}
 			</div>
-			<LoadingOverlay showOverlay={isLoading} />
 		</dialog>
 	);
 };

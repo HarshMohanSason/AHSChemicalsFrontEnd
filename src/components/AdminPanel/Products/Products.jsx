@@ -19,7 +19,6 @@ import {
 	InputProductPrice,
 	validateProductPrice,
 } from "./InputDialogWizardViews/InputProductPrice";
-import { useAuth } from "../../../utils/firebase/AuthContext";
 import {
 	InputProductSizes,
 	validateProductSize,
@@ -29,8 +28,6 @@ import {
 	validateProductSKU,
 } from "./InputDialogWizardViews/InputProductSkus";
 import useProducts from "../../../hooks/Products/UseProducts";
-import { useAlert } from "../../../hooks/Alert/UseAlertHook";
-import AlertBox from "../../AlertBox/AlertBox";
 import {
 	InputProductDescription,
 	validateDescription,
@@ -48,38 +45,22 @@ import {
 	validateTags,
 } from "./InputDialogWizardViews/InputProductTags";
 import ProductTileButton from "./ProductTileButton";
-import ConfirmAlertBox from "../../AlertBox/ConfirmationAlertBox";
-import { useConfirmationAlert } from "../../../hooks/Alert/UseAlertHook";
-import LoadingOverlay from "../../LoadingOverlay/LoadingOverlay";
-import useLoadingOverlay from "../../../hooks/LoadingOverlay/LoadingOverlayHook";
+import { useNavigate } from "react-router-dom";
+import { useAlertContext } from "../../../contexts/AlertBoxContext";
+import { useAuth } from "../../../contexts/AuthContext";
 
 const Products = ({
 	hideAddProductSection = false,
-	productTileButtonText = "Edit",
 }) => {
-	const { isAlertOpen, alertType, showAlert, alertMessage, alertId } =
-		useAlert();
-	const {
-		isConfirmationOpen,
-		confirmationTitle,
-		confirmationFunc,
-		confirmationId,
-		confirmationText,
-		confirmButtonColor,
-		confirmButtonText,
-		showConfirmationAlert,
-	} = useConfirmationAlert();
-	const { showLoadingOverlay, triggerLoadingOverlay, hideLoadingOverlay } =
-		useLoadingOverlay();
+	const navigate = useNavigate();
+	const { alert, confirmationAlert } = useAlertContext()
 	const {
 		fetchedProducts,
-		fetchProductsLoading,
 		deleteProduct,
 		updateProduct,
-		productDialogLoading,
 		uploadProduct,
 		refetch,
-	} = useProducts(showAlert, triggerLoadingOverlay, hideLoadingOverlay);
+	} = useProducts();
 	const filters = extractFiltersFromProducts(fetchedProducts);
 	const { user } = useAuth();
 	const defaultProduct = {
@@ -225,12 +206,12 @@ const Products = ({
 			view: (
 				<InputProductImages product={product} setProduct={setProduct} />
 			),
-			validate: () => validateImages(product.images, showAlert),
+			validate: () => validateImages(product.images)
 		},
 		{
 			step: "SDS",
 			view: <InputProductSDS product={product} setProduct={setProduct} />,
-			validate: () => validatePDF(product.sds, showAlert),
+			validate: () => validatePDF(product.sds)
 		},
 		{
 			step: "Tags",
@@ -292,16 +273,17 @@ const Products = ({
 									<div
 										className={styles.productTile}
 										key={index}
+										onClick={()=> navigate(`/products/${product.id}`, { state: { product } })}
 									>
 										<div
 											className={styles.productImageTile}
 										>
 											<img src={product.images[0]} />
 											{user?.isAdmin &&
-											!hideAddProductSection ? (
+											!hideAddProductSection && (
 												<ProductTileButton
 													onDelete={() =>
-														showConfirmationAlert(
+														confirmationAlert.showAlert(
 															"Delete Product?",
 															`Are you sure you want to delete the product ${product.name}?`,
 															() =>
@@ -325,8 +307,6 @@ const Products = ({
 														inputDialogWizardRef.current.showModal();
 													}}
 												/>
-											) : (
-												<button>Add</button>
 											)}
 										</div>
 										<h2>{product.name}</h2>
@@ -362,24 +342,7 @@ const Products = ({
 				handleSubmit={() => dialogFunction(product)}
 				currentView={currentView}
 				setCurrentView={setCurrentView}
-				isLoading={productDialogLoading}
 			/>
-			<AlertBox
-				key={alertId}
-				message={alertMessage}
-				isOpen={isAlertOpen}
-				type={alertType}
-			/>
-			<ConfirmAlertBox
-				key={confirmationId}
-				isOpen={isConfirmationOpen}
-				confirmationTitle={confirmationTitle}
-				confirmationFunc={confirmationFunc}
-				confirmationText={confirmationText}
-				confirmButtonColor={confirmButtonColor}
-				confirmButtonText={confirmButtonText}
-			/>
-			<LoadingOverlay showOverlay={showLoadingOverlay} />
 		</section>
 	);
 };

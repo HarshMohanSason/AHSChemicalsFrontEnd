@@ -17,40 +17,23 @@ import {
 	InputAccountPropertyNames,
 	validateProperties,
 } from "./InputDialogWizardViews/InputAccountPropertyNames";
-import { InputAccountBrandName } from "./InputDialogWizardViews/InputAccountBrandNames";
-import {
-	useAlert,
-	useConfirmationAlert,
-} from "../../../hooks/Alert/UseAlertHook";
-import AlertBox from "../../AlertBox/AlertBox";
+import { InputAccountBrandName, validateInputAccountBrandName } from "./InputDialogWizardViews/InputAccountBrandNames";
 import useAccounts from "../../../hooks/AdminPanel/Accounts/Accounts";
-import ConfirmationAlertBox from "../../AlertBox/ConfirmationAlertBox";
+import { useAlertContext } from "../../../contexts/AlertBoxContext";
 
 const Accounts = () => {
-	const { showAlert, alertMessage, isAlertOpen, alertType, alertId } =
-		useAlert();
-	const {
-		confirmationId,
-		confirmationText,
-		confirmationFunc,
-		confirmationTitle,
-		confirmButtonColor,
-		confirmButtonText,
-		isConfirmationOpen,
-		showConfirmationAlert,
-	} = useConfirmationAlert();
+	const {alert, confirmationAlert} = useAlertContext();
 	const [accountDialogSubmitFunc, setAccountDialogSubmitFunc] =
 		useState(null);
 	const {
 		createManagerAccount,
-		accountDialogLoading,
 		updateManagerAccount,
 		fetchedAccounts,
 		fetchAccountsLoading,
 		refetchAccounts,
 		deleteManagerAccount,
 		deleteAccountIDs,
-	} = useAccounts(showAlert);
+	} = useAccounts()
 
 	const defaultUser = {
 		name: "",
@@ -163,7 +146,9 @@ const Accounts = () => {
 										accountDialogWizardRef.current.showModal();
 									}}
 								>
-									<p className={styles.accounTileDisplayName}>{account.displayName}</p>
+									<p className={styles.accounTileDisplayName}>
+										{account.displayName}
+									</p>
 									<div
 										className={styles.accountTileProperties}
 									>
@@ -189,7 +174,7 @@ const Accounts = () => {
 									<FontAwesomeIcon
 										icon={faTrash}
 										onClick={() =>
-											showConfirmationAlert(
+											confirmationAlert.showAlert(
 												"Delete User?",
 												`Are you sure you want to delete the account for ${account.displayName}`,
 												() =>
@@ -229,23 +214,7 @@ const Accounts = () => {
 				handleSubmit={() => accountDialogSubmitFunc(user)}
 				currentView={currentView}
 				setCurrentView={setCurrentView}
-				isLoading={accountDialogLoading}
-			/>
-			<AlertBox
-				key={alertId}
-				message={alertMessage}
-				isOpen={isAlertOpen}
-				type={alertType}
-			/>
-			<ConfirmationAlertBox
-				key={confirmationId}
-				isOpen={isConfirmationOpen}
-				confirmationTitle={confirmationTitle}
-				confirmationFunc={confirmationFunc}
-				confirmationText={confirmationText}
-				confirmButtonColor={confirmButtonColor}
-				confirmButtonText={confirmButtonText}
-			/>
+			/>	
 		</section>
 	);
 };

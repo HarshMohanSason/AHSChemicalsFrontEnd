@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
+import { useAlertContext } from "../../contexts/AlertBoxContext";
+import { useLoadingOverlayContext } from "../../contexts/LoadingOverlayContext";
 import {
 	deleteProductFromFirestore,
 	deleteProductImagesFromStorage,
@@ -10,32 +12,31 @@ import {
 	uploadSingleFileToStorage,
 } from "../../utils/firebase/firebase_utility";
 
-const useProducts = (showAlert, triggerLoadingOverlay, hideLoadingOverlay) => {
+const useProducts = () => {
 	const [fetchedProducts, setProducts] = useState([]);
-	const [fetchProductsLoading, setFetchProductsLoading] = useState(false);
-	const [productDialogLoading, setProductDialogLoading] = useState(false);
-	const [productDeleteLoading, setProductDeleteLoading] = useState(false);
-
+	const {alert} = useAlertContext();
+	const loadingOverlay = useLoadingOverlayContext();
+	
 	const fetchProducts = useCallback(async () => {
-		setFetchProductsLoading(true);
+		loadingOverlay.trigger();
 		try {
 			const getProducts = await fetchProductsFromFirestore();
 			if (getProducts.length !== 0) {
 				setProducts(getProducts);
 			}
 		} catch (error) {
-			showAlert(handleFirebaseError(error), "Error");
+			alert.showAlert(handleFirebaseError(error), "Error");
 		} finally {
-			setFetchProductsLoading(true);
+			loadingOverlay.hide();
 		}
-	}, [showAlert]);
+	}, [alert.showAlert]);
 
 	useEffect(() => {
 		fetchProducts();
 	}, [fetchProducts]);
 
 	const uploadProduct = async (product) => {
-		setProductDialogLoading(true);
+		loadingOverlay.trigger();
 		try {
 			const imagesUrl = await uploadMultipleFilesToStorage(
 				product.images,
@@ -50,18 +51,17 @@ const useProducts = (showAlert, triggerLoadingOverlay, hideLoadingOverlay) => {
 			product.images = imagesUrl;
 			product.sds = sdsUrl;
 			await uploadProductToFirestore(product);
-			showAlert("Successfully uploaded the product.", "Success");
+			alert.showAlert("Successfully uploaded the product.", "Success");
 		} catch (error) {
-			showAlert(handleFirebaseError(error), "Error");
+			alert.showAlert(handleFirebaseError(error), "Error");
 		} finally {
-			setProductDialogLoading(false);
+			loadingOverlay.hide();
 		}
 	};
 
 	const updateProduct = async (product) => {
-		setProductDialogLoading(true);
+		loadingOverlay.trigger()
 		try {
-			console.log(product);
 			const alreadyUploadedImages = product.images.filter(
 				(img) => typeof img === "string" && img.startsWith("http"),
 			);
@@ -92,36 +92,34 @@ const useProducts = (showAlert, triggerLoadingOverlay, hideLoadingOverlay) => {
 				sds: sdsUrl,
 			};
 			await updateProductInFirestore(updatedProduct);
-			showAlert("Successfully updated the product", "Success");
+			alert.showAlert("Successfully updated the product", "Success");
 		} catch (error) {
-			showAlert(handleFirebaseError(error), "Error");
+			alert.showAlert(handleFirebaseError(error), "Error");
 		} finally {
-			setProductDialogLoading(false);
+			loadingOverlay.hide()
 		}
 	};
 
 	const deleteProduct = async (productID) => {
-		triggerLoadingOverlay();
+		loadingOverlay.trigger();
 		try {
 			await deleteProductImagesFromStorage(productID);
 			await deleteProductFromFirestore(productID);
 			setProducts(
 				fetchedProducts.filter((product) => product.id !== productID),
 			);
-			showAlert("Product was deleted successfully", "Success");
+			alert.showAlert("Product was deleted successfully", "Success");
 		} catch (error) {
-			showAlert(handleFirebaseError(error), "Error");
+			alert.showAlert(handleFirebaseError(error), "Error");
 		} finally {
-			hideLoadingOverlay();
+			loadingOverlay.hide();
 		}
 	};
 
 	return {
 		fetchedProducts,
-		fetchProductsLoading,
 		uploadProduct,
 		updateProduct,
-		productDialogLoading,
 		deleteProduct,
 		refetch: fetchProducts,
 	};

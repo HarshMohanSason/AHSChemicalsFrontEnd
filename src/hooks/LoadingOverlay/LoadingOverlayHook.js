@@ -1,16 +1,16 @@
 import {useState} from 'react'; 
 
 const useLoadingOverlay = () => {
-	const [showLoadingOverlay, setLoadingOverlay] = useState(false);
+	const [show, setLoadingOverlay] = useState(false);
 
-	const triggerLoadingOverlay = () => {
+	const trigger = () => {
 		setLoadingOverlay(true)
 	}
 
-	const hideLoadingOverlay = () => {
+	const hide = () => {
 		setLoadingOverlay(false)
 	}
-	return {showLoadingOverlay, triggerLoadingOverlay, hideLoadingOverlay}
+	return {show, trigger, hide}
 }
 
 export default useLoadingOverlay;

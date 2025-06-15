@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { useAuth } from "../../../utils/firebase/AuthContext";
+import { useAlertContext } from "../../../contexts/AlertBoxContext";
+import { useAuth } from "../../../contexts/AuthContext";
+import { useLoadingOverlayContext } from "../../../contexts/LoadingOverlayContext";
 import { sendMail } from "../../../utils/SendMail";
 
-const useAccounts = (showAlert) => {
+const useAccounts = () => {
 	const { user } = useAuth();
-
+	const {alert} = useAlertContext()
+	const loadingOverlay = useLoadingOverlayContext()
 	const [fetchedAccounts, setFetchedAccounts] = useState([]);
-	const [fetchAccountsLoading, setFetchAccountsLoading] = useState(false);
-	const [accountDialogLoading, setAccountDialogLoading] = useState(false);
-	const [deleteAccountIDs, setDeleteAccountIDs] = useState([]);
 
 	const createManagerAccount = async (userInfo) => {
-		setAccountDialogLoading(true);
+		loadingOverlay.trigger();
 		try {
 			if (user) {
 				const response = await fetch(
@@ -44,17 +44,17 @@ const useAccounts = (showAlert) => {
 						process.env.REACT_APP_ACCOUNT_CREATED_TEMPLATE_ID,
 				};
 				await sendMail(mailData);
-				showAlert(responseText, "Success");
+				alert.showAlert(responseText, "Success");
 			}
 		} catch (error) {
-			showAlert(error.message, "Error");
+			alert.showAlert(error.message, "Error");
 		} finally {
-			setAccountDialogLoading(false);
+			loadingOverlay.hide();
 		}
 	};
 
 	const fetchManagerAccounts = async () => {
-		setFetchAccountsLoading(true);
+		loadingOverlay.trigger()
 		try {
 			if (user) {
 				const response = await fetch(
@@ -74,14 +74,14 @@ const useAccounts = (showAlert) => {
 				setFetchedAccounts(responseJson);
 			}
 		} catch (error) {
-			showAlert(error.message, "Error");
+			alert.showAlert(error.message, "Error");
 		} finally {
-			setFetchAccountsLoading(false);
+			loadingOverlay.hide()
 		}
 	};
 
 	const updateManagerAccount = async (userInfo) => {
-		setAccountDialogLoading(true);
+		loadingOverlay.trigger();
 		try {
 			if (user) {
 				const response = await fetch(
@@ -106,17 +106,17 @@ const useAccounts = (showAlert) => {
 							: acc,
 					),
 				);
-				showAlert(responseText, "Success");
+				alert.showAlert(responseText, "Success");
 			}
 		} catch (error) {
-			showAlert(error.message, "Error");
+			alert.showAlert(error.message, "Error");
 		} finally {
-			setAccountDialogLoading(false);
+			loadingOverlay.hide();
 		}
 	};
 
 	const deleteManagerAccount = async (userInfo) => {
-		setDeleteAccountIDs((prev) => [...prev, userInfo.uid]);
+		loadingOverlay.trigger();
 		try {
 			if (user) {
 				const response = await fetch(
@@ -149,26 +149,21 @@ const useAccounts = (showAlert) => {
 				setFetchedAccounts((prev) =>
 					prev.filter((account) => account.uid !== userInfo.uid),
 				);
-				showAlert(responseText, "Success");
+				alert.showAlert(responseText, "Success");
 			}
 		} catch (error) {
-			showAlert(error.message, "Error");
+			alert.showAlert(error.message, "Error");
 		} finally {
-			setDeleteAccountIDs((prev) =>
-				prev.filter((uid) => uid !== userInfo.uid),
-			);
+			loadingOverlay.hide();
 		}
 	};
 
 	return {
 		createManagerAccount,
 		updateManagerAccount,
-		accountDialogLoading,
 		fetchedAccounts,
 		refetchAccounts: fetchManagerAccounts,
-		fetchAccountsLoading,
 		deleteManagerAccount,
-		deleteAccountIDs,
 	};
 };
 

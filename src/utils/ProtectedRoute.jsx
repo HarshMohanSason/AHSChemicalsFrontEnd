@@ -1,4 +1,4 @@
-import { useAuth } from "./firebase/AuthContext";
+import { useAuth } from "../contexts/AuthContext"
 import LoadingOverlay from "../components/LoadingOverlay/LoadingOverlay";
 import { Navigate} from "react-router-dom";
 

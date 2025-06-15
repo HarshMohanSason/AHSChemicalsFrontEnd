@@ -1,56 +1,52 @@
 import { useState } from "react";
 
 const useAlert = () => {
-  
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
-  const [alertType, setAlertType] = useState("Error");
-  const [alertMessage, setErrorMessage] = useState("");
-  const [alertId, setAlertId] = useState(crypto.randomUUID());
+  const [isOpen, setIsAlertOpen] = useState(false);
+  const [type, setAlertType] = useState("Error");
+  const [message, setAlertMessage] = useState("");
+  const [id, setAlertID] = useState(crypto.randomUUID());
   const showAlert = (message, type = "Error") => {
-    setErrorMessage(message);
+    setAlertMessage(message);
     setAlertType(type);
+    setAlertID(crypto.randomUUID());
     setIsAlertOpen(true);
-    setAlertId(crypto.randomUUID())
   };
 
-  return { isAlertOpen, alertType, alertMessage, showAlert, alertId};
-}
+  return { isOpen, type, message, id, showAlert };
+};
 
 // Confirmation Alert Hook
 const useConfirmationAlert = () => {
-  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
-  const [confirmationTitle, setConfirmationTitle] = useState("");
-  const [confirmationText, setConfirmationText] = useState("");
-  const [confirmationFunc, setConfirmationFunc] = useState(() => () => {});
-  const [confirmationId, setConfirmationId] = useState(crypto.randomUUID());
+  const [isOpen, setIsConfirmationOpen] = useState(false);
+  const [title, setConfirmationTitle] = useState("");
+  const [text, setConfirmationText] = useState("");
+  const [confirmFunc, setConfirmFunc] = useState(() => () => {});
   const [confirmButtonText, setConfirmButtonText] = useState("Confirm");
   const [confirmButtonColor, setConfirmButtonColor] = useState("#d32f2f");
 
-  const showConfirmationAlert = (
+  const showAlert = (
     title = "Are you sure?",
     text = "",
     onConfirm = () => {},
     buttonText = "Confirm",
     buttonColor = "#d32f2f",
-    ) => {
+  ) => {
     setConfirmationTitle(title);
     setConfirmationText(text);
-    setConfirmationFunc(() => onConfirm);
+    setConfirmFunc(onConfirm);
     setConfirmButtonText(buttonText);
     setConfirmButtonColor(buttonColor);
     setIsConfirmationOpen(true);
-    setConfirmationId(crypto.randomUUID());
   };
 
   return {
-    isConfirmationOpen,
-    confirmationTitle,
-    confirmationText,
-    confirmationFunc,
+    isOpen,
+    title,
+    text,
+    confirmFunc,
     confirmButtonText,
     confirmButtonColor,
-    showConfirmationAlert,
-    confirmationId,
+    showAlert,
   };
 };
 

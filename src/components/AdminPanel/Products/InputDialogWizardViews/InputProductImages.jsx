@@ -1,3 +1,4 @@
+import { useAlertContext } from "../../../../contexts/AlertBoxContext";
 import ImageUploadContainer from "../../../ImageUploadContainer/ImageUploadContainer";
 import { FormValidationResult } from "../../InputDialogWizard/FormValidationResult";
 import styles from "./InputDialogWizardShared.module.css";
@@ -45,11 +46,11 @@ export const InputProductImages = ({ product, setProduct }) => {
 	);
 };
 
-export const validateImages = (images, showAlert) => {
+export const validateImages = (images, alert) => {
 	let error = null;
 	if (images.length === 0 || images[0] === "") {
 		error = "You need at least one image";
-		showAlert(error, "Error")
+		alert.showAlert(error, "Error")
 	}
 	return new FormValidationResult(!error, error)
 };

@@ -134,6 +134,43 @@ export const fetchCartItems = async (docId) => {
     throw error;
   }
 };
+export async function saveCartItemsToFirestore(userID, items) {
+  try {
+    const cartDocRef = doc(firestoreDb, "users", userID, "cart", "current");
+    await setDoc(cartDocRef, { items }, { merge: true });
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getSavedCartItemsFromFirestore(userID) {
+  try {
+    const cartDocRef = doc(firestoreDb, "users", userID, "cart", "current");
+    const docSnapshot = await getDoc(cartDocRef);
+    return docSnapshot.data().items;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function clearCartFromFirestore(userID) {
+  try {
+    const cartDocRef = doc(firestoreDb, "users", userID, "cart", "current");
+    await deleteDoc(cartDocRef);
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function saveOrderDetailsToFirestore(userID, order) {
+  try{
+    const cartDocRef = doc(firestoreDb, "users", userID, "orders", order.id);
+    await setDoc(cartDocRef, order)
+  }catch(error){
+    console.log(error)
+    throw error;
+  }
+}
 
 const firebaseErrorMessages = {
   // AUTH ERRORS

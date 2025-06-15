@@ -37,4 +37,3 @@ export const InputAccountBrandName = ({ user, setUser}) => {
 		</section>
 	);
 };
-

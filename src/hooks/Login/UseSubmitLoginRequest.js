@@ -2,6 +2,9 @@ import { auth } from "../../utils/firebase/firebase.config";
 import { signInWithEmailAndPassword, getIdTokenResult } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { handleFirebaseError } from "../../utils/firebase/firebase_utility";
+import { useAlertContext } from "../../contexts/AlertBoxContext";
+import useLoadingOverlay from "../LoadingOverlay/LoadingOverlayHook";
+import { useLoadingOverlayContext } from "../../contexts/LoadingOverlayContext";
 
 /**
  * Custom React hook to handle user login using Firebase authentication.
@@ -19,14 +22,13 @@ import { handleFirebaseError } from "../../utils/firebase/firebase_utility";
  */
 
 const useSubmitLoginRequest = (
-	triggerLoadingOverlay,
-	hideLoadingOverlay,
-	showAlert,
 ) => {
 	const navigate = useNavigate();
+	const loadingOverlay = useLoadingOverlayContext()
+	const {alert} = useAlertContext();
 	const handleSubmit = (e, email, password) => {
 		e.preventDefault();
-		triggerLoadingOverlay();
+		loadingOverlay.trigger()
 
 		signInWithEmailAndPassword(auth, email, password)
 			.then(async (userCredential) => {
@@ -37,9 +39,9 @@ const useSubmitLoginRequest = (
 					navigate("/");
 				}
 			}).catch((error) => {
-				showAlert(handleFirebaseError(error), "Error");
+				alert.showAlert(handleFirebaseError(error), "Error");
 			}).finally(() => {
-				hideLoadingOverlay();
+				loadingOverlay.hide();
 			});
 	};
 	return { handleSubmit };

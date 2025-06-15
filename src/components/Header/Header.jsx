@@ -3,8 +3,11 @@ import { NavLink } from "react-router-dom";
 import styles from "./Header.module.css";
 import logo from "../../assets/logo.webp";
 import MobileMenu from "./MobileMenu";
+import { useCartContext } from "../../contexts/CartContext"
 
 const Header = () => {
+  const {getCartItemCount} = useCartContext();
+  
   return (
     <header className={styles.header}>
       <NavLink to="/">
@@ -43,7 +46,7 @@ const Header = () => {
               to="/cart" 
               className={({ isActive }) => isActive ? `${styles.active}` : ""}
             >
-              Cart
+              Cart {getCartItemCount() > 0 ? getCartItemCount(): ""}
             </NavLink>
           </li>
           <li>

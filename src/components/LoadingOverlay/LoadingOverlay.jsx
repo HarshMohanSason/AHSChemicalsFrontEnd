@@ -1,4 +1,5 @@
 import React from "react";
+import { useLoadingOverlayContext } from "../../contexts/LoadingOverlayContext";
 import styles from "./LoadingOverlay.module.css"
 
 /**
@@ -17,10 +18,11 @@ import styles from "./LoadingOverlay.module.css"
  * - Ensure that `LoadingOverlay.module.css` contains styles for `loadingOverlay` and `spinner`.
  * - The component renders nothing if `showOverlay` is `false`, allowing you to conditionally display it.
  */
-const LoadingOverlay = ({ showOverlay }) => {
+const LoadingOverlay = () => {
+	const loadingOverlay = useLoadingOverlayContext()
 	return (
 		<>
-			{showOverlay && (
+			{loadingOverlay.show && (
 				<div className={styles.loadingOverlay}>
 					<div className={styles.spinner}></div>
 				</div>

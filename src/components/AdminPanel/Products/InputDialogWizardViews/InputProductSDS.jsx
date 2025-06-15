@@ -1,6 +1,7 @@
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
+import { useAlertContext } from "../../../../contexts/AlertBoxContext";
 import { FormValidationResult } from "../../InputDialogWizard/FormValidationResult";
 import styles from "./InputDialogWizardShared.module.css";
 
@@ -57,11 +58,11 @@ export const InputProductSDS = ({ product, setProduct, error }) => {
 	);
 };
 
-export const validatePDF = (pdf, showAlert) => {
+export const validatePDF = (pdf, alert) => {
 	let error = null;
 	if (pdf === null || pdf === "") {
 		error = "SDS sheet is required";
-		showAlert(error, "Error");
+		alert.showAlert(error, "Error");
 	}
 	return new FormValidationResult(!error, error);
 };

@@ -1,4 +1,6 @@
 import { sendPasswordResetEmail } from "firebase/auth";
+import { useAlertContext } from "../../contexts/AlertBoxContext";
+import { useLoadingOverlayContext } from "../../contexts/LoadingOverlayContext";
 import { auth } from "../../utils/firebase/firebase.config";
 import { handleFirebaseError } from "../../utils/firebase/firebase_utility";
 
@@ -17,24 +19,23 @@ import { handleFirebaseError } from "../../utils/firebase/firebase_utility";
  */
 
 const useResetPassword = (
-	triggerLoadingOverlay,
-	hideLoadingOverlay,
-	showAlert,
 ) => {
+	const loadingOverlay = useLoadingOverlayContext();
+	const {alert} = useAlertContext();
 	const handlePasswordReset = (email) => {
-		triggerLoadingOverlay();
+		loadingOverlay.trigger()
 		sendPasswordResetEmail(auth, email)
 			.then(() => {
-				showAlert(
+				alert.showAlert(
 					"If a user exists with that email, a reset password link has been sent to that email",
 					"Success",
 				);
 			})
 			.catch((error) => {
-				showAlert(handleFirebaseError(error), "Error");
+			 alert.showAlert(handleFirebaseError(error), "Error");
 			})
 			.finally(() => {
-				hideLoadingOverlay();
+				loadingOverlay.hide();
 			});
 	};
 	return { handlePasswordReset };
