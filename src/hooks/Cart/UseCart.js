@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
 	clearCartFromFirestore,
+	findTaxRate,
 	getSavedCartItemsFromFirestore,
 	handleFirebaseError,
 	saveCartItemsToFirestore,
@@ -15,7 +16,7 @@ export const useCart = () => {
 	const { alert } = useAlertContext();
 	const [isFetchingCartItems, setIsFetchingCartItems] = useState(false);
 	const [selectedVariants, setSelectedVariants] = useState([]);
-
+	
 	const initializeCart = async () => {
 		try {
 			setIsFetchingCartItems(true);
@@ -23,7 +24,7 @@ export const useCart = () => {
 				const latestCartItems = await getSavedCartItemsFromFirestore(
 					user.uid,
 				);
-				if (latestCartItems !== null) {
+				if (latestCartItems !== null || latestCartItems.length === 0) {
 					setCartItems(latestCartItems);
 				}
 			}
@@ -134,24 +135,52 @@ export const useCart = () => {
 		setSelectedVariants(variants);
 	};
 
-	const convertCartItemsToAnOrder = () => {
-		const itemsOrdered = cartItems.map((item) => {
+	const convertCartItemsToAnOrder = async (selectedProperty, specialInstructions) => {
+		try {
+			const itemsOrdered = cartItems.map((item) => {
+				return {
+					product_id: item.product_id,
+					product_name: item.name,
+					brand: item.brand,
+					sku: item.sku,
+					size: item.size,
+					price: Number(item.price).toFixed(2),
+					sizeUnit: item.sizeUnit,
+					quantity: item.quantity,
+					total: (item.price * item.quantity).toFixed(2),
+				};
+			});
+			const subTotal = Number(
+				itemsOrdered
+					.reduce(
+						(total, item) => total + item.quantity * item.price,
+						0,
+					)
+					.toFixed(2),
+			);
+			const results = await findTaxRate(selectedProperty.city, selectedProperty.county);
+			const taxRate = results[0].rate;
+			const totalAmount = (taxRate * subTotal).toFixed(2);
+			
 			return {
-				product_id: item.productId,
-				product_name: item.name,
-				brand: item.brand,
-				sku: item.sku,
-				sizeUnit: item.sizeUnit,
-				image: item.image,
-				quantity: item.quantity,
+				id: crypto.randomUUID(),
+				user_id : user.uid,
+				timestamp: Timestamp.fromDate(new Date()),
+				status: "PENDING",
+				accept_status: "PENDING",
+				payment_status: "PENDING",
+				items: itemsOrdered,
+				subtotal: subTotal,
+				tax_rate: taxRate * 100,
+				total_amount: totalAmount,
+				customer_name: user.displayName,
+				customer_phone: user.phoneNumber,
+				property: selectedProperty,
+				special_instructions: specialInstructions,
 			};
-		});
-		return {
-			id: crypto.randomUUID(),
-			timestamp: Timestamp.fromDate(new Date()),
-			status: "pending",
-			items: itemsOrdered,
-		};
+		} catch (error) {
+			alert.showAlert(handleFirebaseError(error), "Error");
+		}
 	};
 	return {
 		cartItems,

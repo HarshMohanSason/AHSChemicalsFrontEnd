@@ -1,6 +1,5 @@
 import { createContext, useContext } from "react";
-import { useCart } from "../hooks/Products/UseCart";
-
+import {useCart} from "../hooks/Cart/UseCart";
 const CartContext = createContext();
 
 export default function CartProvider({ children }){

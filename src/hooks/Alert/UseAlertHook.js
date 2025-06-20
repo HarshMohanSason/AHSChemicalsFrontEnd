@@ -5,6 +5,7 @@ const useAlert = () => {
   const [type, setAlertType] = useState("Error");
   const [message, setAlertMessage] = useState("");
   const [id, setAlertID] = useState(crypto.randomUUID());
+  
   const showAlert = (message, type = "Error") => {
     setAlertMessage(message);
     setAlertType(type);
@@ -20,26 +21,29 @@ const useConfirmationAlert = () => {
   const [isOpen, setIsConfirmationOpen] = useState(false);
   const [title, setConfirmationTitle] = useState("");
   const [text, setConfirmationText] = useState("");
-  const [confirmFunc, setConfirmFunc] = useState(() => () => {});
+  const [id, setAlertID] = useState(crypto.randomUUID());
+  const [confirmFunc, setConfirmFunc] = useState(()=>{});
   const [confirmButtonText, setConfirmButtonText] = useState("Confirm");
   const [confirmButtonColor, setConfirmButtonColor] = useState("#d32f2f");
 
   const showAlert = (
     title = "Are you sure?",
     text = "",
-    onConfirm = () => {},
+    onConfirm,
     buttonText = "Confirm",
     buttonColor = "#d32f2f",
   ) => {
     setConfirmationTitle(title);
     setConfirmationText(text);
-    setConfirmFunc(onConfirm);
+    setConfirmFunc(()=> onConfirm);
     setConfirmButtonText(buttonText);
     setConfirmButtonColor(buttonColor);
+    setAlertID(crypto.randomUUID());
     setIsConfirmationOpen(true);
   };
 
   return {
+    id,
     isOpen,
     title,
     text,

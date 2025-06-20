@@ -9,10 +9,9 @@ import {
 	Link,
 } from "@react-pdf/renderer";
 
-export default async function handleGeneratePdf(order) {
-	const blob = await pdf(<PurchaseOrderPDF orderDetails={order} />).toBlob();
-	const url = URL.createObjectURL(blob);
-	window.open(url, "_blank"); // Opens the PDF in a new tab
+export default async function getGeneratedPurchaseOrder(order) {
+	const blob = await pdf(<PurchaseOrderPDF orderDetails={order} />).toBlob();	
+	return blob
 }
 
 const styles = StyleSheet.create({
@@ -142,6 +141,7 @@ const styles = StyleSheet.create({
 });
 
 function PurchaseOrderPDF({ orderDetails }) {
+
 	return (
 		<Document>
 			<Page size="A4" style={styles.page}>
@@ -185,9 +185,7 @@ function PurchaseOrderPDF({ orderDetails }) {
 								<Text style={{ fontWeight: "bold" }}>
 									Date Ordered:
 								</Text>{" "}
-								{orderDetails.timestamp
-									.toDate()
-									.toLocaleDateString()}
+								{orderDetails.timestamp.toDate().toLocaleDateString()}
 							</Text>
 							<Text>
 								<Text style={{ fontWeight: "bold" }}>PO#:</Text>{" "}
@@ -216,22 +214,18 @@ function PurchaseOrderPDF({ orderDetails }) {
 						</View>
 						<View style={styles.shipToColumn}>
 							<Text style={styles.shipToHeading}>SHIP TO</Text>
-							<Text>{orderDetails.customerName ?? "Harsh"}</Text>
+							<Text>{orderDetails.customer_name}</Text>
 							<Text>
-								{orderDetails.companyName ||
-									"Azure Hospitality"}
+								Azure Hospitality
 							</Text>
 							<Text>
-								{orderDetails.customerAddress1 ||
-									"2040 N Preisker lane"}
+								{orderDetails.property.street}
 							</Text>
 							<Text>
-								{orderDetails.customerAddress2 ||
-									"Santa Maria, USA, 93456"}
+								{`${orderDetails.property.city},${orderDetails.property.state}, ${orderDetails.property.postal}`}
 							</Text>
 							<Text>
-								{orderDetails.customerPhone ||
-									"+1 (559)-548-4965"}
+								{orderDetails.customer_phone}
 							</Text>
 						</View>
 					</View>
@@ -297,7 +291,7 @@ function PurchaseOrderPDF({ orderDetails }) {
 									{item.quantity}
 								</Text>
 								<Text style={styles.shippingCell}>
-									{item.price || 5000}
+									${item.price}
 								</Text>
 								<Text
 									style={[
@@ -306,7 +300,7 @@ function PurchaseOrderPDF({ orderDetails }) {
 										{ backgroundColor: "#f2f2f2" },
 									]}
 								>
-									{item.quantity * item.price}{" "}
+									${item.total}
 								</Text>
 							</View>
 						))}
@@ -316,16 +310,40 @@ function PurchaseOrderPDF({ orderDetails }) {
 							<Text style={{ fontSize: 10, fontWeight: "bold" }}>
 								Comments or Special Instructions
 							</Text>
+							<Text>{orderDetails.special_instructions}</Text>
 						</View>
-						<View style={{flexDirection: "row", marginRight: 40, gap: 50, marginTop: 10}}>
-						<View style={{ fontSize: 10, flexDirection: "column", gap: 5}}>
-							<Text>SUBTOTAL</Text>
-							<Text>TAX</Text>
-							<Text style={styles.TotalText}>TOTAL</Text>
-						</View>
-						<View style={{ fontSize: 10, flexDirection: "column", gap: 5, fontWeight: "bold"}}>
-							<Text>5000</Text>
-						</View>
+						<View
+							style={{
+								width: 120,
+								flexDirection: "row",
+								marginRight: 40,
+								gap: 50,
+								marginTop: 10,
+							}}
+						>
+							<View
+								style={{
+									fontSize: 10,
+									flexDirection: "column",
+									gap: 5,
+								}}
+							>
+								<Text>SUBTOTAL</Text>
+								<Text>TAX</Text>
+								<Text style={styles.TotalText}>TOTAL</Text>
+							</View>
+							<View
+								style={{
+									fontSize: 10,
+									flexDirection: "column",
+									gap: 5,
+									alignItems: "center"
+								}}
+							>
+								<Text>${orderDetails.subtotal}</Text>
+								<Text>{orderDetails.tax_rate}%</Text>
+								<Text style={{fontWeight: "bold"}}>${orderDetails.total_amount}</Text>
+							</View>
 						</View>
 					</View>
 					<Text style={styles.bottomPageText}>

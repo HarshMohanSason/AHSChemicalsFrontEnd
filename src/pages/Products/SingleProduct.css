@@ -114,3 +114,9 @@
 .product-information-display-section .add-to-cart-button:hover {
 	background-color: #8bb04f;
 }
+.cart-add-variant-button{
+	border-radius: 50%;
+	border: none;
+	height: 30px;
+	width: 30px;
+}

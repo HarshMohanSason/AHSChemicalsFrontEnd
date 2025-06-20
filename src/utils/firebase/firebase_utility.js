@@ -14,6 +14,9 @@ import {
   getDoc,
   deleteDoc,
   setDoc,
+  where,
+  query,
+  addDoc,
 } from "firebase/firestore";
 
 //Returns urls of the files uploaded.
@@ -52,9 +55,14 @@ export async function uploadSingleFileToStorage(
   file,
   mainDirName,
   fileDirName,
+  fileName,
 ) {
   try {
-    const fileRef = ref(storage, `${mainDirName}/${fileDirName}/${file.name}`);
+    const finalFileName = fileName || `file-${crypto.randomUUID()}.pdf`;
+    const fileRef = ref(
+      storage,
+      `${mainDirName}/${fileDirName}/${finalFileName}`,
+    );
     const metadata = {
       contentType: file.type || "application/octet-stream",
     };
@@ -134,6 +142,7 @@ export const fetchCartItems = async (docId) => {
     throw error;
   }
 };
+
 export async function saveCartItemsToFirestore(userID, items) {
   try {
     const cartDocRef = doc(firestoreDb, "users", userID, "cart", "current");
@@ -162,15 +171,64 @@ export async function clearCartFromFirestore(userID) {
   }
 }
 
-export async function saveOrderDetailsToFirestore(userID, order) {
-  try{
-    const cartDocRef = doc(firestoreDb, "users", userID, "orders", order.id);
-    await setDoc(cartDocRef, order)
-  }catch(error){
-    console.log(error)
+export async function saveOrderDetailsToFirestore(order) {
+  try {
+    const cartDocRef = doc(firestoreDb, "orders", order.id);
+    await setDoc(cartDocRef, order);
+  } catch (error) {
     throw error;
   }
 }
+
+export async function findTaxRate(city, county) {
+  try {
+    const docRef = collection(firestoreDb, "tax_rates");
+    const q = query(
+      docRef,
+      where("city", "==", city),
+      where("county", "==", county),
+    );
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) {
+      throw new Error("Empty docs");
+    }
+    const results = [];
+    querySnapshot.forEach((doc) => {
+      results.push({ rate: doc.data().rate });
+    });
+    return results;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getCountyInfoFromFirestore() {
+  try {
+    const colRef = collection(firestoreDb, "tax_rates");
+    const snapshot = await getDocs(colRef);
+
+    const data = snapshot.docs.map((doc) => ({
+      city: doc.data().city, 
+      county: doc.data().county,
+      state: doc.data().state,
+    }));
+    return data; 
+  } catch (error) {
+    throw error;
+  }
+}
+
+//Returns the allowed brands and the property address
+export async function getUserFirestoreInfo(userID) {
+  try {
+    const docRef = doc(firestoreDb, "users", userID);
+    const docSnapsot = await getDoc(docRef);
+    return docSnapsot.data();
+  } catch (error) {
+    throw error;
+  }
+}
+
 
 const firebaseErrorMessages = {
   // AUTH ERRORS

@@ -5,24 +5,19 @@ import styles from "./AlertBox.module.css";
 const ConfirmationAlertBox = () => {
 	const dialogRef = React.useRef(null);
 	const {
-		confirmationTitle,
-		confirmationText,
-		confirmButtonText,
-		confirmButtonColor,
-		confirmationFunc,
-		isOpen,
+		confirmationAlert
 	} = useAlertContext();
 	
 	React.useEffect(() => {
-		if (isOpen) {
+		if (confirmationAlert.isOpen) {
 			dialogRef.current?.showModal();
 		}
-	}, [isOpen]);
+	}, [confirmationAlert.isOpen]);
 
 	return (
 		<dialog ref={dialogRef} className={styles.confirmationAlertDialog}>
-			<h2>{confirmationTitle}</h2>
-			<p>{confirmationText}</p>
+			<h2>{confirmationAlert.title}</h2>
+			<p>{confirmationAlert.text}</p>
 			<div>
 				<button
 					className={styles.cancelButton}
@@ -32,13 +27,13 @@ const ConfirmationAlertBox = () => {
 				</button>
 				<button
 					onClick={() => {
-						confirmationFunc();
+						confirmationAlert.confirmFunc();
 						dialogRef.current?.close();
 					}}
 					className={styles.confirmButton}
-					style={{ backgroundColor: confirmButtonColor }}
+					style={{ backgroundColor: confirmationAlert.confirmButtonColor }}
 				>
-					{confirmButtonText}
+					{confirmationAlert.confirmButtonText}
 				</button>
 			</div>
 		</dialog>

@@ -42,7 +42,10 @@
 	gap: 1.5rem;
 	padding: 1rem;
 }
-
+.cart-header-text{
+	font-size: 30px;
+	font-weight: 500;
+}
 .cart-item {
 	display: flex;
 	align-items: flex-start;
@@ -62,7 +65,21 @@
 	width: 500px;
 	height: 300px;
 }
-
+.proceed-to-order-button{
+	border-radius: 63px;
+	border:none;
+	padding: 20px;
+	font-size: 18px;
+	align-self: center;
+	color: white;
+	width: 50%;
+	background: #A5C759;
+	transition: transform 0.3s ease-in-out;
+	cursor: pointer;
+}
+.proceed-to-order-button:hover{
+	transform: scale(1.1);
+}
 .cart-item img {
 	width: 100%;
 	height: 100%;
@@ -119,15 +136,79 @@
 	font-size: 0.9rem;
 	color: #888;
 }
+.property-input-dialog{
+	padding: 2rem;
+	border: none;
+	border-radius: 12px;
+	background: #fff;
+	position: relative;
+}
+.property-input-dialog {
+  width: 500px;
+  max-width: 90%;
+  padding: 2rem;
+  border: none;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  color: #333;
+  font-family: system-ui, sans-serif;
+}
 
-@media (max-width: 600px) {
-	.cart-item {
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-	}
+.property-input-dialog h1,
+.property-input-dialog h2 {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: #222;
+}
 
-	.cart-item-info {
-		width: 100%;
-	}
+.property-input-dialog textarea {
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.property-input-dialog select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  font-size: 1rem;
+}
+
+.property-input-dialog-buttons-div {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.property-input-dialog button {
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+.property-input-dialog button:hover {
+  opacity: 0.9;
+}
+
+.property-input-dialog button:first-of-type {
+  background: #ddd;
+  color: #333;
+}
+
+.property-input-dialog .place-order-button {
+  background: #2c7be5;
+  color: #fff;
 }

@@ -1,0 +1,77 @@
+.ordersSection{
+	display: flex;
+	flex-direction: column;
+	background-color: #F7FCEB;
+	border-radius: 61px;
+	box-sizing: border-box;
+	margin: 0 100px;
+	gap: 50px;
+	padding: 70px;
+}
+.topSection{
+	display: flex;
+	justify-content: space-between;
+}
+.topSection h1{
+	font-size: 20px;
+	font-weight: 400;
+}
+.syncExportOrderDiv{
+	display: flex;
+	gap: 5px;
+	height: 50px;
+}
+.syncOrdersButton{
+	background-color: #A5C759;
+	color: #405493;
+	border:none;
+	padding: 15px;
+	font-weight: 700;
+	cursor: pointer;
+}
+.exportDetailsButton{
+	background-color:#405493;
+	color: white;
+	font-weight: 700;
+	border:none;
+	padding: 15px;
+	cursor: pointer;
+}
+.filtersSection{
+	display: flex;
+	gap: 20px;
+}
+.filtersSection button{
+	border-radius: 60px;
+	background-color:#405493;
+	color: white;
+	border: none;
+	padding: 20px;
+	cursor: pointer;
+}
+.tableWrapper{
+	border-radius: 15px;
+	overflow: hidden; 
+}
+.orderTable{
+	width: 100%;
+	border-collapse: collapse;
+	border-radius: 13px;
+}
+.orderTableHead{
+	background-color: #A5C759;
+	color:white;
+	border-radius: 60px;
+}
+.orderTableHead th{
+	padding: 10px;
+	font-weight: 400;
+}
+.orderTableBody tr{
+    background-color: #FFFFFF;
+}
+.orderTableBody tr td{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 30px;
+}

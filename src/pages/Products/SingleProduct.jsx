@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "./SingleProduct.css";
 import DOMPurify from "dompurify";
 import { useCartContext } from "../../contexts/CartContext";
+import { toTitleCase } from "../../utils/StringUtils";
 
 const SingleProduct = () => {
 	const { state } = useLocation();
@@ -24,11 +25,13 @@ const SingleProduct = () => {
 		if (product?.variants) {
 			const newVariants = product.variants.map((variant) => ({
 				...variant,
-				productId: product.id,
+				product_id: product.id,
 				name: product.name,
-				description: product.description,
 				brand: product.brand,
+				description: product.description,
 				image: product.images[0],
+				price: variant.price,
+				size: variant.size,
 				sizeUnit: product.sizeUnit,
 				quantity: 0,
 			}));
@@ -55,8 +58,8 @@ const SingleProduct = () => {
 				</section>
 			</section>
 			<section className="product-information-display-section">
-				<h1 className="product-name">{product.name}</h1>
-				<h3 className="product-brand">{product.brand}</h3>
+				<h1 className="product-name">{toTitleCase(product.name)}</h1>
+				<h3 className="product-brand">{toTitleCase(product.brand)}</h3>
 				<div
 					className="product-description"
 					dangerouslySetInnerHTML={{
@@ -77,11 +80,12 @@ const SingleProduct = () => {
 								<tr key={index}>
 									<td>{variant.sku}</td>
 									<td>
-										{variant.size} {product.sizeUnit}
+										{variant.size} {toTitleCase(product.sizeUnit)}
 									</td>
 									<td>
 										{variant.quantity > 0 && (
 											<button
+												className="cart-add-variant-button"
 												onClick={() =>
 													handleDecreaseInVariant(
 														variant,
@@ -95,6 +99,7 @@ const SingleProduct = () => {
 											{variant.quantity}
 										</span>
 										<button
+											className="cart-add-variant-button"
 											onClick={() =>
 												handleIncreaseInVariant(variant)
 											}

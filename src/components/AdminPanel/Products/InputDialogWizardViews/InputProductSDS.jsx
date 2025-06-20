@@ -1,8 +1,6 @@
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { useAlertContext } from "../../../../contexts/AlertBoxContext";
-import { FormValidationResult } from "../../InputDialogWizard/FormValidationResult";
 import styles from "./InputDialogWizardShared.module.css";
 
 export const InputProductSDS = ({ product, setProduct, error }) => {
@@ -20,7 +18,7 @@ export const InputProductSDS = ({ product, setProduct, error }) => {
 		<section className={styles.productSDSInputSection}>
 			{!isUrl && (
 				<>
-					<label>Add SDS Sheet (PDF)</label>
+					<label className={styles.sdsInputLabel}>Add SDS Sheet (PDF)</label>
 					<input
 						type="file"
 						accept="application/pdf"
@@ -56,13 +54,4 @@ export const InputProductSDS = ({ product, setProduct, error }) => {
 			)}
 		</section>
 	);
-};
-
-export const validatePDF = (pdf, alert) => {
-	let error = null;
-	if (pdf === null || pdf === "") {
-		error = "SDS sheet is required";
-		alert.showAlert(error, "Error");
-	}
-	return new FormValidationResult(!error, error);
 };

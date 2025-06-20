@@ -1,0 +1,82 @@
+.mainSection {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 1rem;
+	min-height: 200px;
+	max-height: 769.2px;
+	background-color: #f2f2f2;
+	border-radius: 63px;
+}
+
+.accountTile {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 100px;
+	gap: 0.75rem;
+}
+
+.nameAndPropertiesDiv {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 50%;
+	gap: 8px;
+	background-color: #f0f0f0;
+	padding: 0.75rem 1rem;
+	border-radius: 12px;
+	position: relative;
+	overflow: hidden;
+}
+
+.name,
+.property {
+	height: 14px;
+	background-color: #e0e0e0;
+	border-radius: 4px;
+	position: relative;
+	overflow: hidden;
+}
+
+/* Different widths for visual variety */
+.name {
+	width: 40%;
+	height: 30px;
+}
+
+.property {
+	width: 80%;
+	height: 30px;
+}
+
+.trashIcon {
+	color: #ccc;
+	font-size: 24px;
+	cursor: not-allowed;
+	flex-shrink: 0;
+}
+
+/* Shimmer animation applied properly to tiles */
+.name::after,
+.property::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: -150px;
+	height: 100%;
+	width: 150px;
+	background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+	animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+	0% {
+		left: -150px;
+	}
+	100% {
+		left: 100%;
+	}
+}

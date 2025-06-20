@@ -9,11 +9,11 @@ const useAccounts = () => {
 	const {alert} = useAlertContext()
 	const loadingOverlay = useLoadingOverlayContext()
 	const [fetchedAccounts, setFetchedAccounts] = useState([]);
-
-	const createManagerAccount = async (userInfo) => {
+	const createCustomerAccount = async (userInfo) => {
 		loadingOverlay.trigger();
 		try {
 			if (user) {
+				userInfo.phone_number = `+1${userInfo.phone_number}`;
 				const response = await fetch(
 					process.env.REACT_APP_CREATE_ACCOUNT,
 					{
@@ -25,9 +25,9 @@ const useAccounts = () => {
 						body: JSON.stringify(userInfo),
 					},
 				);
-				const responseText = await response.text();
+				const responseJson = await response.json()
 				if (!response.ok) {
-					throw new Error(responseText);
+					throw new Error(responseJson?.message || 'An unknown error occurred');
 				}
 
 				//Send the mail to let the user know tha account has been created.
@@ -44,7 +44,7 @@ const useAccounts = () => {
 						process.env.REACT_APP_ACCOUNT_CREATED_TEMPLATE_ID,
 				};
 				await sendMail(mailData);
-				alert.showAlert(responseText, "Success");
+				alert.showAlert(responseJson.message, "Success");
 			}
 		} catch (error) {
 			alert.showAlert(error.message, "Error");
@@ -53,8 +53,7 @@ const useAccounts = () => {
 		}
 	};
 
-	const fetchManagerAccounts = async () => {
-		loadingOverlay.trigger()
+	const fetchCustomerAccounts = async () => {
 		try {
 			if (user) {
 				const response = await fetch(
@@ -69,18 +68,16 @@ const useAccounts = () => {
 				);
 				const responseJson = await response.json();
 				if (!response.ok) {
-					throw new Error(responseJson.message);
+					throw new Error(responseJson?.message || 'An unknown error occurred');
 				}
-				setFetchedAccounts(responseJson);
+				setFetchedAccounts(responseJson.data);
 			}
 		} catch (error) {
 			alert.showAlert(error.message, "Error");
-		} finally {
-			loadingOverlay.hide()
-		}
+		} 
 	};
 
-	const updateManagerAccount = async (userInfo) => {
+	const updateCustomerAccount = async (userInfo) => {
 		loadingOverlay.trigger();
 		try {
 			if (user) {
@@ -95,9 +92,9 @@ const useAccounts = () => {
 						body: JSON.stringify(userInfo),
 					},
 				);
-				const responseText = await response.text();
+				const responseJson = await response.json();
 				if (!response.ok) {
-					throw new Error(responseText);
+					throw new Error(responseJson?.message || 'An unknown error occurred');
 				}
 				setFetchedAccounts((prevAccounts) =>
 					prevAccounts.map((acc) =>
@@ -106,7 +103,7 @@ const useAccounts = () => {
 							: acc,
 					),
 				);
-				alert.showAlert(responseText, "Success");
+				alert.showAlert(responseJson.message, "Success");
 			}
 		} catch (error) {
 			alert.showAlert(error.message, "Error");
@@ -115,7 +112,7 @@ const useAccounts = () => {
 		}
 	};
 
-	const deleteManagerAccount = async (userInfo) => {
+	const deleteCustomerAccount = async (userInfo) => {
 		loadingOverlay.trigger();
 		try {
 			if (user) {
@@ -129,9 +126,9 @@ const useAccounts = () => {
 						},
 					},
 				);
-				const responseText = await response.text();
+				const responseJson = await response.json();
 				if (!response.ok) {
-					throw new Error(responseText);
+					throw new Error(responseJson?.message || 'An unknown error occurred');
 				}
 				//Send the mail to let the user know tha account has been created.
 				const mailData = {
@@ -149,7 +146,7 @@ const useAccounts = () => {
 				setFetchedAccounts((prev) =>
 					prev.filter((account) => account.uid !== userInfo.uid),
 				);
-				alert.showAlert(responseText, "Success");
+				alert.showAlert(responseJson.message, "Success");
 			}
 		} catch (error) {
 			alert.showAlert(error.message, "Error");
@@ -159,11 +156,11 @@ const useAccounts = () => {
 	};
 
 	return {
-		createManagerAccount,
-		updateManagerAccount,
+		createCustomerAccount,
+		updateCustomerAccount,
 		fetchedAccounts,
-		refetchAccounts: fetchManagerAccounts,
-		deleteManagerAccount,
+		refetchAccounts: fetchCustomerAccounts,
+		deleteCustomerAccount,
 	};
 };
 

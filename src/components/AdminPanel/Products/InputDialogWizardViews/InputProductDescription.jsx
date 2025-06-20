@@ -10,7 +10,6 @@ import {
   faQuoteRight,
   faEraser,
 } from "@fortawesome/free-solid-svg-icons";
-import { FormValidationResult } from "../../InputDialogWizard/FormValidationResult";
 import DOMPurify from "dompurify";
 import { useRef, useEffect } from "react";
 
@@ -34,7 +33,8 @@ export const InputProductDescription = ({ product, setProduct, error }) => {
   const updateDescription = () => {
     if (editorRef.current) {
       const content = editorRef.current.innerHTML;
-      setProduct((prev) => ({ ...prev, description: content }));
+      const sanitizedContent = DOMPurify.sanitize(content);
+      setProduct((prev) => ({ ...prev, description: sanitizedContent }));
     }
   };
 
@@ -42,15 +42,30 @@ export const InputProductDescription = ({ product, setProduct, error }) => {
     updateDescription();
   };
 
+  const toolbarButtons = [
+    { icon: faBold, command: "bold" },
+    { icon: faItalic, command: "italic" },
+    { icon: faUnderline, command: "underline" },
+    { icon: faStrikethrough, command: "strikeThrough" },
+    { icon: faListUl, command: "insertUnorderedList" },
+    { icon: faListOl, command: "insertOrderedList" },
+    { icon: faQuoteRight, command: "formatBlock", value: "blockquote" },
+    { icon: faEraser, command: "removeFormat" },
+  ];
+
   return (
     <section className={styles.productDescSection}>
       <div className={styles.toolbar}>
-        <button type="button" onClick={() => exec("bold")}>
-          <FontAwesomeIcon icon={faBold} />
-        </button>
-        <button type="button" onClick={() => exec("italic")}>
-          <FontAwesomeIcon icon={faItalic} />
-        </button>
+        {toolbarButtons.map((btn, index) => (
+          <button
+            key={index}
+            type="button"
+            onClick={() => exec(btn.command, btn.value)}
+          >
+            <FontAwesomeIcon icon={btn.icon} />
+          </button>
+        ))}
+
         <select
           onChange={(e) => exec("formatBlock", e.target.value)}
           defaultValue=""
@@ -63,24 +78,6 @@ export const InputProductDescription = ({ product, setProduct, error }) => {
           <option value="h3">Heading 3</option>
           <option value="h4">Heading 4</option>
         </select>
-        <button type="button" onClick={() => exec("underline")}>
-          <FontAwesomeIcon icon={faUnderline} />
-        </button>
-        <button type="button" onClick={() => exec("strikeThrough")}>
-          <FontAwesomeIcon icon={faStrikethrough} />
-        </button>
-        <button type="button" onClick={() => exec("insertUnorderedList")}>
-          <FontAwesomeIcon icon={faListUl} />
-        </button>
-        <button type="button" onClick={() => exec("insertOrderedList")}>
-          <FontAwesomeIcon icon={faListOl} />
-        </button>
-        <button type="button" onClick={() => exec("formatBlock", "blockquote")}>
-          <FontAwesomeIcon icon={faQuoteRight} />
-        </button>
-        <button type="button" onClick={() => exec("removeFormat")}>
-          <FontAwesomeIcon icon={faEraser} />
-        </button>
       </div>
 
       <div
@@ -89,23 +86,8 @@ export const InputProductDescription = ({ product, setProduct, error }) => {
         contentEditable
         suppressContentEditableWarning
         onInput={handleInput}
-        style={{ borderColor: error ? "red" : "" }}
       />
 
-      <output className={styles.descError}>{error}</output>
     </section>
   );
-};
-
-export const validateDescription = (description) => {
-  const clean = DOMPurify.sanitize(description);
-  const stripped = clean
-    .replace(/<br\s*\/?>/gi, "")
-    .replace(/&nbsp;/g, "")
-    .trim();
-  let error = null;
-  if (stripped === "") {
-    error = "Description cannot be empty";
-  }
-  return new FormValidationResult(!error, error);
 };

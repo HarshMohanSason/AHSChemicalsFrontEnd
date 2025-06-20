@@ -18,7 +18,9 @@ export default function ProductTileButton({ onEdit, onDelete }) {
 	return (
 		<div ref={dropdownRef} style={{ position: "relative", display: "inline-block" }}>
 			<button
-				onClick={() => setShowMenu((prev) => !prev)}
+				onClick={(e) => {
+					e.stopPropagation();
+					setShowMenu((prev) => !prev)}}
 				style={{
 					padding: "4px 8px",
 					background: "#A5C759",
@@ -46,6 +48,7 @@ export default function ProductTileButton({ onEdit, onDelete }) {
 						cursor: "pointer",
 					}}
 					onChange={(e) => {
+						e.stopPropagation();
 						const action = e.target.value;
 						setShowMenu(false);
 						if (action === "edit") onEdit();

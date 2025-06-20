@@ -1,0 +1,63 @@
+.adminControlsSection{
+	display: flex;
+	flex-direction: column;
+	gap: 100px;
+	box-sizing: border-box;
+	padding: 0 100px;
+}
+.filterSection{
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+}
+.editAccountIcon{
+	font-size: 2rem;
+}
+.filterDisplaySection{
+	background: #F7FCEB;
+	border-radius: 63px;
+	padding: 10px;
+	position: relative;
+}
+.filterTile{
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	width: 100%;
+}
+.filterTile p{
+	width: 50%;
+	font-weight: 300;
+	font-size: 22px;
+}
+.deleteButton{
+	background: none;
+	border: none;
+	transition: transform 0.2s ease-in-out;
+	cursor: pointer;
+}
+.deleteButton:hover{
+	transform: scale(1.3);
+}
+.trashIcon{
+	color: red;
+	width: 30px;
+	font-size: 24px;
+}
+.addFilterButton{
+	color: white;
+	background: #A5C759;
+	font-size: 30px;
+	cursor: pointer;
+	position: absolute;
+	right: 10px;
+	bottom: -10px;
+	border-radius: 50%;
+	border: none;
+	width: 50px;
+	height: 50px;
+	transition: transform 0.2s ease-in-out;
+}
+.addFilterButton:hover{
+	transform: scale(1.2);
+}

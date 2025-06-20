@@ -5,41 +5,43 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faChevronUp,
 	faChevronDown,
-	faSpinner,
 	faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import InputDialogWizard from "../InputDialogWizard/InputDialogWizard";
-import {
-	InputAccountUserInfo,
-	validateUserInfo,
-} from "./InputDialogWizardViews/InputAccountUserInfo";
-import {
-	InputAccountPropertyNames,
-	validateProperties,
-} from "./InputDialogWizardViews/InputAccountPropertyNames";
-import { InputAccountBrandName, validateInputAccountBrandName } from "./InputDialogWizardViews/InputAccountBrandNames";
+import { InputAccountUserInformation } from "./InputDialogWizardViews/InputAccountUserInformation";
+import { InputAccountProperty } from "./InputDialogWizardViews/InputAccountProperty";
+import { InputAccountBrands } from "./InputDialogWizardViews/InputAccountBrands";
 import useAccounts from "../../../hooks/AdminPanel/Accounts/Accounts";
 import { useAlertContext } from "../../../contexts/AlertBoxContext";
+import CustomerAccountsSkeletonLoader from "../../SkeletonLoaders/CusomterAccountsSkeletonLoader";
 
 const Accounts = () => {
-	const {alert, confirmationAlert} = useAlertContext();
+	const { confirmationAlert } = useAlertContext();
 	const [accountDialogSubmitFunc, setAccountDialogSubmitFunc] =
 		useState(null);
+	const [isFetchingAccounts, setIsFetchingAccounts] = useState(false);
 	const {
-		createManagerAccount,
-		updateManagerAccount,
+		createCustomerAccount,
+		updateCustomerAccount,
 		fetchedAccounts,
-		fetchAccountsLoading,
 		refetchAccounts,
-		deleteManagerAccount,
-		deleteAccountIDs,
-	} = useAccounts()
+		deleteCustomerAccount,
+	} = useAccounts();
 
 	const defaultUser = {
 		name: "",
+		phone_number: "",
 		email: "",
 		password: "",
-		properties: [""],
+		properties: [
+			{
+				street: "",
+				city: "FAIRFAX",
+				county: "MARIN",
+				state: "CALIFORNIA",
+				postal: "",
+			},
+		],
 		brands: [],
 	};
 	const [user, setUser] = useState(defaultUser);
@@ -66,42 +68,39 @@ const Accounts = () => {
 	const getWizardSteps = () => {
 		const steps = [
 			{
-				step: "UserInfo",
+				step: "User Information",
 				view: (
-					<InputAccountUserInfo
+					<InputAccountUserInformation
 						user={user}
 						setUser={setUser}
 						error={wizardStepErrors[0]}
 					/>
 				),
-				validate: () => validateUserInfo(user),
 			},
 			{
 				step: "Properties",
 				view: (
-					<InputAccountPropertyNames
+					<InputAccountProperty
 						user={user}
 						setUser={setUser}
 						error={wizardStepErrors[1]}
 					/>
 				),
-				validate: () => validateProperties(user.properties),
 			},
 			{
 				step: "Brands",
 				view: (
-					<InputAccountBrandName
+					<InputAccountBrands
 						user={user}
 						setUser={setUser}
 						error={wizardStepErrors[2]}
 					/>
 				),
-				validate: null,
 			},
 		];
 
 		return wizardMode === "edit"
-			? steps.filter((s) => s.step !== "UserInfo") // Remove UserInfo for edit
+			? steps.filter((s) => s.step !== "User Information") // Remove UserInfo for edit
 			: steps; // full steps for create
 	};
 
@@ -109,9 +108,21 @@ const Accounts = () => {
 		<section className={styles.adminPanelAccountsPage}>
 			<section
 				className={sharedStyles.addDataTile}
-				onClick={() => {
-					setIsExpanded(!isExpanded);
-					refetchAccounts();
+				onClick={async () => {
+					if (isExpanded) {
+						// If already expanded collapse only, do nothing else
+						setIsExpanded(false);
+						return;
+					}
+
+					// If collapsed -> open it, immediately show skeleton, then fetch
+					setIsExpanded(true);
+					setIsFetchingAccounts(true);
+					try {
+						await refetchAccounts();
+					} finally {
+						setIsFetchingAccounts(false);
+					}
 				}}
 			>
 				<p>Edit Account</p>
@@ -122,10 +133,12 @@ const Accounts = () => {
 					/>
 				</button>
 			</section>
-			{fetchAccountsLoading && isExpanded && (
-				<FontAwesomeIcon icon={faSpinner} className={styles.spinner} />
+			{isFetchingAccounts && (
+				<CustomerAccountsSkeletonLoader
+					accountsLength={fetchedAccounts?.length || 5}
+				/>
 			)}
-			{!fetchAccountsLoading && isExpanded && (
+			{!isFetchingAccounts && isExpanded && (
 				<section className={styles.expandedEditAccountsSection}>
 					{fetchedAccounts &&
 						fetchedAccounts.map((account, index) => (
@@ -141,7 +154,7 @@ const Accounts = () => {
 										setWizardMode("edit");
 										setAccountDialogSubmitFunc(
 											() => (user) =>
-												updateManagerAccount(user),
+												updateCustomerAccount(user),
 										);
 										accountDialogWizardRef.current.showModal();
 									}}
@@ -155,39 +168,29 @@ const Accounts = () => {
 										{account.properties.map(
 											(property, propertyIndex) => (
 												<p key={propertyIndex + 1}>
-													{property}
+													{property.street},{" "}
+													{property.city.toLowerCase()}
+													,
+													{property.state.toLowerCase()}
 												</p>
 											),
 										)}
 									</div>
 								</div>
-								{deleteAccountIDs.includes(account.uid) ? (
-									<FontAwesomeIcon
-										icon={faSpinner}
-										style={{
-											color: "black",
-											fontSize: "30px",
-										}}
-										className={styles.spinner}
-									/>
-								) : (
-									<FontAwesomeIcon
-										icon={faTrash}
-										onClick={() =>
-											confirmationAlert.showAlert(
-												"Delete User?",
-												`Are you sure you want to delete the account for ${account.displayName}`,
-												() =>
-													deleteManagerAccount(
-														account,
-													),
-												"Delete",
-												"red",
-											)
-										}
-										className={styles.deleteAccountIcon}
-									/>
-								)}
+								<FontAwesomeIcon
+									icon={faTrash}
+									onClick={() => {
+										confirmationAlert.showAlert(
+											"Delete User?",
+											`Are you sure you want to delete the account for ${account.displayName}`,
+											() =>
+												deleteCustomerAccount(account),
+											"Delete",
+											"red",
+										);
+									}}
+									className={styles.deleteAccountIcon}
+								/>
 							</div>
 						))}
 				</section>
@@ -199,7 +202,7 @@ const Accounts = () => {
 					setCurrentView(0);
 					setWizardMode("create");
 					setAccountDialogSubmitFunc(
-						() => (user) => createManagerAccount(user),
+						() => (user) => createCustomerAccount(user),
 					);
 					accountDialogWizardRef.current.showModal();
 				}}
@@ -214,7 +217,7 @@ const Accounts = () => {
 				handleSubmit={() => accountDialogSubmitFunc(user)}
 				currentView={currentView}
 				setCurrentView={setCurrentView}
-			/>	
+			/>
 		</section>
 	);
 };

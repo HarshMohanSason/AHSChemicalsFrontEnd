@@ -11,9 +11,15 @@
  */
 
 import { createContext, useContext, useState, useEffect } from "react";
-import { onIdTokenChanged, signOut } from "firebase/auth";
+import { onIdTokenChanged } from "firebase/auth";
 import { auth } from "../utils/firebase/firebase.config";
-
+import { handleFirebaseError } from "../utils/firebase/firebase_utility";
+import { useAlertContext } from "./AlertBoxContext";
+import {
+  verifyBeforeUpdateEmail,
+  updatePassword,
+  updateProfile,
+} from "firebase/auth";
 // Create the Auth context
 const AuthContext = createContext();
 
@@ -28,7 +34,8 @@ const AuthContext = createContext();
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null); // Stores the authenticated user object (or null)
   const [isLoading, setIsLoading] = useState(true); // Indicates if authentication status is still being determined
-
+  const { alert } = useAlertContext();
+  
   useEffect(() => {
     /**
      * Listen for changes in the Firebase authentication token.
@@ -41,15 +48,13 @@ export default function AuthProvider({ children }) {
           const tokenResult = await firebaseUser.getIdTokenResult(true);
           const isAdmin = tokenResult.claims.admin;
           const token = tokenResult.token;
-
           setUser({
             ...firebaseUser,
             isAdmin, // boolean - indicates if the user has admin privileges
-            token,   // Firebase ID token for authenticated requests
+            token, // Firebase ID token for authenticated requests
           });
         } catch (error) {
-          // If token retrieval fails, sign the user out and reset the user state
-          await signOut(auth);
+          alert.showAlert(handleFirebaseError(error), "Error");
           setUser(null);
         }
       } else {
@@ -61,6 +66,7 @@ export default function AuthProvider({ children }) {
     return () => unsubscribe(); // Cleanup listener on unmount
   }, []);
 
+  
   return (
     <AuthContext.Provider value={{ user, isLoading }}>
       {children}

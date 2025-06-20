@@ -1,0 +1,9 @@
+.signatureContianer {
+    border: 2px solid #ccc;
+    padding: 10px;
+    width: fit-content;
+}
+.signatureCanvas {
+    border: 1px solid #000;
+    background-color: #fff;
+}

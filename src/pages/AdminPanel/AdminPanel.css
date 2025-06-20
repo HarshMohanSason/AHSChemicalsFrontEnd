@@ -8,9 +8,9 @@
 .admin-panel menu {
 	margin-top: 250px;
 	display: flex;
-	gap: 50px;
 	width: 100%;
-	justify-content: center;
+	box-sizing: border-box;
+	justify-content: space-evenly;
 }
 .admin-panel menu button {
 	width: 350px;
@@ -35,3 +35,4 @@
 	background: #a5c759;
 	color: #000000;
 }
+

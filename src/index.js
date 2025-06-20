@@ -8,6 +8,7 @@ import AlertProvider from "./contexts/AlertBoxContext";
 import CartProvider from "./contexts/CartContext";
 import AuthProvider from "./contexts/AuthContext";
 import LoadingOverlayProvider from "./contexts/LoadingOverlayContext";
+import FiltersProvider from "./contexts/FiltersContext";
 
 Sentry.init({
   dsn: "https://d2a20b961a95a82ecad5fb8bdad7773c@o4509358074363904.ingest.us.sentry.io/4509358075609088",
@@ -22,7 +23,9 @@ root.render(
       <AlertProvider>
         <AuthProvider>
           <CartProvider>
-            <App />
+            <FiltersProvider>
+              <App />
+            </FiltersProvider>
           </CartProvider>
         </AuthProvider>
       </AlertProvider>
