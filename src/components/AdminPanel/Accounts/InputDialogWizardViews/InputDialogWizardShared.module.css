@@ -5,6 +5,15 @@
 	width: 90%;
 	padding: 1rem;
 }
+.phoneInputWrapper{
+	display: flex;
+	width: 100%;
+}
+.countryCodeSelect{
+	border: none;
+	margin-left: 10px;
+	border-radius: 10px;
+}
 /* Property Name Input  */
 .inputAccountPropertySection {
 	display: flex;
@@ -39,7 +48,7 @@
 	font-size: 18px;
 	cursor: pointer;
 }
-.propertyNameInputDiv {
+.propertyInputDiv {
 	display: flex;
 	width: 100%;
 	flex-direction: column;
@@ -51,21 +60,8 @@
 	background-color: #fafafa;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
-.cityStatePostalInputDiv{
-	display: flex;
-	align-items: center;
-	margin-left: 10px;
-	gap: 30px;
-}
-.selectCityStateDiv{
-	display: block;
-}
-.selectCityStateDiv p{
-	margin: 5px;
-	font-weight: 500;
-}
-.selectCityStateDiv select{
-	width: 100%;
+.selectPropertyDiv select{
+	width: 70%;
 	padding: 10px;
 	border: none;
 	border-radius: 10px;

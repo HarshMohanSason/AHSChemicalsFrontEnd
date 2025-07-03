@@ -1,9 +1,50 @@
-.signatureContianer {
-    border: 2px solid #ccc;
-    padding: 10px;
-    width: fit-content;
+.signatureContainer {
+  max-width: 50vw;
+  height: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
+
 .signatureCanvas {
-    border: 1px solid #000;
-    background-color: #fff;
+  width: 100%;
+  height: 100%;
+  border: 0.5px solid #aaa;
+  border-radius: 8px;
+  background-color: #fff;
+  cursor: crosshair;
+}
+.signatureButtons {
+  align-self: end;
+  display: flex;
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+.signatureButtons button {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.signatureButtons button:first-child {
+  background-color: #f44336; 
+  color: #fff;
+}
+
+.signatureButtons button:first-child:hover {
+  background-color: #d32f2f;
+}
+
+.signatureButtons button:last-child {
+  background-color: #4caf50; 
+  color: #fff;
+}
+
+.signatureButtons button:last-child:hover {
+  background-color: #388e3c;
 }

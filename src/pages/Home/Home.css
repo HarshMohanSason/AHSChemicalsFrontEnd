@@ -82,6 +82,7 @@
 #california-svg path[id] {
 	fill: #ffffff;
 	transition: fill 0.3s ease;
+	cursor: pointer;
 }
 #california-svg path[id]:hover {
 	fill: #a5c759;

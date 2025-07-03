@@ -1,66 +1,107 @@
-.alertDialog, .confirmationAlertDialog{
+@keyframes popup-fade-scale-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.alertDialog,
+.confirmationAlertDialog {
   border: none;
-  border-radius: 12px;
-  padding: 20px 30px;
+  border-radius: 16px;
+  padding: 24px 32px;
   background-color: #ffffff;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
-  max-width: 400px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  max-width: 420px;
   width: 90%;
   text-align: center;
-  animation: fade-in 0.3s ease-out;
+  animation: popup-fade-scale-in 0.3s ease-out;
+  transition: transform 0.2s ease;
 }
+
 .alertDialog h3 {
   margin-top: 0;
   font-size: 24px;
   font-weight: 700;
   color: #e63946;
-  text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
+
 .alertDialog p {
   margin: 0 0 20px 0;
   font-size: 18px;
-  color: #333;
+  color: #444;
+  line-height: 1.5;
 }
 
 .alertDialog button {
   background-color: #e63946;
   color: white;
   border: none;
-  padding: 10px 24px;
+  padding: 12px 26px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.2s;
+  transition: background-color 0.25s ease, transform 0.2s ease;
 }
 
+.alertDialog button:hover {
+  background-color: #c62828;
+  transform: translateY(-2px);
+}
+
+/* Confirmation Dialog */
 .confirmationAlertDialog h2 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.5rem;
-  color: #000; /* Black */
+  margin: 0 0 12px 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
 }
+
 .confirmationAlertDialog p {
-  margin: 0 0 1.5rem 0;
-  color: #333; /* Light black / dark gray */
-  font-size: 1rem;
+  margin: 0 0 24px 0;
+  color: #555;
+  font-size: 16px;
+  line-height: 1.5;
 }
+
 .confirmationAlertDialog div {
   display: flex;
   justify-content: space-between;
-  gap: 0.75rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 10px;
 }
+
 .cancelButton,
 .confirmButton {
-  padding: 0.5rem 1rem;
+  padding: 10px 22px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   color: #fff;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.25s ease, transform 0.2s ease;
 }
 .cancelButton {
-  background-color: #666; /* Default fallback color if getColor() fails */
+  background-color: #ccc; /* Light gray */
+  color: #333;
 }
+.cancelButton:hover {
+  background-color: #bbb;
+  transform: translateY(-2px);
+}
+
 .confirmButton {
-  background-color: #d32f2f; /* Default confirm red */
+  background-color: #4caf50; /* Green by default */
+}
+
+.confirmButton:hover {
+  background-color: #388e3c;
+  transform: translateY(-2px);
 }

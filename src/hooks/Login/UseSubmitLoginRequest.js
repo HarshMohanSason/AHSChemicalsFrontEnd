@@ -1,10 +1,3 @@
-import { auth } from "../../utils/firebase/firebase.config";
-import { signInWithEmailAndPassword, getIdTokenResult } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
-import { handleFirebaseError } from "../../utils/firebase/firebase_utility";
-import { useAlertContext } from "../../contexts/AlertBoxContext";
-import useLoadingOverlay from "../LoadingOverlay/LoadingOverlayHook";
-import { useLoadingOverlayContext } from "../../contexts/LoadingOverlayContext";
 
 /**
  * Custom React hook to handle user login using Firebase authentication.
@@ -20,6 +13,13 @@ import { useLoadingOverlayContext } from "../../contexts/LoadingOverlayContext";
  * 
  * @returns {Object} An object containing the `handleSubmit` function which takes the event, email, and password as parameters to handle form submissions and login logic.
  */
+
+import { getIdTokenResult, signInWithEmailAndPassword} from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { useAlertContext } from "../../contexts/AlertBoxContext";
+import { useLoadingOverlayContext } from "../../contexts/LoadingOverlayContext";
+import { handleFirebaseError } from "../../utils/Firebase/ErrorHandler";
+import { auth } from "../../utils/Firebase/FirebaseConfig";
 
 const useSubmitLoginRequest = (
 ) => {

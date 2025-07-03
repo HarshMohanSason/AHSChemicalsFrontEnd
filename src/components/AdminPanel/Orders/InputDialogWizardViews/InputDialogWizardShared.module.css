@@ -1,0 +1,97 @@
+.editStatusSelect{
+	padding: 20px;
+	font-size: 20px;
+	border:none;
+	border-radius: 8px;
+}
+.editQuantityContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	padding: 20px;
+	max-height: 70vh;
+	overflow-y: auto;
+}
+
+.itemRow {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	background-color: #f7f7f7;
+	padding: 12px 16px;
+	border-radius: 10px;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+	transition: background-color 0.3s;
+}
+
+.itemRow:hover {
+	background-color: #f0f0f0;
+}
+
+.itemImage {
+	width: 64px;
+	height: 64px;
+	object-fit: cover;
+	border-radius: 8px;
+	border: 1px solid #ddd;
+}
+
+.itemInfo {
+	flex: 2;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.itemInfo h3 {
+	margin: 0;
+	font-size: 16px;
+	color: #333;
+}
+
+.itemInfo p {
+	margin: 0;
+	font-size: 14px;
+	color: #555;
+}
+
+.itemInfo small {
+	font-size: 12px;
+	color: #888;
+}
+
+.quantityControls {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.quantityControls button {
+	width: 28px;
+	height: 28px;
+	border: none;
+	border-radius: 6px;
+	background-color: #e0e0e0;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: bold;
+	transition: background-color 0.2s ease;
+}
+
+.quantityControls button:hover {
+	background-color: #ccc;
+}
+
+.quantityControls span {
+	min-width: 24px;
+	text-align: center;
+	font-weight: 500;
+}
+
+.itemTotal {
+	min-width: 80px;
+	text-align: right;
+	font-weight: 600;
+	color: #444;
+}

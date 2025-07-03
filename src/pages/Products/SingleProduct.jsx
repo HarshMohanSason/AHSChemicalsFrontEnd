@@ -1,127 +1,120 @@
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import "./SingleProduct.css";
-import DOMPurify from "dompurify";
+import styles from "./SingleProduct.module.css";
 import { useCartContext } from "../../contexts/CartContext";
-import { toTitleCase } from "../../utils/StringUtils";
+import { useProductsContext } from "../../contexts/ProductsContext";
 
 const SingleProduct = () => {
-	const { state } = useLocation();
-	const product = state?.product;
+	const { slug } = useParams();
+	const cartProvider = useCartContext();
 
-	const [selectedImage, setSelectedImage] = useState(
-		product?.images?.[0] || "",
-	);
-	const {
-		addItemsToCart,
-		handleIncreaseInVariant,
-		handleDecreaseInVariant,
-		setSelectedVariants,
-		selectedVariants,
-		resetVariants,
-	} = useCartContext({ product });
+	const productsProvider = useProductsContext();
+	const [product, setProduct] = useState([]);
+	const [selectedImage, setSelectedImage] = useState("");
 
 	useEffect(() => {
-		if (product?.variants) {
-			const newVariants = product.variants.map((variant) => ({
-				...variant,
-				product_id: product.id,
-				name: product.name,
-				brand: product.brand,
-				description: product.description,
-				image: product.images[0],
-				price: variant.price,
-				size: variant.size,
-				sizeUnit: product.sizeUnit,
-				quantity: 0,
-			}));
-			setSelectedVariants(newVariants);
-		}
-	}, [product]);
+		const parts = slug.split("-");
+		const nameKey = parts.slice(0, -1).join("-");
+		const product = productsProvider.getProductFromGroupedProducts(nameKey);
+		setProduct(product);
+		setSelectedImage(product?.[0]?.Images?.[0]);
+	}, []);
+
+	if (!product) return <p>Loading...</p>;
 
 	return (
-		<section className="product-page-section">
-			<section className="image-display-section">
-				<div className="main-image-div">
-					<img src={selectedImage} className="main-image" />
+		<section className={styles.productPageSection}>
+			<section className={styles.imageDisplaySection}>
+				<div className={styles.mainImageDiv}>
+					<img
+						src={selectedImage === "" ? null : selectedImage}
+						className={styles.mainImage}
+						alt="Product"
+					/>
 				</div>
-				<section className="smaller-images-section">
-					{product?.images.map((image, index) => (
-						<div key={index} className="smaller-image-div">
+				<section className={styles.imageCaraouselSection}>
+					{product[0]?.Images?.map((image, index) => (
+						<div
+							className={styles.imageCaraousel}
+							key={index}
+							onClick={() => setSelectedImage(image)}
+						>
 							<img
 								src={image}
-								className="smaller-images"
-								onClick={() => setSelectedImage(image)}
+								alt={`caraousel-image-${index + 1}`}
 							/>
 						</div>
 					))}
 				</section>
 			</section>
-			<section className="product-information-display-section">
-				<h1 className="product-name">{toTitleCase(product.name)}</h1>
-				<h3 className="product-brand">{toTitleCase(product.brand)}</h3>
-				<div
-					className="product-description"
-					dangerouslySetInnerHTML={{
-						__html: DOMPurify.sanitize(product.description),
-					}}
-				></div>
-				<table>
+			<section className={styles.productDetailsSection}>
+				<h1 className={styles.productName}>{product[0]?.Name}</h1>
+				<h3 className={styles.productBrand}>{product[0]?.Brand}</h3>
+				<p className={styles.productDescription}>
+					{product[0]?.Description}
+				</p>
+				<a
+					href={product[0]?.SDS}
+					target="_blank"
+					rel="noopener noreferrer"
+					className={styles.viewSDSLink}
+				>
+					View SDS
+				</a>
+				<table className={styles.skuTable}>
 					<thead>
 						<tr>
 							<th>SKU</th>
 							<th>Size</th>
-							<th>Select Quantity</th>
+							<th>Pack Of</th>
+							<th>Add this item</th>
 						</tr>
 					</thead>
 					<tbody>
-						{selectedVariants &&
-							selectedVariants.map((variant, index) => (
-								<tr key={index}>
-									<td>{variant.sku}</td>
-									<td>
-										{variant.size} {toTitleCase(product.sizeUnit)}
-									</td>
-									<td>
-										{variant.quantity > 0 && (
+						{product?.map((item) => (
+							<tr key={item.Id}>
+								<td>{item.SKU}</td>
+								<td>
+									{item.Size} {item.SizeUnit.toLowerCase()}
+								</td>
+								<td>{item.PackOf}</td>
+								<td>
+									<div className={styles.addItemSkuDiv}>
+										{cartProvider.getSKUItemQuantity(item.Id) > 0 && (
 											<button
-												className="cart-add-variant-button"
+												className={
+													styles.cartAddVariantButton
+												}
 												onClick={() =>
-													handleDecreaseInVariant(
-														variant,
+													cartProvider.removeSKUs(
+														item,
 													)
 												}
 											>
 												-
 											</button>
 										)}
-										<span style={{ margin: "0 8px" }}>
-											{variant.quantity}
-										</span>
+										{cartProvider.getSKUItemQuantity(item.Id) > 0 && (
+											<span>{cartProvider.getSKUItemQuantity(item.Id)}</span>
+										)}
 										<button
-											className="cart-add-variant-button"
+											className={
+												styles.cartAddVariantButton
+											}
 											onClick={() =>
-												handleIncreaseInVariant(variant)
+												cartProvider.addSKUs(item)
 											}
 										>
 											+
 										</button>
-									</td>
-								</tr>
-							))}
+									</div>
+								</td>
+							</tr>
+						))}
 					</tbody>
 				</table>
-				<a href={product.sds} target="_blank" rel="noopener noreferrer">
-					View SDS{" "}
-				</a>
-				<button
-					className="add-to-cart-button"
-					onClick={() => {
-						addItemsToCart();
-						resetVariants();
-					}}
-				>
-					Add to Cart
+				<button className={styles.addItemsToCartButton} onClick={()=> cartProvider.addItemsToCart()}>
+					Add Items to Cart
 				</button>
 			</section>
 		</section>

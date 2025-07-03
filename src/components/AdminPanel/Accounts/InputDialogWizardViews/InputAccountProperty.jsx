@@ -1,20 +1,11 @@
-import { useEffect, useState } from "react";
-import { getCountyInfoFromFirestore } from "../../../../utils/firebase/firebase_utility";
-import InputField from "../../../InputField/InputField";
+import { useCustomersContext } from "../../../../contexts/CustomersContext";
 import styles from "./InputDialogWizardShared.module.css";
 
-export const InputAccountProperty = ({ user, setUser, errors }) => {
-	const [countyInfo, setCountyInfo] = useState([]);
-
+export const InputAccountProperty = ({ user, setUser }) => {
+	const customersProvider = useCustomersContext();
 	const addProperty = () => {
 		const oldProperties = [...user.properties];
-		oldProperties.push({
-			street: "",
-			city: countyInfo[0].city,
-			county: countyInfo[0].county,
-			state: "CALIFORNIA",
-			postal: "",
-		});
+		oldProperties.push("");
 		setUser({ ...user, properties: oldProperties });
 	};
 
@@ -24,50 +15,17 @@ export const InputAccountProperty = ({ user, setUser, errors }) => {
 			properties: user.properties.filter((_, idx) => idx !== index),
 		});
 
-	const updatePropertyInfo = (index, key, value) => {
+	const updatePropertyInfo = (index, propertyID) => {
 		const oldProperties = [...user.properties];
-		oldProperties[index][key] = value;
+		oldProperties[index] = propertyID;
 		setUser({ ...user, properties: oldProperties });
 	};
-
-	const getCountyInfo = async () => {
-		try {
-			const counties = await getCountyInfoFromFirestore();
-			setCountyInfo(counties);
-			sessionStorage.setItem("countyInfo", JSON.stringify(counties));
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	useEffect(() => {
-		const cached = sessionStorage.getItem("countyInfo");
-		if (cached) {
-			setCountyInfo(JSON.parse(cached));
-		} else {
-			getCountyInfo();
-		}
-	}, []);
 
 	return (
 		<section className={styles.inputAccountPropertySection}>
 			{user.properties &&
 				user.properties.map((property, index) => (
-					<div className={styles.propertyNameInputDiv} key={index}>
-						<InputField
-							style={{width: "80%"}}
-							error={errors?.[index]?.street}
-							value={property.street}
-							placeholder={"Street"}
-							type="text"
-							onChange={(e) =>
-								updatePropertyInfo(
-									index,
-									"street",
-									e.target.value,
-								)
-							}
-						/>
+					<div className={styles.propertyInputDiv} key={index}>
 						<section className={styles.cityStatePostalInputDiv}>
 							{index > 0 && (
 								<button
@@ -78,87 +36,39 @@ export const InputAccountProperty = ({ user, setUser, errors }) => {
 									&times;
 								</button>
 							)}
-							<div className={styles.selectCityStateDiv}>
-								<p>Select City</p>
-								<select
-									onChange={(e) => {
-										const city = e.target.value;
-										const countyObject =
-											countyInfo.find(
-												(value) => value.city === city,
-											);
-										updatePropertyInfo(index, "city", city);
-										updatePropertyInfo(
-											index,
-											"county",
-											countyObject.county,
-										);
-									}}
-								>
-									{[
-										...new Set(
-											countyInfo.map(
-												(info) => info.county,
-											),
-										),
-									].map((county) => (
-										<optgroup label={county} key={county}>
-											{countyInfo
-												.filter(
-													(info) =>
-														info.county === county,
-												)
-												.map((info) => (
-													<option
-														key={info.city}
-														value={info.city}
-													>
-														{info.city}
-													</option>
-												))}
-										</optgroup>
-									))}
-								</select>
-							</div>
-							<div className={styles.selectCityStateDiv}>
-								<p>Select State</p>
+							<div className={styles.selectPropertyDiv}>
 								<select
 									onChange={(e) =>
 										updatePropertyInfo(
 											index,
-											"state",
 											e.target.value,
 										)
 									}
+									value={property}
 								>
-									{[
-										...new Set(
-											countyInfo.map(
-												(value) => value.state,
-											),
+									<option value="">Select Property</option>
+									{customersProvider.formattedCustomersForDisplay.map(
+										(prop) => (
+											<option
+												key={prop.Id}
+												value={prop.Id}
+											>
+												{prop.Property.Name}{" "}
+												{prop.Property.Address?.Line1},{" "}
+												{prop.Property.Address?.City},{" "}
+												{
+													prop.Property.Address
+														?.CountrySubDivisionCode
+												}{" "}
+												{
+													prop.Property.Address
+														.PostalCode
+												}
+											</option>
 										),
-									].map((state, index) => (
-										<option key={index} value={state}>
-											{state}
-										</option>
-									))}
+									)}
 								</select>
 							</div>
-							<InputField
-								style={{width: "100%", marginTop: "30px"}}
-								placeholder={"Postal"}
-								maxLength={5}
-								type="tel"
-								value={property.postal}
-								error={errors?.[index]?.postal}
-								onChange={(e) =>
-									updatePropertyInfo(
-										index,
-										"postal",
-										e.target.value,
-									)
-								}
-							/>
 						</section>
 					</div>
 				))}

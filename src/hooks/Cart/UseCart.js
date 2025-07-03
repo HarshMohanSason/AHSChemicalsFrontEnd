@@ -1,103 +1,145 @@
 import { useEffect, useState } from "react";
 import {
 	clearCartFromFirestore,
-	findTaxRate,
 	getSavedCartItemsFromFirestore,
-	handleFirebaseError,
 	saveCartItemsToFirestore,
-} from "../../utils/firebase/firebase_utility";
+} from "../../utils/Firebase/Cart";
+import { handleFirebaseError } from "../../utils/Firebase/ErrorHandler";
 import { useAlertContext } from "../../contexts/AlertBoxContext";
 import { useAuth } from "../../contexts/AuthContext";
-import { Timestamp } from "firebase/firestore";
 
 export const useCart = () => {
-	const [cartItems, setCartItems] = useState([]);
 	const { user } = useAuth();
 	const { alert } = useAlertContext();
+
+	const [cartItems, setCartItems] = useState([]);
 	const [isFetchingCartItems, setIsFetchingCartItems] = useState(false);
-	const [selectedVariants, setSelectedVariants] = useState([]);
-	
+	const [selectedSKUs, setSelectedSKUs] = useState([]);
+
 	const initializeCart = async () => {
+		setIsFetchingCartItems(true);
 		try {
-			setIsFetchingCartItems(true);
 			if (user) {
 				const latestCartItems = await getSavedCartItemsFromFirestore(
 					user.uid,
 				);
-				if (latestCartItems !== null || latestCartItems.length === 0) {
-					setCartItems(latestCartItems);
-				}
+				setCartItems(latestCartItems);
 			}
 		} catch (error) {
-			alert.showAlert(
-				"Error fetching the cart values, will try again later ",
-				"Error",
-			);
+			alert.showAlert(handleFirebaseError(error), "Error");
 		} finally {
 			setIsFetchingCartItems(false);
 		}
 	};
 
+	//Initialize the cart whenever the user changes
 	useEffect(() => {
 		initializeCart();
 	}, [user]);
 
-	const getCartItemCount = () => {
-		return cartItems.reduce((total, item) => total + item.quantity, 0);
+	const addSKUs = (item) => {
+		const updated = [...selectedSKUs];
+		const index = updated.findIndex((sku) => sku.Id === item.Id);
+		if (index > -1) {
+			if (updated[index].Quantity < 20) {
+				updated[index].Quantity += 1;
+			}
+		} else {
+			updated.push({ ...item, Quantity: 1 });
+		}
+		setSelectedSKUs(updated);
+	};
+
+	const removeSKUs = (item) => {
+		const updated = [...selectedSKUs];
+		const index = updated.findIndex((sku) => sku.Id === item.Id);
+
+		if (index > -1) {
+			if (updated[index].Quantity > 1) {
+				updated[index].Quantity -= 1;
+			} else {
+				updated[index].Quantity = 0;
+			}
+			setSelectedSKUs(updated);
+		}
+	};
+
+	const getSKUItemQuantity = (id) => {
+		const found = selectedSKUs.find((item) => item.Id === id);
+		return found ? found.Quantity : 0;
 	};
 
 	const addItemsToCart = () => {
-		const variantsToAdd = selectedVariants.filter((v) => v.quantity > 0);
-		if (variantsToAdd.length === 0) {
+		if (selectedSKUs.length === 0) {
 			alert.showAlert(
 				"No items selected. Please select an item before adding them to the cart",
-				"Error",
+				"Warning",
 			);
 			return;
 		}
-
-		// Create a copy of cartItems to update
 		const updatedCart = [...cartItems];
-
-		variantsToAdd.forEach((item) => {
-			const index = updatedCart.findIndex((ci) => ci.sku === item.sku);
-			if (index !== -1) {
-				// Same SKU found, update quantity
-				updatedCart[index] = {
-					...updatedCart[index],
-					quantity: updatedCart[index].quantity + item.quantity,
-				};
-			} else {
-				// New SKU -> push to array
-				updatedCart.push(item);
-			}
-		});
-		setCartItems(updatedCart);
-
-		if (user) {
-			saveCartItemsToFirestore(user.uid, updatedCart).catch((error) => {
-				alert.showAlert(handleFirebaseError(error), "Error");
-				return;
-			});
-		}
-		alert.showAlert("Items added to cart!", "Success");
-	};
-
-	const updateItemInCart = (item, isRemoving = false) => {
-		const updatedCart = [...cartItems];
-		const index = updatedCart.findIndex((value) => value.sku === item.sku);
-		if (index !== -1) {
-			if (isRemoving) {
-				if (updatedCart[index].quantity <= 0) {
-					updatedCart.splice(index, 1);
-				} else {
-					updatedCart[index].quantity -= 1;
+		selectedSKUs.forEach((sku) => {
+			const index = updatedCart.findIndex((item) => item.Id === sku.Id);
+			if (index > -1) {
+				const totalQuantity =
+					updatedCart[index].Quantity + sku.Quantity;
+				if (totalQuantity < 40) {
+					updatedCart[index].Quantity = totalQuantity;
 				}
 			} else {
-				updatedCart[index].quantity += 1;
+				updatedCart.push(sku);
+			}
+		});
+		if (user) {
+			saveCartItemsToFirestore(user.uid, updatedCart)
+				.then(() => {
+					setCartItems(updatedCart);
+					setSelectedSKUs([]);
+					alert.showAlert(
+						"Items Successfully added to the cart",
+						"Success",
+					);
+				})
+				.catch((error) =>
+					alert.showAlert(handleFirebaseError(error), "Error"),
+				);
+		}
+	};
+
+	const deleteItemFromCart = async (item) => {
+		const filteredCart = cartItems.filter(
+			(cartItem) => cartItem.Id !== item.Id,
+		);
+		if (user) {
+			saveCartItemsToFirestore(user.uid, filteredCart)
+				.then(() => setCartItems(filteredCart))
+				.catch((error) => {
+					alert.showAlert(handleFirebaseError(error), "Error");
+				});
+		}
+	};
+
+	const updateQuantityInCart = (index, decrease = false) => {
+		const updatedCart = [...cartItems];
+		if (decrease) {
+			if (updatedCart[index].Quantity >= 1) {
+				updatedCart[index].Quantity -= 1;
+			}
+		} else {
+			if (updatedCart[index].Quantity < 40) {
+				updatedCart[index].Quantity += 1;
+			} else {
+				alert.showAlert(
+					"You can only add a max quantity of 40 for any item. ",
+					"Warning",
+				);
 			}
 		}
 		setCartItems(updatedCart);
+	};
+
+	const getCartItemCount = () => {
+		return cartItems.reduce((total, item) => total + item.quantity, 0);
 	};
 
 	const clearCart = () => {
@@ -105,95 +147,16 @@ export const useCart = () => {
 		clearCartFromFirestore(user.uid);
 	};
 
-	const handleDecreaseInVariant = (variant) => {
-		const index = selectedVariants.findIndex(
-			(item) => item.sku === variant.sku,
-		);
-		if (index !== -1 && selectedVariants[index].quantity > 0) {
-			const items = [...selectedVariants];
-			items[index].quantity -= 1;
-			setSelectedVariants(items);
-		}
-	};
-
-	const handleIncreaseInVariant = (variant) => {
-		const index = selectedVariants.findIndex(
-			(item) => item.sku === variant.sku,
-		);
-		if (index !== -1) {
-			const items = [...selectedVariants];
-			items[index].quantity += 1;
-			setSelectedVariants(items);
-		}
-	};
-
-	const resetVariants = () => {
-		const variants = selectedVariants.map((variant) => ({
-			...variant,
-			quantity: 0,
-		}));
-		setSelectedVariants(variants);
-	};
-
-	const convertCartItemsToAnOrder = async (selectedProperty, specialInstructions) => {
-		try {
-			const itemsOrdered = cartItems.map((item) => {
-				return {
-					product_id: item.product_id,
-					product_name: item.name,
-					brand: item.brand,
-					sku: item.sku,
-					size: item.size,
-					price: Number(item.price).toFixed(2),
-					sizeUnit: item.sizeUnit,
-					quantity: item.quantity,
-					total: (item.price * item.quantity).toFixed(2),
-				};
-			});
-			const subTotal = Number(
-				itemsOrdered
-					.reduce(
-						(total, item) => total + item.quantity * item.price,
-						0,
-					)
-					.toFixed(2),
-			);
-			const results = await findTaxRate(selectedProperty.city, selectedProperty.county);
-			const taxRate = results[0].rate;
-			const totalAmount = (taxRate * subTotal).toFixed(2);
-			
-			return {
-				id: crypto.randomUUID(),
-				user_id : user.uid,
-				timestamp: Timestamp.fromDate(new Date()),
-				status: "PENDING",
-				accept_status: "PENDING",
-				payment_status: "PENDING",
-				items: itemsOrdered,
-				subtotal: subTotal,
-				tax_rate: taxRate * 100,
-				total_amount: totalAmount,
-				customer_name: user.displayName,
-				customer_phone: user.phoneNumber,
-				property: selectedProperty,
-				special_instructions: specialInstructions,
-			};
-		} catch (error) {
-			alert.showAlert(handleFirebaseError(error), "Error");
-		}
-	};
 	return {
 		cartItems,
-		addItemsToCart,
-		getCartItemCount,
-		clearCart,
 		isFetchingCartItems,
-		handleIncreaseInVariant,
-		handleDecreaseInVariant,
-		resetVariants,
-		setSelectedVariants,
-		selectedVariants,
-		updateItemInCart,
-		convertCartItemsToAnOrder,
+		getCartItemCount,
+		addItemsToCart,
+		clearCart,
+		addSKUs,
+		removeSKUs,
+		getSKUItemQuantity,
+		updateQuantityInCart,
+		deleteItemFromCart,
 	};
 };

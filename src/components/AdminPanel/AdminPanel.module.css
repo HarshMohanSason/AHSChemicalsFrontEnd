@@ -1,24 +1,53 @@
-.addDataTile{
+.syncIconButton {
+	display: flex;
+	align-items: center;
+	align-self: start;
+	gap: 10px;
+	font-size: 18px;
+	font-weight: 600;
+	color: #fff;
+	background-color: #a5c759;;
+	border: none;
+	padding: 12px 20px;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.syncIconButton i {
+	font-size: 18px;
+	transition: transform 0.3s ease;
+}
+
+.syncIconButton:hover {
+	background-color: #8cb54a;
+	transform: scale(1.03);
+}
+
+.syncIconButton:hover i {
+	transform: rotate(90deg);
+}
+.addDataTile {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding: 12px 50px;
 	border-radius: 63.97px;
-	background: #F7FCEB;
+	background: #f7fceb;
 	cursor: pointer;
 }
-.addDataTile p{
+.addDataTile p {
 	font-size: 31.91px;
 	font-weight: 400;
 	color: #777777;
 }
-.addDataTile button{
+.addDataTile button {
 	border-radius: 50%;
 	height: 81px;
 	width: 81px;
 	color: white;
-	font-size: 50.50px;
+	font-size: 50.5px;
 	border: none;
-	background-color: #A5C759;
+	background-color: #a5c759;
 	cursor: pointer;
 }

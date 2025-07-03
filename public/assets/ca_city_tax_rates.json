@@ -1,0 +1,2422 @@
+{
+  "ALAMEDA": {
+    "Rate": 0.1075,
+    "County": "ALAMEDA",
+    "State": "CALIFORNIA"
+  },
+  "ALBANY": {
+    "Rate": 0.1075,
+    "County": "ALAMEDA",
+    "State": "CALIFORNIA"
+  },
+  "BERKELEY": {
+    "Rate": 0.1025,
+    "County": "ALAMEDA",
+    "State": "CALIFORNIA"
+  },
+  "DUBLIN": {
+    "Rate": 0.1025,
+    "County": "ALAMEDA",
+    "State": "CALIFORNIA"
+  },
+  "EMERYVILLE": {
+    "Rate": 0.105,
+    "County": "ALAMEDA",
+    "State": "CALIFORNIA"
+  },
+  "FREMONT": {
+    "Rate": 0.1025,
+    "County": "ALAMEDA",
+    "State": "CALIFORNIA"
+  },
+  "HAYWARD": {
+    "Rate": 0.1075,
+    "County": "ALAMEDA",
+    "State": "CALIFORNIA"
+  },
+  "LIVERMORE": {
+    "Rate": 0.1025,
+    "County": "ALAMEDA",
+    "State": "CALIFORNIA"
+  },
+  "NEWARK": {
+    "Rate": 0.1075,
+    "County": "ALAMEDA",
+    "State": "CALIFORNIA"
+  },
+  "OAKLAND": {
+    "Rate": 0.1025,
+    "County": "ALAMEDA",
+    "State": "CALIFORNIA"
+  },
+  "PIEDMONT": {
+    "Rate": 0.1025,
+    "County": "ALAMEDA",
+    "State": "CALIFORNIA"
+  },
+  "PLEASANTON": {
+    "Rate": 0.1025,
+    "County": "ALAMEDA",
+    "State": "CALIFORNIA"
+  },
+  "SAN LEANDRO": {
+    "Rate": 0.1075,
+    "County": "ALAMEDA",
+    "State": "CALIFORNIA"
+  },
+  "UNINCORPORATED": {
+    "Rate": 0.0825,
+    "County": "YUBA",
+    "State": "CALIFORNIA"
+  },
+  "UNION CITY": {
+    "Rate": 0.1075,
+    "County": "ALAMEDA",
+    "State": "CALIFORNIA"
+  },
+  "AMADOR CITY": {
+    "Rate": 0.08,
+    "County": "AMADOR",
+    "State": "CALIFORNIA"
+  },
+  "IONE": {
+    "Rate": 0.0775,
+    "County": "AMADOR",
+    "State": "CALIFORNIA"
+  },
+  "JACKSON": {
+    "Rate": 0.0775,
+    "County": "AMADOR",
+    "State": "CALIFORNIA"
+  },
+  "PLYMOUTH": {
+    "Rate": 0.0775,
+    "County": "AMADOR",
+    "State": "CALIFORNIA"
+  },
+  "SUTTER CREEK": {
+    "Rate": 0.0875,
+    "County": "AMADOR",
+    "State": "CALIFORNIA"
+  },
+  "BIGGS": {
+    "Rate": 0.0825,
+    "County": "BUTTE",
+    "State": "CALIFORNIA"
+  },
+  "CHICO": {
+    "Rate": 0.0925,
+    "County": "BUTTE",
+    "State": "CALIFORNIA"
+  },
+  "GRIDLEY": {
+    "Rate": 0.0825,
+    "County": "BUTTE",
+    "State": "CALIFORNIA"
+  },
+  "OROVILLE": {
+    "Rate": 0.0925,
+    "County": "BUTTE",
+    "State": "CALIFORNIA"
+  },
+  "PARADISE": {
+    "Rate": 0.0875,
+    "County": "BUTTE",
+    "State": "CALIFORNIA"
+  },
+  "ANGELS CAMP": {
+    "Rate": 0.0875,
+    "County": "CALAVERAS",
+    "State": "CALIFORNIA"
+  },
+  "COLUSA": {
+    "Rate": 0.0875,
+    "County": "COLUSA",
+    "State": "CALIFORNIA"
+  },
+  "WILLIAMS": {
+    "Rate": 0.0825,
+    "County": "COLUSA",
+    "State": "CALIFORNIA"
+  },
+  "ANTIOCH": {
+    "Rate": 0.0975,
+    "County": "CONTRA COSTA",
+    "State": "CALIFORNIA"
+  },
+  "BRENTWOOD": {
+    "Rate": 0.0875,
+    "County": "CONTRA COSTA",
+    "State": "CALIFORNIA"
+  },
+  "CLAYTON": {
+    "Rate": 0.0875,
+    "County": "CONTRA COSTA",
+    "State": "CALIFORNIA"
+  },
+  "CONCORD": {
+    "Rate": 0.0975,
+    "County": "CONTRA COSTA",
+    "State": "CALIFORNIA"
+  },
+  "DANVILLE": {
+    "Rate": 0.0875,
+    "County": "CONTRA COSTA",
+    "State": "CALIFORNIA"
+  },
+  "EL CERRITO": {
+    "Rate": 0.1025,
+    "County": "CONTRA COSTA",
+    "State": "CALIFORNIA"
+  },
+  "HERCULES": {
+    "Rate": 0.0925,
+    "County": "CONTRA COSTA",
+    "State": "CALIFORNIA"
+  },
+  "LAFAYETTE": {
+    "Rate": 0.0925,
+    "County": "CONTRA COSTA",
+    "State": "CALIFORNIA"
+  },
+  "MARTINEZ": {
+    "Rate": 0.0975,
+    "County": "CONTRA COSTA",
+    "State": "CALIFORNIA"
+  },
+  "MORAGA": {
+    "Rate": 0.0975,
+    "County": "CONTRA COSTA",
+    "State": "CALIFORNIA"
+  },
+  "OAKLEY": {
+    "Rate": 0.0875,
+    "County": "CONTRA COSTA",
+    "State": "CALIFORNIA"
+  },
+  "ORINDA": {
+    "Rate": 0.0975,
+    "County": "CONTRA COSTA",
+    "State": "CALIFORNIA"
+  },
+  "PINOLE": {
+    "Rate": 0.1025,
+    "County": "CONTRA COSTA",
+    "State": "CALIFORNIA"
+  },
+  "PITTSBURG": {
+    "Rate": 0.0925,
+    "County": "CONTRA COSTA",
+    "State": "CALIFORNIA"
+  },
+  "PLEASANT HILL": {
+    "Rate": 0.0925,
+    "County": "CONTRA COSTA",
+    "State": "CALIFORNIA"
+  },
+  "RICHMOND": {
+    "Rate": 0.0975,
+    "County": "CONTRA COSTA",
+    "State": "CALIFORNIA"
+  },
+  "SAN PABLO": {
+    "Rate": 0.095,
+    "County": "CONTRA COSTA",
+    "State": "CALIFORNIA"
+  },
+  "SAN RAMON": {
+    "Rate": 0.0975,
+    "County": "CONTRA COSTA",
+    "State": "CALIFORNIA"
+  },
+  "WALNUT CREEK": {
+    "Rate": 0.0925,
+    "County": "CONTRA COSTA",
+    "State": "CALIFORNIA"
+  },
+  "CRESCENT CITY": {
+    "Rate": 0.0825,
+    "County": "DEL NORTE",
+    "State": "CALIFORNIA"
+  },
+  "PLACERVILLE": {
+    "Rate": 0.0825,
+    "County": "EL DORADO",
+    "State": "CALIFORNIA"
+  },
+  "SOUTH LAKE TAHOE": {
+    "Rate": 0.0875,
+    "County": "EL DORADO",
+    "State": "CALIFORNIA"
+  },
+  "CLOVIS": {
+    "Rate": 0.08975,
+    "County": "FRESNO",
+    "State": "CALIFORNIA"
+  },
+  "COALINGA": {
+    "Rate": 0.08975,
+    "County": "FRESNO",
+    "State": "CALIFORNIA"
+  },
+  "FIREBAUGH": {
+    "Rate": 0.07975,
+    "County": "FRESNO",
+    "State": "CALIFORNIA"
+  },
+  "FOWLER": {
+    "Rate": 0.08975,
+    "County": "FRESNO",
+    "State": "CALIFORNIA"
+  },
+  "FRESNO": {
+    "Rate": 0.0835,
+    "County": "FRESNO",
+    "State": "CALIFORNIA"
+  },
+  "HURON": {
+    "Rate": 0.08975,
+    "County": "FRESNO",
+    "State": "CALIFORNIA"
+  },
+  "KERMAN": {
+    "Rate": 0.08975,
+    "County": "FRESNO",
+    "State": "CALIFORNIA"
+  },
+  "KINGSBURG": {
+    "Rate": 0.08975,
+    "County": "FRESNO",
+    "State": "CALIFORNIA"
+  },
+  "MENDOTA": {
+    "Rate": 0.09225,
+    "County": "FRESNO",
+    "State": "CALIFORNIA"
+  },
+  "ORANGE COVE": {
+    "Rate": 0.07975,
+    "County": "FRESNO",
+    "State": "CALIFORNIA"
+  },
+  "PARLIER": {
+    "Rate": 0.08975,
+    "County": "FRESNO",
+    "State": "CALIFORNIA"
+  },
+  "REEDLEY": {
+    "Rate": 0.09225,
+    "County": "FRESNO",
+    "State": "CALIFORNIA"
+  },
+  "SAN JOAQUIN": {
+    "Rate": 0.07975,
+    "County": "FRESNO",
+    "State": "CALIFORNIA"
+  },
+  "SANGER": {
+    "Rate": 0.08725,
+    "County": "FRESNO",
+    "State": "CALIFORNIA"
+  },
+  "SELMA": {
+    "Rate": 0.08475,
+    "County": "FRESNO",
+    "State": "CALIFORNIA"
+  },
+  "ORLAND": {
+    "Rate": 0.0825,
+    "County": "GLENN",
+    "State": "CALIFORNIA"
+  },
+  "WILLOWS": {
+    "Rate": 0.0875,
+    "County": "GLENN",
+    "State": "CALIFORNIA"
+  },
+  "ARCATA": {
+    "Rate": 0.1025,
+    "County": "HUMBOLDT",
+    "State": "CALIFORNIA"
+  },
+  "BLUE LAKE": {
+    "Rate": 0.0975,
+    "County": "HUMBOLDT",
+    "State": "CALIFORNIA"
+  },
+  "EUREKA": {
+    "Rate": 0.1025,
+    "County": "HUMBOLDT",
+    "State": "CALIFORNIA"
+  },
+  "FERNDALE": {
+    "Rate": 0.095,
+    "County": "HUMBOLDT",
+    "State": "CALIFORNIA"
+  },
+  "FORTUNA": {
+    "Rate": 0.095,
+    "County": "HUMBOLDT",
+    "State": "CALIFORNIA"
+  },
+  "RIO DELL": {
+    "Rate": 0.095,
+    "County": "HUMBOLDT",
+    "State": "CALIFORNIA"
+  },
+  "TRINIDAD": {
+    "Rate": 0.095,
+    "County": "HUMBOLDT",
+    "State": "CALIFORNIA"
+  },
+  "BRAWLEY": {
+    "Rate": 0.0875,
+    "County": "IMPERIAL",
+    "State": "CALIFORNIA"
+  },
+  "CALEXICO": {
+    "Rate": 0.0825,
+    "County": "IMPERIAL",
+    "State": "CALIFORNIA"
+  },
+  "CALIPATRIA": {
+    "Rate": 0.0775,
+    "County": "IMPERIAL",
+    "State": "CALIFORNIA"
+  },
+  "EL CENTRO": {
+    "Rate": 0.0825,
+    "County": "IMPERIAL",
+    "State": "CALIFORNIA"
+  },
+  "HOLTVILLE": {
+    "Rate": 0.0775,
+    "County": "IMPERIAL",
+    "State": "CALIFORNIA"
+  },
+  "IMPERIAL": {
+    "Rate": 0.0775,
+    "County": "IMPERIAL",
+    "State": "CALIFORNIA"
+  },
+  "WESTMORLAND": {
+    "Rate": 0.0775,
+    "County": "IMPERIAL",
+    "State": "CALIFORNIA"
+  },
+  "BISHOP": {
+    "Rate": 0.0875,
+    "County": "INYO",
+    "State": "CALIFORNIA"
+  },
+  "ARVIN": {
+    "Rate": 0.0825,
+    "County": "KERN",
+    "State": "CALIFORNIA"
+  },
+  "BAKERSFIELD": {
+    "Rate": 0.0825,
+    "County": "KERN",
+    "State": "CALIFORNIA"
+  },
+  "CALIFORNIA CITY": {
+    "Rate": 0.0725,
+    "County": "KERN",
+    "State": "CALIFORNIA"
+  },
+  "DELANO": {
+    "Rate": 0.0825,
+    "County": "KERN",
+    "State": "CALIFORNIA"
+  },
+  "MARICOPA": {
+    "Rate": 0.0825,
+    "County": "KERN",
+    "State": "CALIFORNIA"
+  },
+  "MCFARLAND": {
+    "Rate": 0.0825,
+    "County": "KERN",
+    "State": "CALIFORNIA"
+  },
+  "RIDGECREST": {
+    "Rate": 0.0925,
+    "County": "KERN",
+    "State": "CALIFORNIA"
+  },
+  "SHAFTER": {
+    "Rate": 0.0725,
+    "County": "KERN",
+    "State": "CALIFORNIA"
+  },
+  "TAFT": {
+    "Rate": 0.0825,
+    "County": "KERN",
+    "State": "CALIFORNIA"
+  },
+  "TEHACHAPI": {
+    "Rate": 0.0825,
+    "County": "KERN",
+    "State": "CALIFORNIA"
+  },
+  "WASCO": {
+    "Rate": 0.0825,
+    "County": "KERN",
+    "State": "CALIFORNIA"
+  },
+  "AVENAL": {
+    "Rate": 0.0825,
+    "County": "KINGS",
+    "State": "CALIFORNIA"
+  },
+  "CORCORAN": {
+    "Rate": 0.0825,
+    "County": "KINGS",
+    "State": "CALIFORNIA"
+  },
+  "HANFORD": {
+    "Rate": 0.0825,
+    "County": "KINGS",
+    "State": "CALIFORNIA"
+  },
+  "LEMOORE": {
+    "Rate": 0.0825,
+    "County": "KINGS",
+    "State": "CALIFORNIA"
+  },
+  "CLEARLAKE": {
+    "Rate": 0.0875,
+    "County": "LAKE",
+    "State": "CALIFORNIA"
+  },
+  "LAKEPORT": {
+    "Rate": 0.0875,
+    "County": "LAKE",
+    "State": "CALIFORNIA"
+  },
+  "SUSANVILLE": {
+    "Rate": 0.0825,
+    "County": "LASSEN",
+    "State": "CALIFORNIA"
+  },
+  "AGOURA HILLS": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "ALHAMBRA": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "ARCADIA": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "ARTESIA": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "AVALON": {
+    "Rate": 0.1025,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "AZUSA": {
+    "Rate": 0.1075,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "BALDWIN PARK": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "BELL": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "BELL GARDENS": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "BELLFLOWER": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "BEVERLY HILLS": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "BRADBURY": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "BURBANK": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "CALABASAS": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "CARSON": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "CERRITOS": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "CLAREMONT": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "COMMERCE": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "COMPTON": {
+    "Rate": 0.1075,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "COVINA": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "CUDAHY": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "CULVER CITY": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "DIAMOND BAR": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "DOWNEY": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "DUARTE": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "EL MONTE": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "EL SEGUNDO": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "GARDENA": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "GLENDALE": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "GLENDORA": {
+    "Rate": 0.1075,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "HAWAIIAN GARDENS": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "HAWTHORNE": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "HERMOSA BEACH": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "HIDDEN HILLS": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "HUNTINGTON PARK": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "INDUSTRY": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "INGLEWOOD": {
+    "Rate": 0.1025,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "IRWINDALE": {
+    "Rate": 0.1075,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "LA CA\u00d1ADA FLINTRIDGE": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "LA HABRA HEIGHTS": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "LA MIRADA": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "LA PUENTE": {
+    "Rate": 0.1025,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "LA VERNE": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "LAKEWOOD": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "LANCASTER": {
+    "Rate": 0.1125,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "LAWNDALE": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "LOMITA": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "LONG BEACH": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "LOS ANGELES": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "LYNWOOD": {
+    "Rate": 0.1075,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "MALIBU": {
+    "Rate": 0.1025,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "MANHATTAN BEACH": {
+    "Rate": 0.1025,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "MAYWOOD": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "MONROVIA": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "MONTEBELLO": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "MONTEREY PARK": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "NORWALK": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "PALMDALE": {
+    "Rate": 0.1125,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "PALOS VERDES ESTATES": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "PARAMOUNT": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "PASADENA": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "PICO RIVERA": {
+    "Rate": 0.1075,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "POMONA": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "RANCHO PALOS VERDES": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "REDONDO BEACH": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "ROLLING HILLS": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "ROLLING HILLS ESTATES": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "ROSEMEAD": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "SAN DIMAS": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "SAN FERNANDO": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "SAN GABRIEL": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "SAN MARINO": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "SANTA CLARITA": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "SANTA FE SPRINGS": {
+    "Rate": 0.1075,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "SANTA MONICA": {
+    "Rate": 0.1075,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "SIERRA MADRE": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "SIGNAL HILL": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "SOUTH EL MONTE": {
+    "Rate": 0.1075,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "SOUTH GATE": {
+    "Rate": 0.1075,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "SOUTH PASADENA": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "TEMPLE CITY": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "TORRANCE": {
+    "Rate": 0.1025,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "VERNON": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "WALNUT": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "WEST COVINA": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "WEST HOLLYWOOD": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "WESTLAKE VILLAGE": {
+    "Rate": 0.0975,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "WHITTIER": {
+    "Rate": 0.105,
+    "County": "LOS ANGELES",
+    "State": "CALIFORNIA"
+  },
+  "CHOWCHILLA": {
+    "Rate": 0.0875,
+    "County": "MADERA",
+    "State": "CALIFORNIA"
+  },
+  "MADERA": {
+    "Rate": 0.0825,
+    "County": "MADERA",
+    "State": "CALIFORNIA"
+  },
+  "BELVEDERE": {
+    "Rate": 0.0825,
+    "County": "MARIN",
+    "State": "CALIFORNIA"
+  },
+  "CORTE MADERA": {
+    "Rate": 0.09,
+    "County": "MARIN",
+    "State": "CALIFORNIA"
+  },
+  "FAIRFAX": {
+    "Rate": 0.09,
+    "County": "MARIN",
+    "State": "CALIFORNIA"
+  },
+  "LARKSPUR": {
+    "Rate": 0.0925,
+    "County": "MARIN",
+    "State": "CALIFORNIA"
+  },
+  "MILL VALLEY": {
+    "Rate": 0.0925,
+    "County": "MARIN",
+    "State": "CALIFORNIA"
+  },
+  "NOVATO": {
+    "Rate": 0.0925,
+    "County": "MARIN",
+    "State": "CALIFORNIA"
+  },
+  "ROSS": {
+    "Rate": 0.0825,
+    "County": "MARIN",
+    "State": "CALIFORNIA"
+  },
+  "SAN ANSELMO": {
+    "Rate": 0.0925,
+    "County": "MARIN",
+    "State": "CALIFORNIA"
+  },
+  "SAN RAFAEL": {
+    "Rate": 0.0925,
+    "County": "MARIN",
+    "State": "CALIFORNIA"
+  },
+  "SAUSALITO": {
+    "Rate": 0.0925,
+    "County": "MARIN",
+    "State": "CALIFORNIA"
+  },
+  "TIBURON": {
+    "Rate": 0.0825,
+    "County": "MARIN",
+    "State": "CALIFORNIA"
+  },
+  "FORT BRAGG": {
+    "Rate": 0.0925,
+    "County": "MENDOCINO",
+    "State": "CALIFORNIA"
+  },
+  "POINT ARENA": {
+    "Rate": 0.0925,
+    "County": "MENDOCINO",
+    "State": "CALIFORNIA"
+  },
+  "UKIAH": {
+    "Rate": 0.08875,
+    "County": "MENDOCINO",
+    "State": "CALIFORNIA"
+  },
+  "WILLITS": {
+    "Rate": 0.09125,
+    "County": "MENDOCINO",
+    "State": "CALIFORNIA"
+  },
+  "ATWATER": {
+    "Rate": 0.0875,
+    "County": "MERCED",
+    "State": "CALIFORNIA"
+  },
+  "DOS PALOS": {
+    "Rate": 0.0775,
+    "County": "MERCED",
+    "State": "CALIFORNIA"
+  },
+  "GUSTINE": {
+    "Rate": 0.0825,
+    "County": "MERCED",
+    "State": "CALIFORNIA"
+  },
+  "LIVINGSTON": {
+    "Rate": 0.0875,
+    "County": "MERCED",
+    "State": "CALIFORNIA"
+  },
+  "LOS BANOS": {
+    "Rate": 0.0875,
+    "County": "MERCED",
+    "State": "CALIFORNIA"
+  },
+  "MERCED": {
+    "Rate": 0.0825,
+    "County": "MERCED",
+    "State": "CALIFORNIA"
+  },
+  "ALTURAS": {
+    "Rate": 0.0725,
+    "County": "MODOC",
+    "State": "CALIFORNIA"
+  },
+  "MAMMOTH LAKES": {
+    "Rate": 0.0775,
+    "County": "MONO",
+    "State": "CALIFORNIA"
+  },
+  "CARMEL-BY-THE-SEA": {
+    "Rate": 0.0925,
+    "County": "MONTEREY",
+    "State": "CALIFORNIA"
+  },
+  "DEL REY OAKS": {
+    "Rate": 0.0925,
+    "County": "MONTEREY",
+    "State": "CALIFORNIA"
+  },
+  "GONZALES": {
+    "Rate": 0.0875,
+    "County": "MONTEREY",
+    "State": "CALIFORNIA"
+  },
+  "GREENFIELD": {
+    "Rate": 0.095,
+    "County": "MONTEREY",
+    "State": "CALIFORNIA"
+  },
+  "KING CITY": {
+    "Rate": 0.0875,
+    "County": "MONTEREY",
+    "State": "CALIFORNIA"
+  },
+  "MARINA": {
+    "Rate": 0.0925,
+    "County": "MONTEREY",
+    "State": "CALIFORNIA"
+  },
+  "MONTEREY": {
+    "Rate": 0.0925,
+    "County": "MONTEREY",
+    "State": "CALIFORNIA"
+  },
+  "PACIFIC GROVE": {
+    "Rate": 0.0925,
+    "County": "MONTEREY",
+    "State": "CALIFORNIA"
+  },
+  "SALINAS": {
+    "Rate": 0.0925,
+    "County": "MONTEREY",
+    "State": "CALIFORNIA"
+  },
+  "SAND CITY": {
+    "Rate": 0.0925,
+    "County": "MONTEREY",
+    "State": "CALIFORNIA"
+  },
+  "SEASIDE": {
+    "Rate": 0.0925,
+    "County": "MONTEREY",
+    "State": "CALIFORNIA"
+  },
+  "SOLEDAD": {
+    "Rate": 0.0925,
+    "County": "MONTEREY",
+    "State": "CALIFORNIA"
+  },
+  "AMERICAN CANYON": {
+    "Rate": 0.0775,
+    "County": "NAPA",
+    "State": "CALIFORNIA"
+  },
+  "CALISTOGA": {
+    "Rate": 0.0775,
+    "County": "NAPA",
+    "State": "CALIFORNIA"
+  },
+  "NAPA": {
+    "Rate": 0.0875,
+    "County": "NAPA",
+    "State": "CALIFORNIA"
+  },
+  "ST. HELENA": {
+    "Rate": 0.0825,
+    "County": "NAPA",
+    "State": "CALIFORNIA"
+  },
+  "YOUNTVILLE": {
+    "Rate": 0.0775,
+    "County": "NAPA",
+    "State": "CALIFORNIA"
+  },
+  "GRASS VALLEY": {
+    "Rate": 0.08875,
+    "County": "NEVADA",
+    "State": "CALIFORNIA"
+  },
+  "NEVADA CITY": {
+    "Rate": 0.08875,
+    "County": "NEVADA",
+    "State": "CALIFORNIA"
+  },
+  "TRUCKEE": {
+    "Rate": 0.09,
+    "County": "NEVADA",
+    "State": "CALIFORNIA"
+  },
+  "ALISO VIEJO": {
+    "Rate": 0.0775,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "ANAHEIM": {
+    "Rate": 0.0775,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "BREA": {
+    "Rate": 0.0775,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "BUENA PARK": {
+    "Rate": 0.0875,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "COSTA MESA": {
+    "Rate": 0.0775,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "CYPRESS": {
+    "Rate": 0.0775,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "DANA POINT": {
+    "Rate": 0.0775,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "FOUNTAIN VALLEY": {
+    "Rate": 0.0875,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "FULLERTON": {
+    "Rate": 0.0775,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "GARDEN GROVE": {
+    "Rate": 0.0875,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "HUNTINGTON BEACH": {
+    "Rate": 0.0775,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "IRVINE": {
+    "Rate": 0.0775,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "LA HABRA": {
+    "Rate": 0.0875,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "LA PALMA": {
+    "Rate": 0.0875,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "LAGUNA BEACH": {
+    "Rate": 0.0775,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "LAGUNA HILLS": {
+    "Rate": 0.0775,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "LAGUNA NIGUEL": {
+    "Rate": 0.0775,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "LAGUNA WOODS": {
+    "Rate": 0.0775,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "LAKE FOREST": {
+    "Rate": 0.0775,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "LOS ALAMITOS": {
+    "Rate": 0.0925,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "MISSION VIEJO": {
+    "Rate": 0.0775,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "NEWPORT BEACH": {
+    "Rate": 0.0775,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "ORANGE": {
+    "Rate": 0.0775,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "PLACENTIA": {
+    "Rate": 0.0875,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "RANCHO SANTA MARGARITA": {
+    "Rate": 0.0775,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "SAN CLEMENTE": {
+    "Rate": 0.0775,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "SAN JUAN CAPISTRANO": {
+    "Rate": 0.0775,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "SANTA ANA": {
+    "Rate": 0.0925,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "SEAL BEACH": {
+    "Rate": 0.0925,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "STANTON": {
+    "Rate": 0.0875,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "TUSTIN": {
+    "Rate": 0.0775,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "VILLA PARK": {
+    "Rate": 0.0775,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "WESTMINSTER": {
+    "Rate": 0.0925,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "YORBA LINDA": {
+    "Rate": 0.0775,
+    "County": "ORANGE",
+    "State": "CALIFORNIA"
+  },
+  "AUBURN": {
+    "Rate": 0.0725,
+    "County": "PLACER",
+    "State": "CALIFORNIA"
+  },
+  "COLFAX": {
+    "Rate": 0.0725,
+    "County": "PLACER",
+    "State": "CALIFORNIA"
+  },
+  "LINCOLN": {
+    "Rate": 0.0725,
+    "County": "PLACER",
+    "State": "CALIFORNIA"
+  },
+  "LOOMIS": {
+    "Rate": 0.075,
+    "County": "PLACER",
+    "State": "CALIFORNIA"
+  },
+  "ROCKLIN": {
+    "Rate": 0.0725,
+    "County": "PLACER",
+    "State": "CALIFORNIA"
+  },
+  "ROSEVILLE": {
+    "Rate": 0.0775,
+    "County": "PLACER",
+    "State": "CALIFORNIA"
+  },
+  "PORTOLA": {
+    "Rate": 0.0725,
+    "County": "PLUMAS",
+    "State": "CALIFORNIA"
+  },
+  "BANNING": {
+    "Rate": 0.0775,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "BEAUMONT": {
+    "Rate": 0.0775,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "BLYTHE": {
+    "Rate": 0.0875,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "CALIMESA": {
+    "Rate": 0.0775,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "CANYON LAKE": {
+    "Rate": 0.0775,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "CATHEDRAL CITY": {
+    "Rate": 0.0925,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "COACHELLA": {
+    "Rate": 0.0875,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "CORONA": {
+    "Rate": 0.0875,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "DESERT HOT SPRINGS": {
+    "Rate": 0.0875,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "EASTVALE": {
+    "Rate": 0.0775,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "HEMET": {
+    "Rate": 0.0875,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "INDIAN WELLS": {
+    "Rate": 0.0775,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "INDIO": {
+    "Rate": 0.0875,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "JURUPA VALLEY": {
+    "Rate": 0.0775,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "LA QUINTA": {
+    "Rate": 0.0875,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "LAKE ELSINORE": {
+    "Rate": 0.0875,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "MENIFEE": {
+    "Rate": 0.0875,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "MORENO VALLEY": {
+    "Rate": 0.0875,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "MURRIETA": {
+    "Rate": 0.0875,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "NORCO": {
+    "Rate": 0.0875,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "PALM DESERT": {
+    "Rate": 0.0875,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "PALM SPRINGS": {
+    "Rate": 0.0925,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "PERRIS": {
+    "Rate": 0.0775,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "RANCHO MIRAGE": {
+    "Rate": 0.0775,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "RIVERSIDE": {
+    "Rate": 0.0875,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "SAN JACINTO": {
+    "Rate": 0.0875,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "TEMECULA": {
+    "Rate": 0.0875,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "WILDOMAR": {
+    "Rate": 0.0875,
+    "County": "RIVERSIDE",
+    "State": "CALIFORNIA"
+  },
+  "CITRUS HEIGHTS": {
+    "Rate": 0.0775,
+    "County": "SACRAMENTO",
+    "State": "CALIFORNIA"
+  },
+  "ELK GROVE": {
+    "Rate": 0.0875,
+    "County": "SACRAMENTO",
+    "State": "CALIFORNIA"
+  },
+  "FOLSOM": {
+    "Rate": 0.0775,
+    "County": "SACRAMENTO",
+    "State": "CALIFORNIA"
+  },
+  "GALT": {
+    "Rate": 0.0925,
+    "County": "SACRAMENTO",
+    "State": "CALIFORNIA"
+  },
+  "ISLETON": {
+    "Rate": 0.0875,
+    "County": "SACRAMENTO",
+    "State": "CALIFORNIA"
+  },
+  "RANCHO CORDOVA": {
+    "Rate": 0.0875,
+    "County": "SACRAMENTO",
+    "State": "CALIFORNIA"
+  },
+  "SACRAMENTO": {
+    "Rate": 0.0875,
+    "County": "SACRAMENTO",
+    "State": "CALIFORNIA"
+  },
+  "HOLLISTER": {
+    "Rate": 0.0925,
+    "County": "SAN BENITO",
+    "State": "CALIFORNIA"
+  },
+  "SAN JUAN BAUTISTA": {
+    "Rate": 0.09,
+    "County": "SAN BENITO",
+    "State": "CALIFORNIA"
+  },
+  "ADELANTO": {
+    "Rate": 0.0775,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "APPLE VALLEY": {
+    "Rate": 0.0875,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "BARSTOW": {
+    "Rate": 0.0875,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "BIG BEAR LAKE": {
+    "Rate": 0.0775,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "CHINO": {
+    "Rate": 0.0875,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "CHINO HILLS": {
+    "Rate": 0.0775,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "COLTON": {
+    "Rate": 0.0875,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "FONTANA": {
+    "Rate": 0.0875,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "GRAND TERRACE": {
+    "Rate": 0.0775,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "HESPERIA": {
+    "Rate": 0.0775,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "HIGHLAND": {
+    "Rate": 0.0775,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "LOMA LINDA": {
+    "Rate": 0.0775,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "MONTCLAIR": {
+    "Rate": 0.09,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "NEEDLES": {
+    "Rate": 0.0775,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "ONTARIO": {
+    "Rate": 0.0875,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "RANCHO CUCAMONGA": {
+    "Rate": 0.0775,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "REDLANDS": {
+    "Rate": 0.0875,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "RIALTO": {
+    "Rate": 0.0775,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "SAN BERNARDINO": {
+    "Rate": 0.0875,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "TWENTYNINE PALMS": {
+    "Rate": 0.0775,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "UPLAND": {
+    "Rate": 0.0775,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "VICTORVILLE": {
+    "Rate": 0.0875,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "YUCAIPA": {
+    "Rate": 0.0875,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "YUCCA VALLEY": {
+    "Rate": 0.0875,
+    "County": "SAN BERNARDINO",
+    "State": "CALIFORNIA"
+  },
+  "CARLSBAD": {
+    "Rate": 0.0775,
+    "County": "SAN DIEGO",
+    "State": "CALIFORNIA"
+  },
+  "CHULA VISTA": {
+    "Rate": 0.0875,
+    "County": "SAN DIEGO",
+    "State": "CALIFORNIA"
+  },
+  "CORONADO": {
+    "Rate": 0.0775,
+    "County": "SAN DIEGO",
+    "State": "CALIFORNIA"
+  },
+  "DEL MAR": {
+    "Rate": 0.0875,
+    "County": "SAN DIEGO",
+    "State": "CALIFORNIA"
+  },
+  "EL CAJON": {
+    "Rate": 0.0825,
+    "County": "SAN DIEGO",
+    "State": "CALIFORNIA"
+  },
+  "ENCINITAS": {
+    "Rate": 0.0775,
+    "County": "SAN DIEGO",
+    "State": "CALIFORNIA"
+  },
+  "ESCONDIDO": {
+    "Rate": 0.0875,
+    "County": "SAN DIEGO",
+    "State": "CALIFORNIA"
+  },
+  "IMPERIAL BEACH": {
+    "Rate": 0.0875,
+    "County": "SAN DIEGO",
+    "State": "CALIFORNIA"
+  },
+  "LA MESA": {
+    "Rate": 0.085,
+    "County": "SAN DIEGO",
+    "State": "CALIFORNIA"
+  },
+  "LEMON GROVE": {
+    "Rate": 0.0775,
+    "County": "SAN DIEGO",
+    "State": "CALIFORNIA"
+  },
+  "NATIONAL CITY": {
+    "Rate": 0.0875,
+    "County": "SAN DIEGO",
+    "State": "CALIFORNIA"
+  },
+  "OCEANSIDE": {
+    "Rate": 0.0825,
+    "County": "SAN DIEGO",
+    "State": "CALIFORNIA"
+  },
+  "POWAY": {
+    "Rate": 0.0775,
+    "County": "SAN DIEGO",
+    "State": "CALIFORNIA"
+  },
+  "SAN DIEGO": {
+    "Rate": 0.0775,
+    "County": "SAN DIEGO",
+    "State": "CALIFORNIA"
+  },
+  "SAN MARCOS": {
+    "Rate": 0.0875,
+    "County": "SAN DIEGO",
+    "State": "CALIFORNIA"
+  },
+  "SANTEE": {
+    "Rate": 0.0775,
+    "County": "SAN DIEGO",
+    "State": "CALIFORNIA"
+  },
+  "SOLANA BEACH": {
+    "Rate": 0.0875,
+    "County": "SAN DIEGO",
+    "State": "CALIFORNIA"
+  },
+  "VISTA": {
+    "Rate": 0.0825,
+    "County": "SAN DIEGO",
+    "State": "CALIFORNIA"
+  },
+  "SAN FRANCISCO": {
+    "Rate": 0.08625,
+    "County": "SAN FRANCISCO",
+    "State": "CALIFORNIA"
+  },
+  "ESCALON": {
+    "Rate": 0.0875,
+    "County": "SAN JOAQUIN",
+    "State": "CALIFORNIA"
+  },
+  "LATHROP": {
+    "Rate": 0.0875,
+    "County": "SAN JOAQUIN",
+    "State": "CALIFORNIA"
+  },
+  "LODI": {
+    "Rate": 0.0825,
+    "County": "SAN JOAQUIN",
+    "State": "CALIFORNIA"
+  },
+  "MANTECA": {
+    "Rate": 0.09,
+    "County": "SAN JOAQUIN",
+    "State": "CALIFORNIA"
+  },
+  "MOUNTAIN HOUSE": {
+    "Rate": 0.0775,
+    "County": "SAN JOAQUIN",
+    "State": "CALIFORNIA"
+  },
+  "RIPON": {
+    "Rate": 0.0775,
+    "County": "SAN JOAQUIN",
+    "State": "CALIFORNIA"
+  },
+  "STOCKTON": {
+    "Rate": 0.09,
+    "County": "SAN JOAQUIN",
+    "State": "CALIFORNIA"
+  },
+  "TRACY": {
+    "Rate": 0.0825,
+    "County": "SAN JOAQUIN",
+    "State": "CALIFORNIA"
+  },
+  "ARROYO GRANDE": {
+    "Rate": 0.0875,
+    "County": "SAN LUIS OBISPO",
+    "State": "CALIFORNIA"
+  },
+  "ATASCADERO": {
+    "Rate": 0.0875,
+    "County": "SAN LUIS OBISPO",
+    "State": "CALIFORNIA"
+  },
+  "GROVER BEACH": {
+    "Rate": 0.0875,
+    "County": "SAN LUIS OBISPO",
+    "State": "CALIFORNIA"
+  },
+  "MORRO BAY": {
+    "Rate": 0.0875,
+    "County": "SAN LUIS OBISPO",
+    "State": "CALIFORNIA"
+  },
+  "PASO ROBLES": {
+    "Rate": 0.0875,
+    "County": "SAN LUIS OBISPO",
+    "State": "CALIFORNIA"
+  },
+  "PISMO BEACH": {
+    "Rate": 0.0825,
+    "County": "SAN LUIS OBISPO",
+    "State": "CALIFORNIA"
+  },
+  "SAN LUIS OBISPO": {
+    "Rate": 0.0875,
+    "County": "SAN LUIS OBISPO",
+    "State": "CALIFORNIA"
+  },
+  "ATHERTON": {
+    "Rate": 0.09375,
+    "County": "SAN MATEO",
+    "State": "CALIFORNIA"
+  },
+  "BELMONT": {
+    "Rate": 0.09875,
+    "County": "SAN MATEO",
+    "State": "CALIFORNIA"
+  },
+  "BRISBANE": {
+    "Rate": 0.09875,
+    "County": "SAN MATEO",
+    "State": "CALIFORNIA"
+  },
+  "BURLINGAME": {
+    "Rate": 0.09625,
+    "County": "SAN MATEO",
+    "State": "CALIFORNIA"
+  },
+  "COLMA": {
+    "Rate": 0.09375,
+    "County": "SAN MATEO",
+    "State": "CALIFORNIA"
+  },
+  "DALY CITY": {
+    "Rate": 0.09875,
+    "County": "SAN MATEO",
+    "State": "CALIFORNIA"
+  },
+  "EAST PALO ALTO": {
+    "Rate": 0.09875,
+    "County": "SAN MATEO",
+    "State": "CALIFORNIA"
+  },
+  "FOSTER CITY": {
+    "Rate": 0.09375,
+    "County": "SAN MATEO",
+    "State": "CALIFORNIA"
+  },
+  "HALF MOON BAY": {
+    "Rate": 0.09875,
+    "County": "SAN MATEO",
+    "State": "CALIFORNIA"
+  },
+  "HILLSBOROUGH": {
+    "Rate": 0.09375,
+    "County": "SAN MATEO",
+    "State": "CALIFORNIA"
+  },
+  "MENLO PARK": {
+    "Rate": 0.09375,
+    "County": "SAN MATEO",
+    "State": "CALIFORNIA"
+  },
+  "MILLBRAE": {
+    "Rate": 0.09375,
+    "County": "SAN MATEO",
+    "State": "CALIFORNIA"
+  },
+  "PACIFICA": {
+    "Rate": 0.09875,
+    "County": "SAN MATEO",
+    "State": "CALIFORNIA"
+  },
+  "PORTOLA VALLEY": {
+    "Rate": 0.09375,
+    "County": "SAN MATEO",
+    "State": "CALIFORNIA"
+  },
+  "REDWOOD CITY": {
+    "Rate": 0.09875,
+    "County": "SAN MATEO",
+    "State": "CALIFORNIA"
+  },
+  "SAN BRUNO": {
+    "Rate": 0.09875,
+    "County": "SAN MATEO",
+    "State": "CALIFORNIA"
+  },
+  "SAN CARLOS": {
+    "Rate": 0.09375,
+    "County": "SAN MATEO",
+    "State": "CALIFORNIA"
+  },
+  "SAN MATEO": {
+    "Rate": 0.09625,
+    "County": "SAN MATEO",
+    "State": "CALIFORNIA"
+  },
+  "SOUTH SAN FRANCISCO": {
+    "Rate": 0.09875,
+    "County": "SAN MATEO",
+    "State": "CALIFORNIA"
+  },
+  "WOODSIDE": {
+    "Rate": 0.09375,
+    "County": "SAN MATEO",
+    "State": "CALIFORNIA"
+  },
+  "BUELLTON": {
+    "Rate": 0.0775,
+    "County": "SANTA BARBARA",
+    "State": "CALIFORNIA"
+  },
+  "CARPINTERIA": {
+    "Rate": 0.09,
+    "County": "SANTA BARBARA",
+    "State": "CALIFORNIA"
+  },
+  "GOLETA": {
+    "Rate": 0.0875,
+    "County": "SANTA BARBARA",
+    "State": "CALIFORNIA"
+  },
+  "GUADALUPE": {
+    "Rate": 0.0875,
+    "County": "SANTA BARBARA",
+    "State": "CALIFORNIA"
+  },
+  "LOMPOC": {
+    "Rate": 0.0875,
+    "County": "SANTA BARBARA",
+    "State": "CALIFORNIA"
+  },
+  "SANTA BARBARA": {
+    "Rate": 0.0925,
+    "County": "SANTA BARBARA",
+    "State": "CALIFORNIA"
+  },
+  "SANTA MARIA": {
+    "Rate": 0.0875,
+    "County": "SANTA BARBARA",
+    "State": "CALIFORNIA"
+  },
+  "SOLVANG": {
+    "Rate": 0.0875,
+    "County": "SANTA BARBARA",
+    "State": "CALIFORNIA"
+  },
+  "CAMPBELL": {
+    "Rate": 0.09875,
+    "County": "SANTA CLARA",
+    "State": "CALIFORNIA"
+  },
+  "CUPERTINO": {
+    "Rate": 0.09125,
+    "County": "SANTA CLARA",
+    "State": "CALIFORNIA"
+  },
+  "GILROY": {
+    "Rate": 0.09125,
+    "County": "SANTA CLARA",
+    "State": "CALIFORNIA"
+  },
+  "LOS ALTOS": {
+    "Rate": 0.09125,
+    "County": "SANTA CLARA",
+    "State": "CALIFORNIA"
+  },
+  "LOS ALTOS HILLS": {
+    "Rate": 0.09125,
+    "County": "SANTA CLARA",
+    "State": "CALIFORNIA"
+  },
+  "LOS GATOS": {
+    "Rate": 0.0925,
+    "County": "SANTA CLARA",
+    "State": "CALIFORNIA"
+  },
+  "MILPITAS": {
+    "Rate": 0.09375,
+    "County": "SANTA CLARA",
+    "State": "CALIFORNIA"
+  },
+  "MONTE SERENO": {
+    "Rate": 0.09125,
+    "County": "SANTA CLARA",
+    "State": "CALIFORNIA"
+  },
+  "MORGAN HILL": {
+    "Rate": 0.09125,
+    "County": "SANTA CLARA",
+    "State": "CALIFORNIA"
+  },
+  "MOUNTAIN VIEW": {
+    "Rate": 0.09125,
+    "County": "SANTA CLARA",
+    "State": "CALIFORNIA"
+  },
+  "PALO ALTO": {
+    "Rate": 0.09125,
+    "County": "SANTA CLARA",
+    "State": "CALIFORNIA"
+  },
+  "SAN JOSE": {
+    "Rate": 0.09375,
+    "County": "SANTA CLARA",
+    "State": "CALIFORNIA"
+  },
+  "SANTA CLARA": {
+    "Rate": 0.09125,
+    "County": "SANTA CLARA",
+    "State": "CALIFORNIA"
+  },
+  "SARATOGA": {
+    "Rate": 0.09125,
+    "County": "SANTA CLARA",
+    "State": "CALIFORNIA"
+  },
+  "SUNNYVALE": {
+    "Rate": 0.09125,
+    "County": "SANTA CLARA",
+    "State": "CALIFORNIA"
+  },
+  "CAPITOLA": {
+    "Rate": 0.0925,
+    "County": "SANTA CRUZ",
+    "State": "CALIFORNIA"
+  },
+  "SANTA CRUZ": {
+    "Rate": 0.0975,
+    "County": "SANTA CRUZ",
+    "State": "CALIFORNIA"
+  },
+  "SCOTTS VALLEY": {
+    "Rate": 0.0975,
+    "County": "SANTA CRUZ",
+    "State": "CALIFORNIA"
+  },
+  "WATSONVILLE": {
+    "Rate": 0.0975,
+    "County": "SANTA CRUZ",
+    "State": "CALIFORNIA"
+  },
+  "ANDERSON": {
+    "Rate": 0.0775,
+    "County": "SHASTA",
+    "State": "CALIFORNIA"
+  },
+  "REDDING": {
+    "Rate": 0.0725,
+    "County": "SHASTA",
+    "State": "CALIFORNIA"
+  },
+  "SHASTA LAKE": {
+    "Rate": 0.0725,
+    "County": "SHASTA",
+    "State": "CALIFORNIA"
+  },
+  "LOYALTON": {
+    "Rate": 0.0725,
+    "County": "SIERRA",
+    "State": "CALIFORNIA"
+  },
+  "DORRIS": {
+    "Rate": 0.0725,
+    "County": "SISKIYOU",
+    "State": "CALIFORNIA"
+  },
+  "DUNSMUIR": {
+    "Rate": 0.0775,
+    "County": "SISKIYOU",
+    "State": "CALIFORNIA"
+  },
+  "ETNA": {
+    "Rate": 0.0725,
+    "County": "SISKIYOU",
+    "State": "CALIFORNIA"
+  },
+  "FORT JONES": {
+    "Rate": 0.0725,
+    "County": "SISKIYOU",
+    "State": "CALIFORNIA"
+  },
+  "MONTAGUE": {
+    "Rate": 0.0725,
+    "County": "SISKIYOU",
+    "State": "CALIFORNIA"
+  },
+  "MOUNT SHASTA": {
+    "Rate": 0.075,
+    "County": "SISKIYOU",
+    "State": "CALIFORNIA"
+  },
+  "TULELAKE": {
+    "Rate": 0.0725,
+    "County": "SISKIYOU",
+    "State": "CALIFORNIA"
+  },
+  "WEED": {
+    "Rate": 0.075,
+    "County": "SISKIYOU",
+    "State": "CALIFORNIA"
+  },
+  "YREKA": {
+    "Rate": 0.0875,
+    "County": "SISKIYOU",
+    "State": "CALIFORNIA"
+  },
+  "BENICIA": {
+    "Rate": 0.09625,
+    "County": "SOLANO",
+    "State": "CALIFORNIA"
+  },
+  "DIXON": {
+    "Rate": 0.08375,
+    "County": "SOLANO",
+    "State": "CALIFORNIA"
+  },
+  "FAIRFIELD": {
+    "Rate": 0.08375,
+    "County": "SOLANO",
+    "State": "CALIFORNIA"
+  },
+  "RIO VISTA": {
+    "Rate": 0.09125,
+    "County": "SOLANO",
+    "State": "CALIFORNIA"
+  },
+  "SUISUN CITY": {
+    "Rate": 0.09125,
+    "County": "SOLANO",
+    "State": "CALIFORNIA"
+  },
+  "VACAVILLE": {
+    "Rate": 0.08125,
+    "County": "SOLANO",
+    "State": "CALIFORNIA"
+  },
+  "VALLEJO": {
+    "Rate": 0.0925,
+    "County": "SOLANO",
+    "State": "CALIFORNIA"
+  },
+  "CLOVERDALE": {
+    "Rate": 0.1,
+    "County": "SONOMA",
+    "State": "CALIFORNIA"
+  },
+  "COTATI": {
+    "Rate": 0.1025,
+    "County": "SONOMA",
+    "State": "CALIFORNIA"
+  },
+  "HEALDSBURG": {
+    "Rate": 0.0975,
+    "County": "SONOMA",
+    "State": "CALIFORNIA"
+  },
+  "PETALUMA": {
+    "Rate": 0.1025,
+    "County": "SONOMA",
+    "State": "CALIFORNIA"
+  },
+  "ROHNERT PARK": {
+    "Rate": 0.0975,
+    "County": "SONOMA",
+    "State": "CALIFORNIA"
+  },
+  "SANTA ROSA": {
+    "Rate": 0.1,
+    "County": "SONOMA",
+    "State": "CALIFORNIA"
+  },
+  "SEBASTOPOL": {
+    "Rate": 0.1025,
+    "County": "SONOMA",
+    "State": "CALIFORNIA"
+  },
+  "SONOMA": {
+    "Rate": 0.1025,
+    "County": "SONOMA",
+    "State": "CALIFORNIA"
+  },
+  "WINDSOR": {
+    "Rate": 0.0925,
+    "County": "SONOMA",
+    "State": "CALIFORNIA"
+  },
+  "CERES": {
+    "Rate": 0.08375,
+    "County": "STANISLAUS",
+    "State": "CALIFORNIA"
+  },
+  "HUGHSON": {
+    "Rate": 0.07875,
+    "County": "STANISLAUS",
+    "State": "CALIFORNIA"
+  },
+  "MODESTO": {
+    "Rate": 0.08875,
+    "County": "STANISLAUS",
+    "State": "CALIFORNIA"
+  },
+  "NEWMAN": {
+    "Rate": 0.07875,
+    "County": "STANISLAUS",
+    "State": "CALIFORNIA"
+  },
+  "OAKDALE": {
+    "Rate": 0.08375,
+    "County": "STANISLAUS",
+    "State": "CALIFORNIA"
+  },
+  "PATTERSON": {
+    "Rate": 0.07875,
+    "County": "STANISLAUS",
+    "State": "CALIFORNIA"
+  },
+  "RIVERBANK": {
+    "Rate": 0.07875,
+    "County": "STANISLAUS",
+    "State": "CALIFORNIA"
+  },
+  "TURLOCK": {
+    "Rate": 0.08625,
+    "County": "STANISLAUS",
+    "State": "CALIFORNIA"
+  },
+  "WATERFORD": {
+    "Rate": 0.07875,
+    "County": "STANISLAUS",
+    "State": "CALIFORNIA"
+  },
+  "LIVE OAK": {
+    "Rate": 0.0725,
+    "County": "SUTTER",
+    "State": "CALIFORNIA"
+  },
+  "YUBA CITY": {
+    "Rate": 0.0725,
+    "County": "SUTTER",
+    "State": "CALIFORNIA"
+  },
+  "CORNING": {
+    "Rate": 0.0775,
+    "County": "TEHAMA",
+    "State": "CALIFORNIA"
+  },
+  "RED BLUFF": {
+    "Rate": 0.075,
+    "County": "TEHAMA",
+    "State": "CALIFORNIA"
+  },
+  "TEHAMA": {
+    "Rate": 0.0725,
+    "County": "TEHAMA",
+    "State": "CALIFORNIA"
+  },
+  "DINUBA": {
+    "Rate": 0.085,
+    "County": "TULARE",
+    "State": "CALIFORNIA"
+  },
+  "EXETER": {
+    "Rate": 0.0875,
+    "County": "TULARE",
+    "State": "CALIFORNIA"
+  },
+  "FARMERSVILLE": {
+    "Rate": 0.0875,
+    "County": "TULARE",
+    "State": "CALIFORNIA"
+  },
+  "LINDSAY": {
+    "Rate": 0.0875,
+    "County": "TULARE",
+    "State": "CALIFORNIA"
+  },
+  "PORTERVILLE": {
+    "Rate": 0.0925,
+    "County": "TULARE",
+    "State": "CALIFORNIA"
+  },
+  "TULARE": {
+    "Rate": 0.0825,
+    "County": "TULARE",
+    "State": "CALIFORNIA"
+  },
+  "VISALIA": {
+    "Rate": 0.085,
+    "County": "TULARE",
+    "State": "CALIFORNIA"
+  },
+  "WOODLAKE": {
+    "Rate": 0.0875,
+    "County": "TULARE",
+    "State": "CALIFORNIA"
+  },
+  "SONORA": {
+    "Rate": 0.0875,
+    "County": "TUOLUMNE",
+    "State": "CALIFORNIA"
+  },
+  "CAMARILLO": {
+    "Rate": 0.0725,
+    "County": "VENTURA",
+    "State": "CALIFORNIA"
+  },
+  "FILLMORE": {
+    "Rate": 0.0725,
+    "County": "VENTURA",
+    "State": "CALIFORNIA"
+  },
+  "MOORPARK": {
+    "Rate": 0.0725,
+    "County": "VENTURA",
+    "State": "CALIFORNIA"
+  },
+  "OJAI": {
+    "Rate": 0.0725,
+    "County": "VENTURA",
+    "State": "CALIFORNIA"
+  },
+  "OXNARD": {
+    "Rate": 0.0925,
+    "County": "VENTURA",
+    "State": "CALIFORNIA"
+  },
+  "PORT HUENEME": {
+    "Rate": 0.0875,
+    "County": "VENTURA",
+    "State": "CALIFORNIA"
+  },
+  "SANTA PAULA": {
+    "Rate": 0.0925,
+    "County": "VENTURA",
+    "State": "CALIFORNIA"
+  },
+  "SIMI VALLEY": {
+    "Rate": 0.0725,
+    "County": "VENTURA",
+    "State": "CALIFORNIA"
+  },
+  "THOUSAND OAKS": {
+    "Rate": 0.0725,
+    "County": "VENTURA",
+    "State": "CALIFORNIA"
+  },
+  "VENTURA": {
+    "Rate": 0.0775,
+    "County": "VENTURA",
+    "State": "CALIFORNIA"
+  },
+  "DAVIS": {
+    "Rate": 0.0925,
+    "County": "YOLO",
+    "State": "CALIFORNIA"
+  },
+  "WEST SACRAMENTO": {
+    "Rate": 0.0925,
+    "County": "YOLO",
+    "State": "CALIFORNIA"
+  },
+  "WINTERS": {
+    "Rate": 0.0825,
+    "County": "YOLO",
+    "State": "CALIFORNIA"
+  },
+  "WOODLAND": {
+    "Rate": 0.08,
+    "County": "YOLO",
+    "State": "CALIFORNIA"
+  },
+  "MARYSVILLE": {
+    "Rate": 0.0825,
+    "County": "YUBA",
+    "State": "CALIFORNIA"
+  },
+  "WHEATLAND": {
+    "Rate": 0.0775,
+    "County": "YUBA",
+    "State": "CALIFORNIA"
+  }
+}

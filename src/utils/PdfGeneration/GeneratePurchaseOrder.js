@@ -8,10 +8,11 @@ import {
 	Image,
 	Link,
 } from "@react-pdf/renderer";
+import { toTitleCase } from "../StringUtils";
 
 export default async function getGeneratedPurchaseOrder(order) {
-	const blob = await pdf(<PurchaseOrderPDF orderDetails={order} />).toBlob();	
-	return blob
+	const blob = await pdf(<PurchaseOrderPDF orderDetails={order} />).toBlob();
+	return blob;
 }
 
 const styles = StyleSheet.create({
@@ -141,7 +142,6 @@ const styles = StyleSheet.create({
 });
 
 function PurchaseOrderPDF({ orderDetails }) {
-
 	return (
 		<Document>
 			<Page size="A4" style={styles.page}>
@@ -185,11 +185,11 @@ function PurchaseOrderPDF({ orderDetails }) {
 								<Text style={{ fontWeight: "bold" }}>
 									Date Ordered:
 								</Text>{" "}
-								{orderDetails.timestamp.toDate().toLocaleDateString()}
+								{new Date().toLocaleString()}
 							</Text>
 							<Text>
 								<Text style={{ fontWeight: "bold" }}>PO#:</Text>{" "}
-								{orderDetails.id}
+								{orderDetails.PlacedOrder.Id}
 							</Text>
 						</View>
 					</View>
@@ -214,19 +214,15 @@ function PurchaseOrderPDF({ orderDetails }) {
 						</View>
 						<View style={styles.shipToColumn}>
 							<Text style={styles.shipToHeading}>SHIP TO</Text>
-							<Text>{orderDetails.customer_name}</Text>
+							<Text>{orderDetails.Customer.Property?.Name}</Text>
+							<Text>{orderDetails.Customer.Property?.Address?.Line1}</Text>
 							<Text>
-								Azure Hospitality
+								{`${orderDetails.Customer.Property?.Address?.City}, ${
+									orderDetails.Customer.Property?.Address
+										?.CountrySubDivisionCode
+								} ${orderDetails.Customer.Property?.Address?.PostalCode}`}
 							</Text>
-							<Text>
-								{orderDetails.property.street}
-							</Text>
-							<Text>
-								{`${orderDetails.property.city},${orderDetails.property.state}, ${orderDetails.property.postal}`}
-							</Text>
-							<Text>
-								{orderDetails.customer_phone}
-							</Text>
+							<Text>Phone: {orderDetails.Customer?.Property?.Phone}</Text>
 						</View>
 					</View>
 					<View style={styles.shippingContainer}>
@@ -278,20 +274,21 @@ function PurchaseOrderPDF({ orderDetails }) {
 								TOTAL
 							</Text>
 						</View>
-						{orderDetails.items.map((item, index) => (
+						{orderDetails.Items.map((item, index) => (
 							<View key={index} style={styles.shippingRow}>
 								<Text style={styles.shippingCell}>
-									{item.sku}
+									{item.SKU}
 								</Text>
 								<Text style={styles.shippingCell}>
-									{item.product_name} {item.size}{" "}
-									{item.sizeUnit} - {item.brand}
+									{item.Name} {item.Size}{" "}
+									{item.SizeUnit} (Pack of{" "}
+									{item.PackOf}) - {item.Brand}
 								</Text>
 								<Text style={styles.shippingCell}>
-									{item.quantity}
+									{item.Quantity}
 								</Text>
 								<Text style={styles.shippingCell}>
-									${item.price}
+									${item.UnitPrice}
 								</Text>
 								<Text
 									style={[
@@ -300,17 +297,24 @@ function PurchaseOrderPDF({ orderDetails }) {
 										{ backgroundColor: "#f2f2f2" },
 									]}
 								>
-									${item.total}
+									$
+									{(item.UnitPrice * item.Quantity).toFixed(
+										2,
+									)}
 								</Text>
 							</View>
 						))}
 					</View>
 					<View style={styles.commentAndSubtotalSection}>
-						<View style={{ fontSize: 8, marginTop: 10 }}>
+						<View
+							style={{ fontSize: 8, marginTop: 10, width: 160 }}
+						>
 							<Text style={{ fontSize: 10, fontWeight: "bold" }}>
 								Comments or Special Instructions
 							</Text>
-							<Text>{orderDetails.special_instructions}</Text>
+							<Text style={{ marginTop: 5, width: "100%" }}>
+								{orderDetails.PlacedOrder.SpecialInstructions}
+							</Text>
 						</View>
 						<View
 							style={{
@@ -337,12 +341,14 @@ function PurchaseOrderPDF({ orderDetails }) {
 									fontSize: 10,
 									flexDirection: "column",
 									gap: 5,
-									alignItems: "center"
+									alignItems: "center",
 								}}
 							>
-								<Text>${orderDetails.subtotal}</Text>
-								<Text>{orderDetails.tax_rate}%</Text>
-								<Text style={{fontWeight: "bold"}}>${orderDetails.total_amount}</Text>
+								<Text>${orderDetails.PlacedOrder.Subtotal}</Text>
+								<Text>{orderDetails.PlacedOrder.TaxRate * 100}%</Text>
+								<Text style={{ fontWeight: "bold" }}>
+									${orderDetails.PlacedOrder.Total}
+								</Text>
 							</View>
 						</View>
 					</View>

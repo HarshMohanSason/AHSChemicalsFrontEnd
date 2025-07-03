@@ -1,8 +1,8 @@
 import { sendPasswordResetEmail } from "firebase/auth";
 import { useAlertContext } from "../../contexts/AlertBoxContext";
 import { useLoadingOverlayContext } from "../../contexts/LoadingOverlayContext";
-import { auth } from "../../utils/firebase/firebase.config";
-import { handleFirebaseError } from "../../utils/firebase/firebase_utility";
+import { handleFirebaseError } from "../../utils/Firebase/ErrorHandler";
+import { auth } from "../../utils/Firebase/FirebaseConfig";
 
 /**
  * Custom React hook to handle password reset functionality using Firebase.

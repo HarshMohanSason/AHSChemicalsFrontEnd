@@ -1,18 +1,20 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import "./Home.css";
 import HomePageImage1 from "../../assets/home_page_image1.webp";
 import USAMapImage from "../../assets/usa_map.webp";
 import { ReactComponent as CaliforniaMapSvg } from "../../assets/california_map.svg";
 import { addCityMarkers } from "../../utils/CaliforniaMapUtils";
+import { useCustomersContext } from "../../contexts/CustomersContext";
 
 const Home = () => {
+	const customersProvider = useCustomersContext();
 	//Load the markers for the california map svg
 	useEffect(() => {
-		const svg = document.getElementById("california-svg"); 
-		if (svg) {
-			addCityMarkers(svg); 
+		const svg = document.getElementById("california-svg");
+		if (svg && customersProvider.formattedCustomersForDisplay.length > 0) {
+			addCityMarkers(svg, customersProvider.formattedCustomersForDisplay);
 		}
-	}, []);
+	}, [customersProvider.formattedCustomersForDisplay]);
 
 	return (
 		<section className="home-page">
@@ -42,20 +44,22 @@ const Home = () => {
 				<h2> Located Areas </h2>
 				<p>
 					We supply hospitality cleaning chemicals to{" "}
-					<strong> 10 </strong> counties across California, serving
-					over <strong> 34 </strong>properties in total.
+					<strong> 11 </strong> counties across California, serving
+					over <strong> 48 </strong>properties in total.
 				</p>
 				<section className="map-area">
 					<CaliforniaMapSvg />
 					<img src={USAMapImage} alt="USA-map" />
 				</section>
-				
+
 				{/* Dynamically populated */}
-				<section id="property-list-text" className="property-list">
-       			</section>
+				<section
+					id="property-list-text"
+					className="property-list"
+				></section>
 			</section>
 		</section>
 	);
-}
+};
 
 export default Home;

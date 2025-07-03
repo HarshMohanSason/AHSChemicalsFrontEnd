@@ -1,174 +1,153 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Cart.css";
+import styles from "./Cart.module.css"; // updated to use CSS Modules
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { useCartContext } from "../../contexts/CartContext";
-import { useOrders } from "../../hooks/AdminPanel/Orders/UserOrders";
-import {
-	getUserFirestoreInfo,
-	handleFirebaseError,
-} from "../../utils/firebase/firebase_utility";
-import { useAuth } from "../../contexts/AuthContext";
-import { useAlertContext } from "../../contexts/AlertBoxContext";
-import DOMPurify from "dompurify";
-import { useLoadingOverlayContext } from "../../contexts/LoadingOverlayContext";
+import { CartPlaceOrderPopup } from "../../components/Cart/CartPlaceOrderPopup";
+import { useCustomersContext } from "../../contexts/CustomersContext";
+import { useOrdersCreation } from "../../hooks/AdminPanel/Orders/UseOrdersCreation";
+
 const Cart = () => {
 	const navigate = useNavigate();
-	const { user } = useAuth();
-	const { alert } = useAlertContext();
-	const [properties, setSelectedProperties] = useState([]);
-	const [selectedProperty, setSelectedProperty] = useState(null);
-	const {
-		cartItems,
-		isFetchingCartItems,
-		updateItemInCart,
-		convertCartItemsToAnOrder,
-	} = useCartContext();
+	const customersProvider = useCustomersContext();
+	const { createOrder, createPurchaseOrder } = useOrdersCreation();
+	const cartProvider = useCartContext();
 
-	const [specialInstructionsText, setSpecialInstructionsText] = useState("");
-	const { placeOrder } = useOrders();
-	const loadingOverlay = useLoadingOverlayContext();
-	const dialogRef = useRef(null);
+	const cartPlaceOrderPopupRef = useRef(null);
 
+	const [specialInstructions, setSpecialInstructions] = useState("");
+	const [selectedCustomer, setSelectedCustomer] = useState(null);
+
+	// Setting the selectedCustomer as a default value
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				if (user) {
-					const additionalUserInfo = await getUserFirestoreInfo(
-						user.uid,
-					);
-					if (additionalUserInfo) {
-						setSelectedProperties(additionalUserInfo.properties);
-						setSelectedProperty(properties?.[0]);
-					}
-				}
-			} catch (error) {
-				alert.showAlert(handleFirebaseError(error), "Error");
-			}
-		};
+		if (
+			!selectedCustomer &&
+			customersProvider?.formattedCustomersForDisplay?.length > 0
+		) {
+			setSelectedCustomer(
+				customersProvider.formattedCustomersForDisplay[0],
+			);
+		}
+	}, [customersProvider.formattedCustomersForDisplay]);
 
-		fetchData();
-	}, [user, properties]);
+	if (cartProvider.isFetchingCartItems) {
+		return <p>Loading Cart ... </p>;
+	}
+
+	if (cartProvider.cartItems?.length === 0) {
+		return (
+			<section className={styles.emptyCartSection}>
+				<FontAwesomeIcon
+					icon={faShoppingCart}
+					className={styles.cartIcon}
+				/>
+				<h2>Your Cart Is Currently Empty!</h2>
+				<p>
+					Before you proceed to checkout, you need to add some items
+					to your cart. You can view the products at the products page
+				</p>
+				<button onClick={() => navigate("/products")}>
+					Return To Products
+				</button>
+			</section>
+		);
+	}
 
 	return (
-		<section className="cart-section">
-			{cartItems.length === 0 && (
-				<section className="empty-cart-section">
-					<FontAwesomeIcon
-						icon={faShoppingCart}
-						className="cart-icon"
-					/>
-					<h2>Your Cart Is Currently Empty!</h2>
-					<p>
-						Before you proceed to checkout, you need to add some
-						items to your cart. You can view the products at the
-						products page
-					</p>
-					<button onClick={() => navigate("/products")}>
-						Return To Products
-					</button>
-				</section>
-			)}
-			{cartItems.length !== 0 && (
-				<section className="cart-display-section">
-					<h1 className="cart-header-text">Your Cart</h1>
-					{cartItems.map((item, index) => (
-						<div className="cart-item" key={index}>
-							<figure>
-								<img src={item.image} alt={item.name} />
-								<div className="cart-item-buttons">
+		<section className={styles.cartSection}>
+			{cartProvider?.cartItems?.length !== 0 && (
+				<section className={styles.cartDisplaySection}>
+					{cartProvider?.cartItems?.map((item, index) => (
+						<div className={styles.cartItem} key={item.Id}>
+							<img src={item?.Images?.[0]} alt={item.Name} />
+							<div className={styles.cartItemInfo}>
+								<h1>{item.Name}</h1>
+								<h2>
+									{item.SKU} • {item.Size}{" "}
+									{item.SizeUnit.toLowerCase()} (Pack of{" "}
+									{item.PackOf})
+								</h2>
+								<p className={styles.productDescription}>
+									{item.Description}
+								</p>
+								<div className={styles.cartItemButtons}>
 									<button
-										onClick={() => {
-											updateItemInCart(item, true);
-										}}
+										onClick={() =>
+											cartProvider.updateQuantityInCart(
+												index,
+												true,
+											)
+										}
 									>
 										-
 									</button>
-									<span>{item.quantity}</span>
-									<button
-										onClick={() => {
-											updateItemInCart(item);
+									<span
+										style={{
+											fontSize: "20px",
+											fontWeight: "600",
 										}}
+									>
+										{item.Quantity}
+									</span>
+									<button
+										onClick={() =>
+											cartProvider.updateQuantityInCart(
+												index,
+											)
+										}
 									>
 										+
 									</button>
 								</div>
-							</figure>
-							<div className="cart-item-info">
-								<h1>{item.name}</h1>
-								<h2>{item.brand}</h2>
-								<h3>SKU: {item.sku}</h3>
-								<h4>
-									Size: {item.size} {item.sizeUnit}
-								</h4>
-								<p>Description:</p>
-								<div
-									className="product-description"
-									dangerouslySetInnerHTML={{
-										__html: DOMPurify.sanitize(
-											item.description,
-										),
-									}}
-								></div>
 							</div>
+							<button
+								className={styles.deleteCartItemButton}
+								onClick={async () =>
+									await cartProvider.deleteItemFromCart(item)
+								}
+							>
+								&times;
+							</button>
 						</div>
 					))}
 					<button
-						onClick={() => dialogRef.current.showModal()}
-						className="proceed-to-order-button"
+						onClick={() =>
+							cartPlaceOrderPopupRef.current.showModal()
+						}
+						className={styles.proceedToOrderButton}
 					>
 						Proceed to order
 					</button>
 				</section>
 			)}
-			<dialog ref={dialogRef} className="property-input-dialog">
-				<h1>Enter any comments or special instructions </h1>
-				<textarea rows = {20} cols= {20} onChange={(e)=> setSpecialInstructionsText(e.target.value)}></textarea>
-				<h2>Which property do you want to place an order for</h2>
-				{properties.length > 0 &&
-					properties.map((property, index) => (
-						<select
-							key={index}
-							onChange={(e) =>
-								setSelectedProperties(e.target.value)
-							}
-						>
-							<option value={property}>
-								{property.street},{property.city},
-								{property.state},{property.postal}
-							</option>
-						</select>
-					))}
-				<div className="property-input-dialog-buttons-div">
-					<button onClick={() => dialogRef.current.close()}>
-						Cancel
-					</button>
-					<button
-						className="place-order-button"
-						onClick={async () => {
-							if (!selectedProperty) {
-								alert.showAlert(
-									"You need to select a property before placing the order",
-								);
-								return;
-							}
-							loadingOverlay.trigger();
-							const order =
-								await convertCartItemsToAnOrder(
-									selectedProperty,
-									specialInstructionsText,
-								);
-							await placeOrder(order, selectedProperty);
-							loadingOverlay.hide()
-						}}
-					>
-						Place the order
-					</button>
-				</div>
-			</dialog>
-
+			<CartPlaceOrderPopup
+				dialogRef={cartPlaceOrderPopupRef}
+				selectedCustomer={selectedCustomer}
+				setSelectedCustomer={setSelectedCustomer}
+				specialInstructions={specialInstructions}
+				setSpecialInstructions={setSpecialInstructions}
+				placeOrder={async () => {
+					const orderDetails = {
+						Items: cartProvider.cartItems,
+						SpecialInstructions: specialInstructions,
+						Customer: selectedCustomer,
+					};
+					const createdOrderDetails = await createOrder(
+						orderDetails
+					);
+					const order = {
+						PlacedOrder: createdOrderDetails,
+						Customer: selectedCustomer,
+						Items: cartProvider.cartItems,
+					}; 
+					await createPurchaseOrder(
+						order
+					);
+				}}
+			/>
 		</section>
 	);
 };
+
 export default Cart;

@@ -1,0 +1,183 @@
+.cartSection {
+	padding: 200px;
+	margin: auto auto;
+}
+.emptyCartSection {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+}
+.cartIcon {
+	color: #A5C759;
+	font-size: 15vw;
+}
+.emptyCartSection h2 {
+	font-size: clamp(20px, 4vw, 45px);
+}
+.emptyCartSection p {
+	max-width: 30%;
+	font-size: 18px;
+	text-align: center;
+	font-weight: 300;
+}
+.emptyCartSection button {
+	margin-top: 20px;
+	background: #A5C759;
+	border-radius: 60px;
+	border: none;
+	color: white;
+	font-weight: 800;
+	font-size: 16px;
+	padding: 20px;
+	cursor: pointer;
+	transition: transform 0.3s ease-in-out;
+}
+.emptyCartSection button:hover {
+	transform: scale(1.1);
+}
+.cartDisplaySection {
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+	padding: 1rem;
+}
+.cartHeaderText {
+	font-size: 30px;
+	font-weight: 500;
+}
+.cartItem {
+	display: flex;
+	align-items: center;
+	position: relative;
+	margin: 0 auto;
+	max-width: 60vw;
+}
+.deleteCartItemButton {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	border: none;
+	background-color: #ff4d4f;
+	color: white;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 20px;
+	transition: background-color 0.3s ease;
+}
+.deleteCartItemButton:hover {
+	background-color: #e60023;
+}
+.cartItem img {
+	max-width: 450px;
+	max-height: 100%;
+}
+.proceedToOrderButton {
+	border: none;
+	border-radius: 63px;
+	padding: 16px 32px;
+	font-size: 20px;
+	font-weight: 600;
+	color: #fff;
+	width: 50%;
+	align-self: center;
+	background: linear-gradient(135deg, #a5c759, #8bb04f);
+	box-shadow: 0 4px 10px rgba(165, 199, 89, 0.3);
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+}
+
+.proceedToOrderButton:hover {
+	background: linear-gradient(135deg, #9bbc52, #7aa83f);
+	box-shadow: 0 6px 18px rgba(139, 176, 79, 0.4);
+	transform: translateY(-2px);
+}
+.cartItemButtons {
+	display: flex;
+	background: #A5C759;
+	width: 100px;
+	padding: 8px;
+	border-radius: 30px;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+	margin-top: 20px;
+}
+.cartItemButtons button {
+	background: none;
+	border: none;
+	color: black;
+	cursor: pointer;
+	font-weight: 500;
+	font-size: 18px;
+	transition: background-color 0.2s ease;
+}
+.cartItemInfo {
+	flex: 1;
+}
+.cartItemInfo h1 {
+	font-size: 34.39px;
+	color: #777777;
+	font-weight: 600;
+}
+.cartItemInfo h2 {
+	font-size: 25.51px;
+	font-weight: 400;
+	color: #777777;
+}
+.cartItemInfo .productDescription {
+	font-size: 19.38px;
+	font-weight: 400;
+	color: #777777;
+}
+.propertyInputDialog {
+	border: none;
+	border-radius: 10px;
+	max-width: 40vw;
+}
+.propertyInputDialog h1 {
+	font-weight: 600;
+	font-size: 25.38px;
+	color: #A5C759;
+}
+.propertyInputDialog textarea {
+	font-size: 16px;
+	outline: none;
+	padding: 10px;
+}
+.propertyInputDialogButtonsDiv {
+	display: flex;
+	gap: 10px;
+}
+.propertyInputDialogButtonsDiv button {
+	width: 150px;
+	height: 50px;
+	color: white;
+	border: none;
+	cursor: pointer;
+}
+.propertyInputDialogButtonsDiv button:first-of-type {
+	background-color: #C2C2C2;
+	transition: background-color 0.3s ease;
+}
+.propertyInputDialogButtonsDiv button:first-of-type:hover {
+	background-color: #a9a9a9;
+}
+.propertyInputDialogButtonsDiv button:last-of-type {
+	background-color: #A5C759;
+	transition: background-color 0.3s ease;
+}
+.propertyInputDialogButtonsDiv button:last-of-type:hover {
+	background-color: #8dad44;
+}
+.propertyInputDialog select {
+	margin-bottom: 20px;
+	padding: 10px;
+	border: none;
+	border-radius: 8px;
+}

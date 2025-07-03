@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import "./AdminPanel.css";
-import Products from "../../components/AdminPanel/Products/Products";
+import Products from "../../components/AdminPanel/Products/ProductsAdminPanel";
 import Accounts from "../../components/AdminPanel/Accounts/Accounts";
-import AdminControls from "../../components/AdminPanel/AdminControls/AdminControls";
 import Orders from "../../components/AdminPanel/Orders/Orders"; 
 
 const AdminPanel = () => {
@@ -36,14 +35,6 @@ const AdminPanel = () => {
 					>
 						Orders
 					</button>
-					<button
-						className={
-							currentMenuOption === "adminControls" ? "active" : ""
-						}
-						onClick={() => setMenuOption("adminControls")}
-					>
-						Admin Controls
-					</button>
 				</menu>
 			)}
 
@@ -51,7 +42,6 @@ const AdminPanel = () => {
 				<Products productTileButtonText="Edit" />
 			)}
 			{currentMenuOption === "accounts" && <Accounts />}
-			{currentMenuOption === "adminControls" && <AdminControls />}
 			{currentMenuOption === "orders" && <Orders />}
 		</section>
 	);

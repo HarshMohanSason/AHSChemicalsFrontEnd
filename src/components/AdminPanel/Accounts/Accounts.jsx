@@ -11,9 +11,10 @@ import InputDialogWizard from "../InputDialogWizard/InputDialogWizard";
 import { InputAccountUserInformation } from "./InputDialogWizardViews/InputAccountUserInformation";
 import { InputAccountProperty } from "./InputDialogWizardViews/InputAccountProperty";
 import { InputAccountBrands } from "./InputDialogWizardViews/InputAccountBrands";
-import useAccounts from "../../../hooks/AdminPanel/Accounts/Accounts";
+import useAccounts from "../../../hooks/AdminPanel/Accounts/UseAccounts";
 import { useAlertContext } from "../../../contexts/AlertBoxContext";
 import CustomerAccountsSkeletonLoader from "../../SkeletonLoaders/CusomterAccountsSkeletonLoader";
+import { useCustomersContext } from "../../../contexts/CustomersContext";
 
 const Accounts = () => {
 	const { confirmationAlert } = useAlertContext();
@@ -27,23 +28,16 @@ const Accounts = () => {
 		refetchAccounts,
 		deleteCustomerAccount,
 	} = useAccounts();
-
+	const customersProvider = useCustomersContext();
 	const defaultUser = {
 		name: "",
-		phone_number: "",
+		phone: { code: "+1", number: "" },
 		email: "",
 		password: "",
-		properties: [
-			{
-				street: "",
-				city: "FAIRFAX",
-				county: "MARIN",
-				state: "CALIFORNIA",
-				postal: "",
-			},
-		],
+		properties: [""],
 		brands: [],
 	};
+
 	const [user, setUser] = useState(defaultUser);
 	//To check if the edit accounts section is opened or not
 	const [isExpanded, setIsExpanded] = useState(false);
@@ -106,6 +100,13 @@ const Accounts = () => {
 
 	return (
 		<section className={styles.adminPanelAccountsPage}>
+			<button
+				style={{alignSelf: "center"}}
+				className={sharedStyles.syncIconButton}
+				onClick={customersProvider.beginCustomersSync}
+			>
+				<i className="fas fa-sync-alt"></i> Sync Customers
+			</button>
 			<section
 				className={sharedStyles.addDataTile}
 				onClick={async () => {
@@ -159,23 +160,12 @@ const Accounts = () => {
 										accountDialogWizardRef.current.showModal();
 									}}
 								>
-									<p className={styles.accounTileDisplayName}>
+									<p className={styles.accounTileTextDisplay}>
 										{account.displayName}
 									</p>
-									<div
-										className={styles.accountTileProperties}
-									>
-										{account.properties.map(
-											(property, propertyIndex) => (
-												<p key={propertyIndex + 1}>
-													{property.street},{" "}
-													{property.city.toLowerCase()}
-													,
-													{property.state.toLowerCase()}
-												</p>
-											),
-										)}
-									</div>
+									<p className={styles.accounTileTextDisplay}>
+										{account.email}
+									</p>
 								</div>
 								<FontAwesomeIcon
 									icon={faTrash}

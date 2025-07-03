@@ -8,6 +8,11 @@ const ImageUploadContainer = ({ image, index = null, updateImage, removeImage}) 
 	const [imageURL, setImageUrl] = useState("");
 
 	useEffect(() => {
+		//Clear the image url if the image does not exist. 
+		if (!image){
+			setImageUrl("")
+			return;
+		}
 		//For file type images, create a url and display it
 		if (image && typeof image !== "string") {
 			const url = URL.createObjectURL(image);

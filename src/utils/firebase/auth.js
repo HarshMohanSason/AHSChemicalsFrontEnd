@@ -1,4 +1,4 @@
-import { auth } from "./firebase.config";
+import { auth } from "./FirebaseConfig";
 import {
 	updateProfile,
 	verifyBeforeUpdateEmail,
@@ -49,10 +49,22 @@ async function resetPassword(email) {
 	}
 }
 
+//Returns the allowed brands and the property address
+async function getUserFirestoreInfo(userID) {
+  try {
+    const docRef = doc(firestoreDb, "users", userID);
+    const docSnapsot = await getDoc(docRef);
+    const userFirestoreData = docSnapsot.data();
+    return userFirestoreData;
+  } catch (error) {
+    throw error;
+  }
+}
 export {
 	loginWithEmailAndPassword,
 	changeDisplayName,
 	changeEmail,
 	changePassword,
 	resetPassword,
+	getUserFirestoreInfo,
 };

@@ -30,15 +30,15 @@ const Footer = () => {
 					<section>
 						<h2>RESOURCES</h2>
 						<nav>
-							<Link to="/about_us">SDS</Link>
-							<Link to="/products">Contact Us</Link>
+							<Link to="/sds">SDS</Link>
+							<Link to="/contact-us">Contact Us</Link>
 						</nav>
 					</section>
 					<section>
 						<h2>LEGAL</h2>
 						<nav>
-							<Link to="/about_us">Terms Of Service</Link>
-							<Link to="/about_us">Privacy Policy</Link>
+							<Link to="/terms-of-service">Terms Of Service</Link>
+							<Link to="/privacy-policy">Privacy Policy</Link>
 						</nav>
 					</section>
 				</section>

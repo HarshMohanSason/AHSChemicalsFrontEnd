@@ -12,14 +12,10 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 import { onIdTokenChanged } from "firebase/auth";
-import { auth } from "../utils/firebase/firebase.config";
-import { handleFirebaseError } from "../utils/firebase/firebase_utility";
+import { auth } from "../utils/Firebase/FirebaseConfig";
+import { handleFirebaseError } from "../utils/Firebase/ErrorHandler";
 import { useAlertContext } from "./AlertBoxContext";
-import {
-  verifyBeforeUpdateEmail,
-  updatePassword,
-  updateProfile,
-} from "firebase/auth";
+
 // Create the Auth context
 const AuthContext = createContext();
 

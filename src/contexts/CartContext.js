@@ -3,11 +3,11 @@ import {useCart} from "../hooks/Cart/UseCart";
 const CartContext = createContext();
 
 export default function CartProvider({ children }){
-	const cart = useCart()
+	const cartProvider = useCart()
 
 	return (
 		<CartContext.Provider
-			value={cart}
+			value={cartProvider}
 		>
 			{children}
 		</CartContext.Provider>

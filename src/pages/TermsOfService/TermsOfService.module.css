@@ -1,0 +1,36 @@
+.termsOfServiceSection{
+	padding: 200px 0;
+	gap: 100px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-content: center;
+}
+.heading{
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	gap: 0;
+	margin: 0;
+	color: #405493;
+}
+.heading h1{
+	font-size: 80px;
+	text-align: center;
+}
+.termsContent{
+	padding: 0 50px;
+}
+.termsContent ol{
+	display: flex;
+	flex-direction: column;
+	gap: 70px;
+}
+.termsContent ol strong{
+	font-size: 38px;
+	color: #405493;
+}
+.termsContent ol li{
+	font-size: 26px;
+	list-style: none;
+}

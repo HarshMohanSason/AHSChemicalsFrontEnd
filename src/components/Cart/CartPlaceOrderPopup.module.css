@@ -1,0 +1,83 @@
+.cartPlaceOrderPopup {
+	position: relative;
+	max-width: 50vw;
+	padding: 50px;
+	border: none;
+	max-height: 70vh;
+	border-radius: 12px;
+	background-color: white;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+	color: #333;
+}
+
+.cartPlaceOrderPopup h1 {
+	color: #A5C759;
+	font-size: 24px;
+	margin-bottom: 0.5rem;
+}
+
+.specialInstructionsSection,
+.selectPropertySection {
+	margin-bottom: 2rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+textarea {
+	width: 100%;
+	min-height: 200px;
+	resize: vertical;
+	outline: none;
+	padding: 0.75rem;
+	border-radius: 8px;
+	border: 1px solid #ccc;
+	font-size: 1rem;
+	font-family: inherit;
+}
+
+select {
+	cursor: pointer;
+	padding: 0.6rem;
+	border-radius: 8px;
+	border: 1px solid #ccc;
+	font-size: 1rem;
+	font-family: inherit;
+	border: none;
+}
+.actionsSection {
+	display: flex;
+	justify-content: flex-end;
+	gap: 5px;
+	margin-top: 2rem;
+}
+
+.placeOrderButton {
+	background-color: #A5C759;
+	color: white;
+	border: none;
+	padding: 15px 20px;
+	border-radius: 5px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.placeOrderButton:hover {
+	background-color: #8dad44;
+}
+
+.cancelButton {
+	background-color: #e0e0e0;
+	color: #333;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.cancelButton:hover {
+	background-color: #c2c2c2;
+}

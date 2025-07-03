@@ -9,8 +9,9 @@
 	margin-top: 250px;
 	display: flex;
 	width: 100%;
+	justify-content: center;
+	gap: 50px;
 	box-sizing: border-box;
-	justify-content: space-evenly;
 }
 .admin-panel menu button {
 	width: 350px;

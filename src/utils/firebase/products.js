@@ -1,36 +1,39 @@
 import {
   doc,
-  setDoc,
   updateDoc,
-  deleteDoc,
   collection,
   getDocs,
+  getDoc,
 } from "firebase/firestore";
-import { listAll, deleteObject } from "firebase/storage";
-async function uploadProductToFirestore(product) {
-  try {
-    const productID = product.id || crypto.randomUUID(); // or generate however you like
-    const docRef = doc(firestoreDb, "products", productID);
-    await setDoc(docRef, product);
-  } catch (error) {
-    throw error;
-  }
-}
+import { listAll, deleteObject, ref } from "firebase/storage";
+import { firestoreDb, storage } from "./FirebaseConfig";
 
 async function updateProductInFirestore(product) {
   try {
-    const docRef = doc(firestoreDb, "products", product.id);
+    const docRef = doc(firestoreDb, "products", product.Id);
     await updateDoc(docRef, product);
   } catch (error) {
     throw error;
   }
 }
 
-async function deleteProductFromFirestore(productID) {
+async function deleteProductVariantFromFirestore(userID, itemToBeDeleted) {
   try {
-    const docRef = doc(firestoreDb, "products", productID);
-    await deleteDoc(docRef);
+    const docRef = doc(firestoreDb, "users", userID, "cart", "current");
+    const docSnap = await getDoc(docRef);
+
+    if (!docSnap.exists()) {
+      throw new Error("Product not found.");
+    }
+
+    const cartItems = docSnap.data();
+    const updatedCart = cartItems.items.filter(
+      (item) => item.sku !== itemToBeDeleted.sku
+    );
+
+    await updateDoc(docRef, { items: updatedCart });
   } catch (error) {
+    console.log(error)
     throw error;
   }
 }
@@ -52,7 +55,18 @@ async function fetchProductsFromFirestore() {
   }
 }
 
-export async function deleteProductImagesFromStorage(productID) {
+async function fetchSingleProductFromFirestore(productID) {
+  try {
+    const docRef = doc(firestoreDb, "products", productID);
+    const docSnapshot = await getDoc(docRef);
+    if (docSnapshot.exists()) {
+      return docSnapshot.data();
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+async function deleteProductImagesFromStorage(productID) {
   try {
     const storageRef = ref(storage, `products/${productID}`);
     const result = await listAll(storageRef);
@@ -66,9 +80,9 @@ export async function deleteProductImagesFromStorage(productID) {
 }
 
 export {
-  uploadProductToFirestore,
   updateProductInFirestore,
-  deleteProductFromFirestore,
   fetchProductsFromFirestore,
   deleteProductImagesFromStorage,
+  fetchSingleProductFromFirestore,
+  deleteProductVariantFromFirestore,
 };
