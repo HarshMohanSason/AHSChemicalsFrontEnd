@@ -1,0 +1,78 @@
+.contactUsPage {
+	background-color: #415391;
+	display: flex;
+	justify-content: center;
+	width: 100vw;
+	height: 100vh;
+}
+.contactUsFormSection {
+	width: 70%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 80px;
+}
+.headingSection{
+	margin: 0 15px;
+}
+.headingSection h1 {
+	margin: 0;
+	font-weight: 500;
+	font-size: 43.78px;
+	color: white;
+}
+.headingSection p {
+	margin: 0;
+	font-weight: 400;
+	font-size: 17.51px;
+	color: white;
+}
+
+.formSection {
+	display: flex;
+	flex-direction: column;
+	gap: 25px;
+}
+
+.formSection div {
+	display: flex;
+	width: 100%;
+	gap: 30px;
+}
+
+.formSection div input,
+.formSection textarea {
+	width: 100%;
+	border:none;
+	border-radius: 19px;
+	padding: 10px;
+	padding-left: 20px;
+	font-size: 20px;
+	font-family: "General Sans";
+}
+.formSection textarea {
+	margin: 0 10px;
+	box-sizing: border-box;
+}
+.formSection button {
+	background: #a5c759;
+	color: black;
+	border-radius: 10px;
+	border: none;
+	font-size: 20px;
+	padding: 10px;
+	margin-left: 15px;
+	cursor: pointer;
+	transition:
+		background 0.3s ease,
+		transform 0.2s ease;
+}
+.formSection button:hover {
+	background: #94b24c;
+	transform: scale(1.03);
+}
+@media screen and (max-width: 1000px) {
+	.contactUsFormSection {
+		width: 90%;
+	}
+}

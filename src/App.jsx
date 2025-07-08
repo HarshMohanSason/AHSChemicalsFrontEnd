@@ -18,13 +18,19 @@ import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService/TermsOfService";
 import QuickBooksAuthSuccessPage from "./pages/QuickBooks/QuickBooksAuthSuccessPage";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
+import DeliverySignature from "./pages/DeliverySignature/DeliverySignature";
+import ContactUs from "./pages/ContactUs/ContactUs";
+import { useState } from "react";
+import MobileMenuSheet from "./components/Header/MobileMenuSheet";
 
 function App() {
   const { alert, confirmationAlert } = useAlertContext();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const MainLayout = ({ children }) => (
     <>
-      <Header />
+      <Header isMobileMenuOpen={menuOpen} setMenuSheet={setMenuOpen}/>
+      <MobileMenuSheet isOpen={menuOpen} />
       {children}
       <Footer />
     </>
@@ -34,7 +40,6 @@ function App() {
 
   return (
     <Router>
-
       <ScrollToTop />
       <Routes>
         <Route
@@ -125,6 +130,22 @@ function App() {
           element={
             <MinimalLayout>
               <QuickBooksAuthSuccessPage />
+            </MinimalLayout>
+          }
+        />
+        <Route
+          path="/order-delivery-signature/:orderId"
+          element={
+            <MinimalLayout>
+              <DeliverySignature />
+            </MinimalLayout>
+          }
+        />
+        <Route
+          path="/contact-us"
+          element={
+            <MinimalLayout>
+              <ContactUs />
             </MinimalLayout>
           }
         />

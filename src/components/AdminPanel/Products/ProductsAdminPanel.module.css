@@ -1,8 +1,11 @@
 .productsAdminPanelSection {
 	display: flex;
-	justify-content: space-between;
 	gap: 50px;
 	margin: 0 100px;
+}
+.filterAndSyncSection{
+	display: flex;
+	flex-direction: column;
 }
 .productsSection{
 	border-radius: 63px;

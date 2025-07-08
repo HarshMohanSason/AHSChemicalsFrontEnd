@@ -1,17 +1,19 @@
 .signatureContainer {
-  max-width: 50vw;
-  height: 500px;
-  margin: 0 auto;
+  height: 90vh;
+  width: calc(100vw - 100px);
+  margin: 30px 50px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-
 .signatureCanvas {
   width: 100%;
   height: 100%;
-  border: 0.5px solid #aaa;
-  border-radius: 8px;
+  border: 0.5px solid black;
+  border-left: none;
+  border-right: none;
+  border-top: none;
   background-color: #fff;
   cursor: crosshair;
 }

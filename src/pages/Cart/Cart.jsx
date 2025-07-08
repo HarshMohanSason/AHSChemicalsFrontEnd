@@ -7,13 +7,16 @@ import { useCartContext } from "../../contexts/CartContext";
 import { CartPlaceOrderPopup } from "../../components/Cart/CartPlaceOrderPopup";
 import { useCustomersContext } from "../../contexts/CustomersContext";
 import { useOrdersCreation } from "../../hooks/AdminPanel/Orders/UseOrdersCreation";
+import { useLoadingOverlayContext } from "../../contexts/LoadingOverlayContext";
+import { useAlertContext } from "../../contexts/AlertBoxContext";
 
 const Cart = () => {
 	const navigate = useNavigate();
 	const customersProvider = useCustomersContext();
 	const { createOrder, createPurchaseOrder } = useOrdersCreation();
 	const cartProvider = useCartContext();
-
+	const loadingOverlay = useLoadingOverlayContext();
+	const { alert } = useAlertContext();
 	const cartPlaceOrderPopupRef = useRef(null);
 
 	const [specialInstructions, setSpecialInstructions] = useState("");
@@ -128,22 +131,31 @@ const Cart = () => {
 				specialInstructions={specialInstructions}
 				setSpecialInstructions={setSpecialInstructions}
 				placeOrder={async () => {
-					const orderDetails = {
-						Items: cartProvider.cartItems,
-						SpecialInstructions: specialInstructions,
-						Customer: selectedCustomer,
-					};
-					const createdOrderDetails = await createOrder(
-						orderDetails
-					);
-					const order = {
-						PlacedOrder: createdOrderDetails,
-						Customer: selectedCustomer,
-						Items: cartProvider.cartItems,
-					}; 
-					await createPurchaseOrder(
-						order
-					);
+					loadingOverlay.trigger();
+					try {
+						const orderDetails = {
+							Items: cartProvider.cartItems,
+							SpecialInstructions: specialInstructions,
+							Customer: selectedCustomer,
+						};
+						const createdOrderDetails =
+							await createOrder(orderDetails);
+						const order = {
+							PlacedOrder: createdOrderDetails,
+							Customer: selectedCustomer,
+							Items: cartProvider.cartItems,
+						};
+						await createPurchaseOrder(order);
+						await cartProvider.clearCart();
+						alert.showAlert(
+							"Your order was successfully placed. You can check the status of your order in your account.",
+							"Success",
+						);
+					} catch (error) {
+						alert.showAlert(error.message, "Error");
+					} finally {
+						loadingOverlay.hide();
+					}
 				}}
 			/>
 		</section>

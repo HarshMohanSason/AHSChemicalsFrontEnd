@@ -26,7 +26,9 @@ root.render(
           <CartProvider>
             <ProductsProvider>
               <CustomersProvider>
+                <Sentry.ErrorBoundary fallback={<p>Something went wrong</p>}>
                   <App />
+                </Sentry.ErrorBoundary>
               </CustomersProvider>
             </ProductsProvider>
           </CartProvider>

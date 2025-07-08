@@ -1,10 +1,14 @@
-export const ShippingManifestButton = ({ order, onCaptureSignature }) => {
-	if (order.status === "DELIVERED") {
+import { useNavigate } from "react-router-dom";
+
+export const ShippingManifestButton = ({ order }) => {
+	const navigate = useNavigate();
+
+	if (order.Status === "APPROVED") {
 		return (
 			<button
-				onClick={() => {
-					onCaptureSignature(); 
-				}}
+				onClick={() =>
+					navigate(`/order-delivery-signature/${order.Id}`)
+				}
 			>
 				Generate Shipping Manifest
 			</button>

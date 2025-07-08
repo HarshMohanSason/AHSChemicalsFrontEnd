@@ -1,0 +1,31 @@
+.tick {
+  width: 200px;
+  height: 200px;
+  stroke: #4caf50;
+  stroke-width: 3;
+  fill: none;
+}
+
+.tickCircle {
+  stroke-dasharray: 157;
+  stroke-dashoffset: 157;
+  animation: draw-circle 0.6s ease-out forwards;
+}
+
+.tickCheck{
+  stroke-dasharray: 36;
+  stroke-dashoffset: 36;
+  animation: draw-check 0.3s 0.6s ease-out forwards;
+}
+
+@keyframes draw-circle {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes draw-check {
+  to {
+    stroke-dashoffset: 0;
+  }
+}

@@ -1,0 +1,42 @@
+.orderSignaturePage {
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+	margin: 0 auto;
+	width: 100vw;
+	box-sizing: border-box;
+}
+.inputFieldSection {
+	display: flex;
+	flex-direction: column;
+	margin: 0 30px;
+	justify-content: space-between;
+}
+.inputFieldSection input {
+	max-width: 70vw;
+}
+.signaturePadSection label {
+	font-weight: 600;
+	font-size: 20px;
+	margin-left: 40px;
+	display: block;
+}
+.formContainer{
+	width: 70vw;
+	display: flex;
+	margin: 50px auto;
+	flex-direction: column;
+	gap: 10px;
+}
+.formContainer button{
+	margin-top: 100px;
+	margin-left: 35px;
+}
+@media screen and (max-width: 1300px) {
+	.inputFieldSection {
+		margin: 0;
+	}
+	.signaturePadSection label{
+		margin: 0;
+	}
+}

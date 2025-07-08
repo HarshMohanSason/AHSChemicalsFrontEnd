@@ -1,18 +1,12 @@
 import { useState } from "react";
 import styles from "./Orders.module.css";
-import OrdersSkeletonLoader from "../../SkeletonLoaders/OrdersSkeletonLoader";
-import SignaturePad from "../../SignaturePad/SignaturePad";
-import { useEffect, useRef } from "react";
-import InputDialogWizard from "../InputDialogWizard/InputDialogWizard";
-import EditProductQuantity from "./InputDialogWizardViews/EditProductQuantity";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect } from "react";
 import { faCancel, faCheck, faEdit } from "@fortawesome/free-solid-svg-icons";
-import { getGeneratedShippingManifest } from "../../../utils/PdfGeneration/GenerateShippingManifest";
 import { InvoiceButton } from "./InvoiceButton";
 import { ShippingManifestButton } from "./ShippingManifestButton";
 import PurchaseOrderButton from "./PurchaseOrderButton";
 import { useOrdersManagement } from "../../../hooks/AdminPanel/Orders/UseOrdersManagement";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Orders = () => {
 	const {
 		isFetchingOrders,
@@ -31,11 +25,6 @@ const Orders = () => {
 		updateEditedOrder,
 	} = useOrdersManagement();
 
-	const signatureDialogRef = useRef(null);
-	const editProductWizardDialog = useRef(null);
-	const [editProductWizardCurrentView, setEditProductWizardCurrentView] =
-		useState(0);
-
 	const [orderToEdit, setOrderToEdit] = useState(null);
 
 	useEffect(() => {
@@ -48,19 +37,7 @@ const Orders = () => {
 		maxDateFilter,
 	]);
 
-	if (isFetchingOrders) return <OrdersSkeletonLoader ordersLength={5} />;
-
-	const wizardSteps = [
-		{
-			step: "Edit Order Items",
-			view: (
-				<EditProductQuantity
-					orderToEdit={orderToEdit}
-					setOrderToEdit={setOrderToEdit}
-				/>
-			),
-		},
-	];
+	if (isFetchingOrders) return <p>Loading...</p>;
 	return (
 		<section className={styles.ordersSection}>
 			<section className={styles.topSection}>
@@ -136,16 +113,16 @@ const Orders = () => {
 						</thead>
 						<tbody className={styles.orderTableBody}>
 							{filteredOrders.map((order) => (
-								<tr key={order.id}>
-									<td>{order.id}</td>
+								<tr key={order.Id}>
+									<td>{order.Id}</td>
 									<td>
-										{orderToEdit?.id === order.id ? (
+										{orderToEdit?.Id === order.Id ? (
 											<select
-												value={orderToEdit.status}
+												value={orderToEdit.Status}
 												onChange={(e) =>
 													setOrderToEdit({
 														...orderToEdit,
-														status: e.target.value,
+														Status: e.target.value,
 													})
 												}
 											>
@@ -163,42 +140,41 @@ const Orders = () => {
 												</option>
 											</select>
 										) : (
-											order.status
+											order.Status
 										)}
 									</td>
-									<td>${order.total}</td>
+									<td>${order.Total}</td>
 									<td>
-										{order.timestamp
-											.toDate()
-											.toLocaleString() || "-"}
+										{order.TimePlaced.toDate().toLocaleString() ||
+											"-"}
 									</td>
 									<td>
 										<PurchaseOrderButton
 											order={order}
 											orderToEdit={orderToEdit}
-											onClicked={() =>
-												editProductWizardDialog.current.showModal()
-											}
+											onClicked={()=> {
+												setOrderToEdit(order);
+											}}
 										/>
 									</td>
 									<td>
 										<ShippingManifestButton
-											key={order.id}
+											key={order.Id}
 											order={order}
 											onCaptureSignature={() => {
-												setOrderToEdit(order);
-												signatureDialogRef.current.showModal();
+												//setOrderToEdit(order);
+												//signatureDialogRef.current.showModal();
 											}}
 										/>
 									</td>
 									<td>
 										<InvoiceButton
 											order={order}
-											key={order.id}
+											key={order.Id}
 										/>
 									</td>
 									<td>
-										{orderToEdit?.id === order.id ? (
+										{orderToEdit?.Id === order.Id ? (
 											<div
 												style={{
 													display: "flex",
@@ -252,36 +228,6 @@ const Orders = () => {
 					</table>
 				</div>
 			</section>
-			<dialog
-				ref={signatureDialogRef}
-				className={styles.signaturePadDialog}
-			>
-				<h1>Take Delivery Signature</h1>
-				<SignaturePad
-					orderID={orderToEdit?.id}
-					onSave={async (signatureURL) => {
-						const updatedOrder = {
-							...orderToEdit,
-							signature_url: signatureURL,
-						};
-						await getGeneratedShippingManifest(updatedOrder);
-					}}
-				/>
-				<button
-					className={styles.signaturePadDialogCloseButton}
-					onClick={() => signatureDialogRef.current.close()}
-				>
-					&times;
-				</button>
-			</dialog>
-
-			<InputDialogWizard
-				dialogRef={editProductWizardDialog}
-				steps={wizardSteps}
-				handleSubmit={() => null}
-				currentView={editProductWizardCurrentView}
-				setCurrentView={setEditProductWizardCurrentView}
-			/>
 		</section>
 	);
 };

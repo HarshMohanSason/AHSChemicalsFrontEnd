@@ -8,9 +8,8 @@ import {
 	Image,
 	Link,
 } from "@react-pdf/renderer";
-import { toTitleCase } from "../StringUtils";
 
-export default async function getGeneratedPurchaseOrder(order) {
+export default async function getGeneratedPurchaseOrderBlob(order) {
 	const blob = await pdf(<PurchaseOrderPDF orderDetails={order} />).toBlob();
 	return blob;
 }
@@ -185,7 +184,7 @@ function PurchaseOrderPDF({ orderDetails }) {
 								<Text style={{ fontWeight: "bold" }}>
 									Date Ordered:
 								</Text>{" "}
-								{new Date().toLocaleString()}
+								{orderDetails.PlacedOrder.TimePlaced.toDate().toLocaleString()}
 							</Text>
 							<Text>
 								<Text style={{ fontWeight: "bold" }}>PO#:</Text>{" "}
@@ -344,10 +343,10 @@ function PurchaseOrderPDF({ orderDetails }) {
 									alignItems: "center",
 								}}
 							>
-								<Text>${orderDetails.PlacedOrder.Subtotal}</Text>
+								<Text>${orderDetails.PlacedOrder.SubTotal.toFixed(2)}</Text>
 								<Text>{orderDetails.PlacedOrder.TaxRate * 100}%</Text>
 								<Text style={{ fontWeight: "bold" }}>
-									${orderDetails.PlacedOrder.Total}
+									${orderDetails.PlacedOrder.Total.toFixed(2)}
 								</Text>
 							</View>
 						</View>

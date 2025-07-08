@@ -15,12 +15,19 @@ import useAccounts from "../../../hooks/AdminPanel/Accounts/UseAccounts";
 import { useAlertContext } from "../../../contexts/AlertBoxContext";
 import CustomerAccountsSkeletonLoader from "../../SkeletonLoaders/CusomterAccountsSkeletonLoader";
 import { useCustomersContext } from "../../../contexts/CustomersContext";
+import EditCustomerPrice from "./EditCustomerPrice";
 
 const Accounts = () => {
 	const { confirmationAlert } = useAlertContext();
+	const customersProvider = useCustomersContext();
+
 	const [accountDialogSubmitFunc, setAccountDialogSubmitFunc] =
 		useState(null);
 	const [isFetchingAccounts, setIsFetchingAccounts] = useState(false);
+	
+	const [isExpanded, setIsExpanded] = useState(false);
+	const [isEditProductsPriceExpanded, setIsEditProductsPriceExpanded] =
+		useState(false);
 	const {
 		createCustomerAccount,
 		updateCustomerAccount,
@@ -28,7 +35,7 @@ const Accounts = () => {
 		refetchAccounts,
 		deleteCustomerAccount,
 	} = useAccounts();
-	const customersProvider = useCustomersContext();
+
 	const defaultUser = {
 		name: "",
 		phone: { code: "+1", number: "" },
@@ -37,27 +44,11 @@ const Accounts = () => {
 		properties: [""],
 		brands: [],
 	};
-
 	const [user, setUser] = useState(defaultUser);
-	//To check if the edit accounts section is opened or not
-	const [isExpanded, setIsExpanded] = useState(false);
-
+	const editProductDialogRef = useRef(null);
 	const accountDialogWizardRef = useRef(null);
 	const [currentView, setCurrentView] = useState(0); //Starting at first view
 	const [wizardMode, setWizardMode] = useState("create");
-
-	//Each step has its own error state
-	const [wizardStepErrors, setWizardStepErrors] = useState([
-		{}, //User Info errors
-		[], //Property name errors
-		null, //Single error for brand names
-	]);
-
-	const triggerWizardStepError = (error, index) => {
-		const oldErrors = [...wizardStepErrors];
-		oldErrors[index] = error;
-		setWizardStepErrors(oldErrors);
-	};
 
 	const getWizardSteps = () => {
 		const steps = [
@@ -67,29 +58,16 @@ const Accounts = () => {
 					<InputAccountUserInformation
 						user={user}
 						setUser={setUser}
-						error={wizardStepErrors[0]}
 					/>
 				),
 			},
 			{
 				step: "Properties",
-				view: (
-					<InputAccountProperty
-						user={user}
-						setUser={setUser}
-						error={wizardStepErrors[1]}
-					/>
-				),
+				view: <InputAccountProperty user={user} setUser={setUser} />,
 			},
 			{
 				step: "Brands",
-				view: (
-					<InputAccountBrands
-						user={user}
-						setUser={setUser}
-						error={wizardStepErrors[2]}
-					/>
-				),
+				view: <InputAccountBrands user={user} setUser={setUser} />,
 			},
 		];
 
@@ -100,13 +78,81 @@ const Accounts = () => {
 
 	return (
 		<section className={styles.adminPanelAccountsPage}>
-			<button
-				style={{alignSelf: "center"}}
-				className={sharedStyles.syncIconButton}
-				onClick={customersProvider.beginCustomersSync}
-			>
-				<i className="fas fa-sync-alt"></i> Sync Customers
-			</button>
+			<section className={styles.syncButtonSectionMenu}>
+				<button
+					className={sharedStyles.syncIconButton}
+					onClick={customersProvider.beginCustomersSync}
+				>
+					<i className="fas fa-sync-alt"></i> Sync Customers
+				</button>
+				<button
+					title="Syncs the latest products with quickbooks"
+					className={sharedStyles.syncIconButton}
+					onClick={
+						customersProvider.syncProductProductPricesForCustomers
+					}
+				>
+					<i className="fas fa-sync-alt"></i> Sync Product Prices
+				</button>
+			</section>
+			<section className={sharedStyles.addDataTile} onClick={() => null}>
+				<p>Edit Product Prices</p>
+				<button
+					onClick={async () => {
+						setIsEditProductsPriceExpanded(
+							!isEditProductsPriceExpanded,
+						);
+						if (!customersProvider.productPrices) {
+							await customersProvider.fetchProductPricesForCustomers();
+						}
+					}}
+				>
+					<FontAwesomeIcon
+						icon={
+							isEditProductsPriceExpanded
+								? faChevronUp
+								: faChevronDown
+						}
+						className={styles.editAccountIcon}
+					/>
+				</button>
+			</section>
+
+			<section className={styles.editProductPricesSection}>
+				{isEditProductsPriceExpanded &&
+					customersProvider.productPrices &&
+					Object.entries(customersProvider.productPrices.data).map(
+						([customerName, products]) => (
+							<div
+								key={customerName}
+								className={
+									styles.customerNameWithProductPriceDiv
+								}
+							>
+								<h2>{customerName}</h2>
+								<ul>
+									{products.map((product, index) => (
+										<div key={index}>
+											<li
+												key={product.productId}
+												onClick={() =>
+													editProductDialogRef?.current.showModal()
+												}
+											>
+												Product: {product.product_name},
+												Price: ${product.price}
+											</li>
+											<EditCustomerPrice
+												product={product}
+												dialogRef={editProductDialogRef}
+											/>
+										</div>
+									))}
+								</ul>
+							</div>
+						),
+					)}
+			</section>
 			<section
 				className={sharedStyles.addDataTile}
 				onClick={async () => {
@@ -134,6 +180,7 @@ const Accounts = () => {
 					/>
 				</button>
 			</section>
+
 			{isFetchingAccounts && (
 				<CustomerAccountsSkeletonLoader
 					accountsLength={fetchedAccounts?.length || 5}
@@ -203,7 +250,6 @@ const Accounts = () => {
 			<InputDialogWizard
 				dialogRef={accountDialogWizardRef}
 				steps={getWizardSteps()}
-				setStepError={triggerWizardStepError}
 				handleSubmit={() => accountDialogSubmitFunc(user)}
 				currentView={currentView}
 				setCurrentView={setCurrentView}

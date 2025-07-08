@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {
-	clearCartFromFirestore,
+	clearCurrentCartFromFirestore,
 	getSavedCartItemsFromFirestore,
 	saveCartItemsToFirestore,
 } from "../../utils/Firebase/Cart";
@@ -142,9 +142,13 @@ export const useCart = () => {
 		return cartItems.reduce((total, item) => total + item.quantity, 0);
 	};
 
-	const clearCart = () => {
-		setCartItems([]);
-		clearCartFromFirestore(user.uid);
+	const clearCart = async() => {
+		try {	
+			await clearCurrentCartFromFirestore(user.uid);
+			setCartItems([]);
+		} catch (error) {
+			throw error;
+		}
 	};
 
 	return {

@@ -1,0 +1,51 @@
+#california-svg path[id] {
+	fill: #ffffff;
+	transition: fill 0.3s ease;
+	cursor: pointer;
+}
+#california-svg path[id]:hover {
+	fill: #a5c759;
+}
+#property-list-text {
+	margin-top: 60px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	flex-wrap: wrap;
+	width: 100%;
+}
+#property-list-text .county-name{
+	color: #a5c759;
+	font-size: 23px;
+	padding-left: 50px;
+	font-weight: 600;
+}
+#property-list-text .item-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 80px;
+	justify-content: flex-start;
+	max-width: 100%;
+	margin-left: 400px;
+}
+#property-list-text .item-row .property-details {
+	display: flex;
+	flex-direction: column;
+	width: 150px;
+	gap: 20px;
+}
+#property-list-text .item-row h4 {
+	margin-bottom: 14px;
+	height: 3.8em;
+	width: 100%;
+	font-size: 22px;
+	font-weight: 600;
+	color: black;
+}
+#property-list-text .item-row p {
+	font-size: 14px;
+	font-weight: 400;
+	text-align: start;
+	width: 100%;
+	color: black;
+}

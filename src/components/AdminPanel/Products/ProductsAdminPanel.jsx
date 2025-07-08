@@ -48,8 +48,10 @@ const ProductsAdminPanel = () => {
 	};
 	return (
 		<section className={styles.productsAdminPanelSection}>
-			<section>
+			
+			<section className={styles.filterAndSyncSection}>
 				<button
+					title="Syncs the latest products with quickbooks"
 					className={sharedStyles.syncIconButton}
 					onClick={productsProvider.beginProductsSync}
 				>
@@ -60,6 +62,7 @@ const ProductsAdminPanel = () => {
 					toggleFilter={productsProvider.toggleFilter}
 				/>
 			</section>
+
 			<section className={styles.productsRow}>
 				{productsProvider?.filteredProducts?.length > 0 &&
 					productsProvider?.filteredProducts?.map((product) => (
@@ -162,6 +165,7 @@ const ProductsAdminPanel = () => {
 						Save Changes
 					</button>
 				</section>
+
 				<button
 					className={styles.closeEditProductDialogButton}
 					onClick={() => editProductRef.current.close()}
@@ -170,6 +174,7 @@ const ProductsAdminPanel = () => {
 				</button>
 				<LoadingOverlay />
 			</dialog>
+
 		</section>
 	);
 };

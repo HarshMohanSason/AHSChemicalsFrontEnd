@@ -6,6 +6,7 @@ import {
 	query,
 	where,
 	documentId,
+	updateDoc,
 } from "firebase/firestore";
 import { firestoreDb } from "./FirebaseConfig";
 
@@ -22,7 +23,7 @@ async function fetchAllCustomersFromFirestore(user) {
 					...doc.data(),
 				}));
 			}
-			return []; 
+			return [];
 		}
 
 		// For non-admins: fetch properties associated with this user
@@ -34,7 +35,8 @@ async function fetchAllCustomersFromFirestore(user) {
 
 			if (properties.length === 0) return [];
 
-			const customers = await fetchMultipleCustomersFromFirestore(properties);
+			const customers =
+				await fetchMultipleCustomersFromFirestore(properties);
 			return customers;
 		}
 
@@ -78,8 +80,48 @@ async function fetchMultipleCustomersFromFirestore(docIDList) {
 	}
 }
 
+async function fetchProductPricesForCustomersFromFirestore(customers) {
+	try {
+		const result = {
+			data: {},
+			lastDocument: customers[customers.length - 1],
+		};
+
+		for (const customer of customers) {
+			const productPricesQuery = query(
+				collection(firestoreDb, "product_prices"),
+				where("customer_id", "==", customer.Id),
+			);
+
+			const productPricesSnap = await getDocs(productPricesQuery);
+
+			const mappedProductPrices = productPricesSnap.docs.map((doc) => ({
+				id: doc.id,
+				...doc.data(),
+			}));
+			result.data[customer.DisplayName] = mappedProductPrices;
+		}
+		return result;
+	} catch (error) {
+		throw error;
+	}
+}
+
+async function updateCustomerProductPrice(id, newPrice) {
+	try {
+		const docRef = doc(firestoreDb, "product_prices", id);
+		await updateDoc(docRef, {
+			price: newPrice,
+		});
+	} catch (error) {
+		throw error;
+	}
+}
+
 export {
 	fetchAllCustomersFromFirestore,
 	fetchSingleCustomerFromFirestore,
 	fetchMultipleCustomersFromFirestore,
+	fetchProductPricesForCustomersFromFirestore,
+	updateCustomerProductPrice,
 };

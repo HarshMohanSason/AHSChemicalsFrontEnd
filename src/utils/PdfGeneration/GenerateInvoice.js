@@ -7,10 +7,9 @@ import {
 	StyleSheet,
 	Image,
 } from "@react-pdf/renderer";
-import { toTitleCase } from "../StringUtils";
 
-export default async function getGeneratedInvoice(details) {
-	const blob = await pdf(<InvoicePDF details={details} />).toBlob();
+export default async function getGeneratedInvoice(order) {
+	const blob = await pdf(<InvoicePDF order={order} />).toBlob();
 	// Convert blob to URL
 	const blobUrl = URL.createObjectURL(blob);
 
@@ -86,7 +85,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-function InvoicePDF({ details }) {
+function InvoicePDF({ order }) {
 	return (
 		<Document>
 			<Page size="A4" style={styles.page}>
@@ -111,39 +110,25 @@ function InvoicePDF({ details }) {
 				<View style={styles.billToViewSection}>
 					<View style={styles.billToAddressSection}>
 						<Text style={{ fontWeight: "bold" }}>Bill To:</Text>
-						<Text>{details.customer_name ?? "N/A"}</Text>
+						<Text>{order.Customer?.DisplayName}</Text>
 						<Text>
-							{toTitleCase(
-								details.property?.name ?? "Unknown Property",
-							)}
+							{order.Customer?.BillAddr?.Line1},{" "}
+							{order.Customer?.BillAddr?.City},{" "}
+							{order.Customer?.BillAddr?.CountrySubDivisionCode}{" "}
+							{order.Customer?.BillAddr?.PostalCode}
 						</Text>
 						<Text>
-							{toTitleCase(
-								details.property?.street ?? "Unknown Street",
-							)}
+							{order.Customer?.PrimaryPhone?.FreeFormNumber}
 						</Text>
-						<Text>
-							{toTitleCase(details.property?.city ?? "City")},{" "}
-							{toTitleCase(details.property?.state ?? "State")},{" "}
-							{details.property?.postal ?? "ZIP"}
-						</Text>
-						<Text>
-							{details.customer_phone ?? "Phone not provided"}
-						</Text>
-						<Text>
-							{details.customer_email ?? "Email not provided"}
-						</Text>
+						<Text>{order.Customer?.PrimaryEmailAddr?.Address}</Text>
 					</View>
 					<View style={styles.billToInvoiceNumberSection}>
 						<Text>
 							<Text style={{ fontWeight: "bold" }}>
 								Invoice Number:{" "}
 							</Text>
-							<Text>
-								{details.invoice_number ?? "Temporary Invoice"}
-							</Text>
+							<Text>{order.DocNumber ?? "Temporary invoice"}</Text>
 						</Text>
-
 						<Text>
 							<Text style={{ fontWeight: "bold" }}>
 								Invoice Date:{" "}
@@ -152,12 +137,14 @@ function InvoicePDF({ details }) {
 						</Text>
 
 						<Text>
-							<Text style={{ fontWeight: "bold" }}>Payment Due:{" "}</Text>
-							<Text>{details.payment_due
-								? details.payment_due
-										.toDate()
-										.toLocaleDateString()
-								: "Net 30"}</Text>
+							<Text style={{ fontWeight: "bold" }}>
+								Payment Due:{" "}
+							</Text>
+							<Text>
+								{new Date(
+									Date.now() + 30 * 24 * 60 * 60 * 1000,
+								).toLocaleDateString()}
+							</Text>
 						</Text>
 					</View>
 				</View>
@@ -170,17 +157,16 @@ function InvoicePDF({ details }) {
 				</View>
 
 				{/* Table Body */}
-				{details.items.map((item, index) => (
+				{order.Products.map((item, index) => (
 					<View key={index} style={styles.tableRow}>
 						<Text style={styles.tableCell}>
-							{toTitleCase(item.product_name)} {item.size}{" "}
-							{toTitleCase(item.sizeUnit)} (Pack of {item.pack_of}
-							) - {toTitleCase(item.brand)}
+							{item?.Name} {item.Size} {item?.SizeUnit} (Pack of{" "}
+							{item.PackOf}) - {item?.Brand}
 						</Text>
-						<Text style={styles.tableCell}>{item.quantity}</Text>
-						<Text style={styles.tableCell}>${item.price}</Text>
+						<Text style={styles.tableCell}>{item.Quantity}</Text>
+						<Text style={styles.tableCell}>${item.UnitPrice}</Text>
 						<Text style={styles.tableCell}>
-							${(item.price * item.quantity).toFixed(2)}
+							${(item.UnitPrice * item.Quantity).toFixed(2)}
 						</Text>
 					</View>
 				))}
@@ -201,7 +187,9 @@ function InvoicePDF({ details }) {
 							}}
 						>
 							<Text style={{ fontWeight: "bold" }}>SUBTOTAL</Text>
-							<Text style={{ fontWeight: "bold" }}>TAX</Text>
+							<Text style={{ fontWeight: "bold" }}>
+								TAX ({order.PlacedOrder.TaxRate * 100})%
+							</Text>
 							<Text
 								style={{
 									marginRight: "10px",
@@ -226,17 +214,10 @@ function InvoicePDF({ details }) {
 							}}
 						>
 							<Text>
-								${details.subtotal?.toFixed(2) ?? "0.00"}
+								${order.PlacedOrder.SubTotal.toFixed(2)}
 							</Text>
 							<Text>
-								$
-								{details.subtotal && details.tax_rate
-									? (
-											(details.subtotal *
-												details.tax_rate) /
-											100
-										).toFixed(2)
-									: "0.00"}
+								${order.PlacedOrder.TaxAmount.toFixed(2)}
 							</Text>
 							<Text
 								style={{
@@ -247,7 +228,7 @@ function InvoicePDF({ details }) {
 									fontSize: "13",
 								}}
 							>
-								${details.total?.toFixed(2) ?? "0.00"}
+								${order.PlacedOrder.Total.toFixed(2)}
 							</Text>
 						</View>
 					</View>
@@ -267,7 +248,7 @@ function InvoicePDF({ details }) {
 						Payment for this invoice is due within 30 days from the
 						invoice date ("Net 30"). A late fee may be applied to
 						any unpaid balance after the due date. Please ensure
-						payments are made to the account details provided. All
+						payments are made to the account order provided. All
 						goods remain the property of the supplier until full
 						payment is received. Any discrepancies must be reported
 						within 7 days of receipt. By making a purchase, you

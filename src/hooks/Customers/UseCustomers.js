@@ -2,7 +2,11 @@ import { useCallback, useEffect, useState } from "react";
 import { useAlertContext } from "../../contexts/AlertBoxContext";
 import { useAuth } from "../../contexts/AuthContext";
 import { useLoadingOverlayContext } from "../../contexts/LoadingOverlayContext";
-import { fetchAllCustomersFromFirestore } from "../../utils/Firebase/Customers";
+import {
+	fetchAllCustomersFromFirestore,
+	fetchProductPricesForCustomersFromFirestore,
+    updateCustomerProductPrice,
+} from "../../utils/Firebase/Customers";
 import { handleFirebaseError } from "../../utils/Firebase/ErrorHandler";
 import { beginQuickBooksAuth } from "../../utils/Quickbooks/Auth";
 import { syncCustomers } from "../../utils/Quickbooks/Customers";
@@ -15,7 +19,7 @@ const useCustomers = () => {
 	const [customers, setCustomers] = useState([]);
 	const [formattedCustomersForDisplay, setFormattedCustomersForDisplay] =
 		useState([]);
-
+	const [productPrices, setProductPrices] = useState(null);
 	const fetchCustomers = useCallback(async () => {
 		if (!user) return;
 		try {
@@ -116,10 +120,73 @@ const useCustomers = () => {
 		}
 	}, [customers]);
 
+	const syncProductProductPricesForCustomers = async () => {
+		loadingOverlay.trigger();
+		try {
+			if (user) {
+				// Attempt to sync customers from QuickBooks
+				const response = await fetch(
+					process.env.REACT_APP_SYNC_PRODUCT_PRICES,
+					{
+						method: "GET",
+						headers: {
+							Authorization: `Bearer ${user.token}`,
+						},
+					},
+				);
+
+				const responseJson = await response.json();
+				if (!response.ok) {
+					throw new Error(responseJson.message);
+				}
+				alert.showAlert(responseJson.message, "Success");
+			}
+		} catch (error) {
+			alert.showAlert(error.message, "Error");
+		} finally {
+			loadingOverlay.hide();
+		}
+	};
+
+	const fetchProductPricesForCustomers = async () => {
+		loadingOverlay.trigger();
+		if (productPrices) return;
+		if (customers.length > 0) {
+			try {
+				const fetchedPrices =
+					await fetchProductPricesForCustomersFromFirestore(
+						customers,
+					);
+				setProductPrices({
+					data: fetchedPrices.data,
+					lastDoc: fetchedPrices.lastDocument,
+				});
+			} catch (error) {
+				alert.showAlert(handleFirebaseError(error), "Error");
+			} finally {
+				loadingOverlay.hide();
+			}
+		}
+	};
+
+	const updateProductPrice = async (id, price) => {
+		loadingOverlay.trigger();
+		try {
+			await updateCustomerProductPrice(id, price);
+		} catch (error) {
+			alert.showAlert(handleFirebaseError(error));
+		} finally {
+			loadingOverlay.hide();
+		}
+	};
 	return {
 		customers,
 		beginCustomersSync,
 		formattedCustomersForDisplay,
+		syncProductProductPricesForCustomers,
+		fetchProductPricesForCustomers,
+		productPrices,
+		updateProductPrice,
 	};
 };
 

@@ -54,13 +54,13 @@ export const useOrdersManagement = () => {
 		const max = parseFloat(maxAmountFilter) || Infinity;
 
 		const filtered = fetchedOrders.filter((order) => {
-			const matchStatus = !statusFilter || order.status === statusFilter;
-			const matchAmount = order.total >= min && order.total <= max;
+			const matchStatus = !statusFilter || order.Status === statusFilter;
+			const matchAmount = order.Total >= min && order.Total <= max;
 			const matchDate =
 				(!minDateFilter ||
-					order.timestamp.toDate() >= new Date(minDateFilter)) &&
+					order.TimePlaced.toDate() >= new Date(minDateFilter)) &&
 				(!maxDateFilter ||
-					order.timestamp.toDate() <= new Date(maxDateFilter));
+					order.TimePlaced.toDate() <= new Date(maxDateFilter));
 			return matchStatus && matchAmount && matchDate;
 		});
 		setFilteredOrders(filtered);
@@ -106,15 +106,12 @@ export const useOrdersManagement = () => {
 
 	const updateEditedOrder = async (oldOrder, newOrder) => {
 		try {
-			if (oldOrder.status !== newOrder.status) {
+			if (oldOrder.Status !== newOrder.Status) {
 				await updateOrderStatusInFirestore(
-					newOrder.id,
-					newOrder.status,
+					newOrder.Id,
+					newOrder.Status,
 				);
-				fetchOrders();
-			}
-			if (!isEqual(oldOrder.items, newOrder.items)) {
-				await updateOrderItemsAndGenerateNewPO(newOrder);
+				await fetchOrders();
 			}
 		} catch (error) {
 			alert.showAlert(handleFirebaseError(error.message), "Error");

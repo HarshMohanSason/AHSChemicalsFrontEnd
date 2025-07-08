@@ -1,31 +1,30 @@
-import React, { useEffect } from "react";
-import "./Home.css";
+import React, { useState } from "react";
 import HomePageImage1 from "../../assets/home_page_image1.webp";
 import USAMapImage from "../../assets/usa_map.webp";
-import { ReactComponent as CaliforniaMapSvg } from "../../assets/california_map.svg";
-import { addCityMarkers } from "../../utils/CaliforniaMapUtils";
 import { useCustomersContext } from "../../contexts/CustomersContext";
+import { useNavigate } from "react-router-dom";
+import styles from "./Home.module.css";
+import CaliforniaMap from "../../components/CaliforniaMapSvg/CaliforniaMap";
 
 const Home = () => {
+	const navigate = useNavigate();
 	const customersProvider = useCustomersContext();
-	//Load the markers for the california map svg
-	useEffect(() => {
-		const svg = document.getElementById("california-svg");
-		if (svg && customersProvider.formattedCustomersForDisplay.length > 0) {
-			addCityMarkers(svg, customersProvider.formattedCustomersForDisplay);
-		}
-	}, [customersProvider.formattedCustomersForDisplay]);
+
+	const [mapStats, setMapStats] = useState({
+		totalCounties: 0,
+		totalCustomers: 0,
+	});
 
 	return (
-		<section className="home-page">
-			<section className="home-page-intro-section">
+		<section className={styles.homePage}>
+			<section className={styles.homePageIntroSection}>
 				<figure>
 					<img
 						src={HomePageImage1}
 						alt="Hospitality cleaning products"
 					/>
 				</figure>
-				<div className="text-area">
+				<section className={styles.introAreatextSection}>
 					<h2>
 						Elevating Hospitality with{" "}
 						<span style={{ color: "#456206" }}>Excellence</span>
@@ -35,28 +34,31 @@ const Home = () => {
 						hygienic, safe, and efficient operations across hotels,
 						restaurants, and commercial spaces.
 					</p>
-					{/* To do add a link here to contact us page */}
-					<button>Contact Us</button>
-				</div>
+					<button onClick={() => navigate("/contact-us")}>
+						Contact Us
+					</button>
+				</section>
 			</section>
 
-			<section className="map-section">
-				<h2> Located Areas </h2>
+			<section className={styles.mapSection}>
+				<h2>Located Areas</h2>
 				<p>
 					We supply hospitality cleaning chemicals to{" "}
-					<strong> 11 </strong> counties across California, serving
-					over <strong> 48 </strong>properties in total.
+					<strong>{mapStats.totalCounties}</strong> counties across
+					California, serving over{" "}
+					<strong>{mapStats.totalCustomers}</strong> properties in
+					total.
 				</p>
-				<section className="map-area">
-					<CaliforniaMapSvg />
+
+				<section className={styles.mapArea}>
+					<CaliforniaMap
+						customers={customersProvider.customers}
+						setMapStats={setMapStats}
+					/>
 					<img src={USAMapImage} alt="USA-map" />
 				</section>
 
-				{/* Dynamically populated */}
-				<section
-					id="property-list-text"
-					className="property-list"
-				></section>
+				<section id="property-list-text"></section>
 			</section>
 		</section>
 	);

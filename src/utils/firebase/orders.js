@@ -6,6 +6,7 @@ import {
 	doc,
 	updateDoc,
 	addDoc,
+	getDoc,
 } from "firebase/firestore";
 import { deleteObject, ref } from "firebase/storage";
 import { firestoreDb, storage } from "./FirebaseConfig";
@@ -25,11 +26,23 @@ async function fetchOrdersForAdmin() {
 		const colRef = collection(firestoreDb, "orders");
 		const docsSnapshot = await getDocs(colRef);
 		if (!docsSnapshot.empty) {
-			const orders = docsSnapshot.docs.map((doc, _) => doc.data());
+			const orders = docsSnapshot.docs.map((doc) => ({
+				Id: doc.id,
+				...doc.data(),
+			}));
 			return orders;
 		} else {
 			return [];
 		}
+	} catch (error) {
+		throw error;
+	}
+}
+async function fetchSingleOrder(orderID) {
+	try {
+		const docRef = doc(firestoreDb, "orders", orderID);
+		const docSnapshot = await getDoc(docRef);
+		return { Id: docSnapshot.id, ...docSnapshot.data() };
 	} catch (error) {
 		throw error;
 	}
@@ -44,7 +57,7 @@ async function fetchOrdersForUser(userID) {
 		const querySnapshot = await getDocs(q);
 		if (querySnapshot.length > 0) {
 			const orders = querySnapshot.docs.map((doc) => ({
-				id: doc.id,
+				Id: doc.id,
 				...doc.data(),
 			}));
 			return orders;
@@ -69,7 +82,7 @@ async function updateOrderStatusInFirestore(orderID, newStatus) {
 	try {
 		const docRef = doc(firestoreDb, "orders", orderID);
 		await updateDoc(docRef, {
-			status: newStatus,
+			Status: newStatus,
 		});
 	} catch (error) {
 		throw error;
@@ -80,7 +93,7 @@ async function updateOrderSignatureURLInFirestore(orderID, url) {
 	try {
 		const docRef = doc(firestoreDb, "orders", orderID);
 		await updateDoc(docRef, {
-			signature_url: url,
+			SignatureURL: url,
 		});
 	} catch (error) {
 		throw error;
@@ -92,6 +105,7 @@ async function deleteSignatureFromStorage(orderID) {
 		const fileRef = ref(storage, `orders/${orderID}/signature.png`);
 		await deleteObject(fileRef);
 	} catch (error) {
+		//If a file exists, ignore it.
 		if (error.code !== "storage/object-not-found") {
 			throw error;
 		}
@@ -109,6 +123,7 @@ async function deletePurchaseOrderFromStorage(orderID) {
 export {
 	saveOrderDetailsInFirestore,
 	fetchOrdersForAdmin,
+	fetchSingleOrder,
 	fetchOrdersForUser,
 	updateOrderItemsInFirestore,
 	deletePurchaseOrderFromStorage,

@@ -3,6 +3,10 @@ import Logo from "../../assets/logo_without_text.webp";
 import { Link } from "react-router-dom";
 import styles from "./Footer.module.css";
 
+/**
+ * Footer component for the website.
+ * Contains company branding, navigation links, and legal info.
+ */
 const Footer = () => {
 	return (
 		<footer className={styles.footer}>
@@ -43,12 +47,13 @@ const Footer = () => {
 					</section>
 				</section>
 			</section>
-
+			{/* No social media yet. Will uncomment once social media is ready for the company 
 			<section className={styles.socialMedia}>
 				<i className="fa-brands fa-facebook-f"></i>
 				<i className="fa-brands fa-instagram"></i>
 				<i className="fa-brands fa-twitter"></i>
 			</section>
+			*/}
 			<hr />
 			<section className={styles.belowHrtext}>
 				<p>© 2025 All rights reserved</p>

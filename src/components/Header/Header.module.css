@@ -1,69 +1,103 @@
-.header {
+.header{
   position: fixed;
   width: 100%;
+  height: 107px;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: white;
   z-index: 999;
   box-sizing: border-box;
-  padding: 8px 40px; 
-  border-bottom-left-radius: 30px; 
-  border-bottom-right-radius: 30px; 
-  box-shadow: 0 2px 8px #0000002B; 
+  padding: 8px 40px;
+  border-bottom-left-radius: 22px;
+  border-bottom-right-radius: 22px;
+  box-shadow: 0 2px 8px #0000002b;
 }
-/* AHS Logo image*/
-.header img{ 
+.logo {
   height: 80px;
 }
-.header nav {
+.navContainer {
   display: flex;
   flex: 1;
-  justify-content: center; 
 }
-.header nav ul{
+.navListLeft, .navListRight {
   display: flex;
   list-style: none;
   font-size: 24.32px;
   gap: 40px;
 }
-.header nav ul:first-of-type {
+.navListLeft {
   justify-content: center;
-  flex: 1; 
+  flex: 1;
 }
-.header nav ul:last-of-type {
-  justify-content: flex-end;
-}
-.header nav ul:first-of-type li a {
+.navLinkLeft {
   font-weight: 400;
   text-decoration: none;
   color: rgba(0, 0, 0, 0.56);
   transition: color 0.3s ease;
 }
-.header nav ul:first-of-type li a.active{
+.navLinkRight {
+  text-decoration: none;
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.56);
+}
+.navLinkLeft:hover {
+  text-shadow: 0 0 1px black;
+}
+.navLinkRight:hover {
+  text-shadow: 0 0 1px #a5c759;
+}
+.activeNavLinkLeft {
+  text-decoration: none;
   color: black;
   font-weight: 600;
 }
-.header nav ul:first-of-type li a:hover {
-  text-shadow: 0 0 1px black;
-}
-.header nav ul:last-of-type li a {
-  font-weight: 300;
+.activeNavLinkRight {
   text-decoration: none;
-  color: rgba(0, 0, 0, 0.56);
-  transition: color 0.3s ease;
+  color: #a5c759;
+  font-weight: 600;
 }
-.header nav ul:last-of-type li a.active{
-   color: #A5C759;
-   font-weight: 600;
-}
-.header nav ul:last-of-type li a:hover {
-  text-shadow: 0 0 1px #A5C759;;
+/* Hide the desktop header nav at 1200px */
+@media (max-width: 1200px) {
+  .navContainer {
+    display: none;
+  }
 }
 
-/* Hide the header when width is less than 1200px */ 
-@media (max-width: 1200px) {
-  .header nav {
+/* Hamburger Button for mobile */
+.hamburgerButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 55px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  background: none;
+}
+.hamburgerLine {
+  background-color: #405493;
+  height: 6px;
+  width: 85%;
+  border-radius: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+.lineTop {
+  transform: translateY(13.5px) rotate(45deg);
+}
+.lineMiddle {
+  transform: scale(0);
+  opacity: 0;
+}
+.lineBottom {
+  transform: translateY(-14px) rotate(-45deg);
+}
+/* Only show the hamburger if width is < 1200 px*/
+@media (min-width: 1200px) {
+  .hamburgerDiv{ 
     display: none;
   }
 }

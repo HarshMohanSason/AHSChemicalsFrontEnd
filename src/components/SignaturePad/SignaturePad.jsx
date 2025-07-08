@@ -1,28 +1,56 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SignatureCanvas from "react-signature-canvas";
 import { uploadSingleFileToStorage } from "../../utils/Firebase/FirebaseStorage";
 import styles from "./SignaturePad.module.css";
-import {deleteSignatureFromStorage, updateOrderSignatureURLInFirestore} from "../../utils/Firebase/Orders"
+import {
+  deleteSignatureFromStorage,
+  updateOrderSignatureURLInFirestore,
+} from "../../utils/Firebase/Orders";
+
 const SignaturePad = ({ orderID, onSave }) => {
   const sigCanvas = useRef();
+
+  const [canvasSize, setCanvasSize] = useState({
+    width: window.innerWidth * 0.88,
+    height: window.innerHeight - 130,
+  });
+
+  useEffect(() => {
+    const ratio = window.devicePixelRatio || 1;
+
+    const scaleCanvas = () => {
+      const canvas = sigCanvas.current?.getCanvas();
+      if (!canvas) return;
+
+      const { width, height } = canvasSize;
+
+      canvas.width = width * ratio;
+      canvas.height = height * ratio;
+
+      const ctx = canvas.getContext("2d");
+      ctx.scale(ratio, ratio);
+    };
+
+    // Wait for React to fully render the canvas before scaling
+    requestAnimationFrame(scaleCanvas);
+  }, [canvasSize]);
 
   const clear = () => sigCanvas.current.clear();
 
   const save = async () => {
-    const dataURL = sigCanvas.current.toDataURL("image/png");
-    const blob = await (await fetch(dataURL)).blob();
-   
-    await deleteSignatureFromStorage(orderID)
-    const signatureURL = await uploadSingleFileToStorage(
-      blob,
-      "orders",
-      orderID,
-      "signature.png",
-    );
-    await updateOrderSignatureURLInFirestore(orderID, signatureURL);
-    clear();
-    if (signatureURL !== "") {
-      onSave(signatureURL);
+    try {
+      const dataURL = sigCanvas.current.toDataURL("image/png");
+      const blob = await (await fetch(dataURL)).blob();
+      await deleteSignatureFromStorage(orderID);
+      const storagePath = `orders/${orderID}/signature.png`;
+      const signatureURL = await uploadSingleFileToStorage(blob, storagePath);
+      await updateOrderSignatureURLInFirestore(orderID, signatureURL);
+      if (signatureURL !== "") {
+        onSave(signatureURL);
+        clear();
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -32,8 +60,8 @@ const SignaturePad = ({ orderID, onSave }) => {
         ref={sigCanvas}
         penColor="black"
         canvasProps={{
-          width: 860,
-          height: 400,
+          width: canvasSize.width,
+          height: canvasSize.height,
           className: styles.signatureCanvas,
         }}
       />

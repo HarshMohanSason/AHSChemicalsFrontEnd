@@ -7,7 +7,7 @@ import {
 	StyleSheet,
 	Image,
 } from "@react-pdf/renderer";
-import { toTitleCase } from "../StringUtils";
+import { convertToGallons } from "../SizeConverter";
 
 export const getGeneratedShippingManifest = async (details) => {
 	const blob = await pdf(<ShippingManifestPDF details={details} />).toBlob();
@@ -103,36 +103,33 @@ function ShippingManifestPDF({ details }) {
 				</View>
 				<View style={styles.shipToAddressSection}>
 					<View>
-						<Text style={{ fontWeight: "bold", marginBottom: 3}}>Ship To:</Text>
-						<Text>{details.property_name}</Text>
-						<Text>{toTitleCase(details.property.street)}</Text>
-						<Text>
-							{toTitleCase(details.property.city)},{" "}
-							{toTitleCase(details.property.state)}, {details.property.postal}
+						<Text style={{ fontWeight: "bold", marginBottom: 3 }}>
+							Ship To:
 						</Text>
-						<Text style={{ marginTop: 5 }}>
-							<Text style={{ fontWeight: "bold" }}>
-								Contact Name:{" "}
-							</Text>
-							{details.customer_name}
+						<Text>{details.Customer.DisplayName}</Text>
+						<Text>{details.Customer?.BillAddr?.Line1}</Text>
+						<Text>
+							{details.Customer?.BillAddr?.City},{" "}
+							{details.Customer?.BillAddr?.CountrySubDivisionCode}
+							, {details.Customer?.BillAddr?.PostalCode}
 						</Text>
 						<Text style={{ marginTop: 5 }}>
 							<Text style={{ fontWeight: "bold" }}>
 								Contact Email:{" "}
 							</Text>
-							{details.customer_email}
+							{details.Customer?.PrimaryEmailAddr?.Address}
 						</Text>
 						<Text style={{ marginTop: 5 }}>
 							<Text style={{ fontWeight: "bold" }}>
 								Contact Phone:{" "}
 							</Text>
-							{details.customer_phone}
+							{details.Customer?.PrimaryPhone?.FreeFormNumber}
 						</Text>
 						<Text style={{ marginTop: 5 }}>
 							<Text style={{ fontWeight: "bold" }}>
 								24 Hour Emergency Contact:{" "}
 							</Text>
-							800-577-6202
+							{process.env.REACT_APP_EMERGENCY_CONTACT}
 						</Text>
 					</View>
 					<View
@@ -150,9 +147,9 @@ function ShippingManifestPDF({ details }) {
 						</Text>
 						<Text>
 							<Text style={{ fontWeight: "bold" }}>
-								Purchase Order:{" "}
+								Purchase Order#:{" "}
 							</Text>
-							{details.id}
+							{details.PlacedOrder.Id}
 						</Text>
 					</View>
 				</View>
@@ -232,17 +229,17 @@ function ShippingManifestPDF({ details }) {
 						</Text>
 					</View>
 
-					{details.items.map((item, index) => (
+					{details.Products.map((item, index) => (
 						<View key={index} style={styles.shippingDataRow}>
 							<Text
 								style={[styles.shippingCellData, { flex: 1 }]}
 							>
-								{item.quantity}
+								{item?.Quantity}
 							</Text>
 							<Text
 								style={[styles.shippingCellData, { flex: 0.5 }]}
 							>
-								{item.hazardous ? "Yes" : "No"}
+								{item.Hazardous ?? "No"}
 							</Text>
 							<Text
 								style={[styles.shippingCellData, { flex: 1 }]}
@@ -252,7 +249,7 @@ function ShippingManifestPDF({ details }) {
 							<Text
 								style={[styles.shippingCellData, { flex: 2 }]}
 							>
-								{stripHtml(item.description)}
+								{item?.Description}
 							</Text>
 							<Text
 								style={[styles.shippingCellData, { flex: 0.7 }]}
@@ -262,28 +259,28 @@ function ShippingManifestPDF({ details }) {
 							<Text
 								style={[styles.shippingCellData, { flex: 1 }]}
 							>
-								{item.sku}
+								{item?.SKU}
 							</Text>
 							<Text
 								style={[styles.shippingCellData, { flex: 1 }]}
 							>
-								{item.quantity * item.size} {item.sizeUnit}
+								{item?.Quantity * item?.Size} {item.SizeUnit}
 							</Text>
 							<Text
 								style={[styles.shippingCellData, { flex: 1 }]}
 							>
-								{item.hazardous
-									? item.quantity * item.size
+								{item?.Hazardous
+									? item?.Quantity * item?.Size
 									: "N/A"}{" "}
-								{item.sizeUnit}
+								{item?.SizeUnit}
 							</Text>
 							<Text
 								style={[styles.shippingCellData, { flex: 1 }]}
 							>
-								{!item.hazardous
-									? item.quantity * item.size
+								{!item?.Hazardous
+									? item?.Quantity * item?.Size
 									: "N/A"}{" "}
-								{item.sizeUnit}
+								{item?.SizeUnit}
 							</Text>
 						</View>
 					))}
@@ -296,8 +293,14 @@ function ShippingManifestPDF({ details }) {
 						marginTop: 10,
 					}}
 				>
-					<Text style={{ fontWeight: "bold" }}>
-						TOTAL UNITS: <Text>{details.items.reduce((total, items)=> total + items.quantity, 0)}</Text>
+					<Text>
+						<Text style={{ fontWeight: "bold" }}>TOTAL UNITS: </Text>
+						<Text >
+							{details.Products.reduce(
+								(total, items) => total + items.Quantity,
+								0,
+							)}
+						</Text>
 					</Text>
 					<View
 						style={{
@@ -306,33 +309,68 @@ function ShippingManifestPDF({ details }) {
 							gap: 5,
 						}}
 					>
-						<Text style={{ fontWeight: "bold" }}>
-							NON HAZARDOUS WEIGHT:{" "}
-							{details.items.reduce(
-								(total, item) =>
-									!item.hazardous
-										? total + item.quantity * item.size
-										: total,
-								0,
-							)}
+						<Text>
+							<Text style={{ fontWeight: "bold" }}>NON HAZARDOUS WEIGHT: </Text>
+							<Text >
+								{details.Products.reduce((total, item) => {
+									if (!item?.Hazardous) {
+										if (
+											item.SizeUnit !== "GAL" &&
+											item.SizeUnit !== "GALLONS"
+										) {
+											const newSize = convertToGallons(
+												item.Size,
+												item.SizeUnit,
+											);
+											return (
+												total + item.Quantity * newSize
+											);
+										}
+										return (
+											total + item.Quantity * item.Size
+										);
+									}
+									return total;
+								}, 0)}{" "}
+								GALLONS
+							</Text>
 						</Text>
-						<Text style={{ fontWeight: "bold" }}>
-							HAZARDOUS WEIGHT:{" "}
-							{details.items.reduce(
-								(total, item) =>
-									item.hazardous
-										? total + item.quantity * item.size
-										: total,
-								0,
-							)}
+						<Text>
+							<Text style={{ fontWeight: "bold" }}>HAZARDOUS WEIGHT: </Text>
+							<Text>
+								{details.Products.reduce((total, item) => {
+									if (item?.Hazardous) {
+										if (
+											item.SizeUnit !== "GAL" &&
+											item.SizeUnit !== "GALLONS"
+										) {
+											const newSize = convertToGallons(
+												item.Size,
+												item.SizeUnit,
+											);
+											return (
+												total + item.Quantity * newSize
+											);
+										}
+										return (
+											total + item.Quantity * item.Size
+										);
+									}
+									return total;
+								}, 0)}{" "}
+								GALLONS
+							</Text>
 						</Text>
-						<Text style={{ fontWeight: "bold" }}>
-							TOTAL WEIGHT:{" "}
-							{details.items.reduce(
-								(total, item) =>
-									total + item.quantity * item.size,
-								0,
-							)}
+						<Text>
+							<Text style={{ fontWeight: "bold" }}>TOTAL WEIGHT: </Text>
+							<Text>
+								{details.Products.reduce(
+									(total, item) =>
+										total + item.Quantity * item.Size,
+									0,
+								)}{" "}
+								GALLONS
+							</Text>
 						</Text>
 					</View>
 				</View>
@@ -345,19 +383,27 @@ function ShippingManifestPDF({ details }) {
 					}}
 				>
 					<View>
-						<Text style={{ marginBottom: 5, fontWeight: "bold" }}>
-							RECIEVED BY:{" "}
+						<Text style={{ marginBottom: 5 }}>
+							<Text style={{ fontWeight: "bold" }}>
+								RECIEVED BY:{" "}
+							</Text>
+							<Text>{details.PlacedOrder.ReceivedBy}</Text>
 						</Text>
 						<Text style={{ fontWeight: "bold" }}>SIGNATURE: </Text>
 						<Image
 							style={styles.logoImage}
-							src={details.signature_url}
+							src={details.PlacedOrder.SignatureURL}
 						/>
 					</View>
-					<Text style={{ fontWeight: "bold" }}>DELIVERED BY: </Text>
-					<Text style={{ fontWeight: "bold", marginRight: 50 }}>
-						DATE:{" "}
-						{new Date().toLocaleString()}
+					<Text style={{ marginBottom: 5 }}>
+						<Text style={{ fontWeight: "bold" }}>
+							DELIVERED BY:{" "}
+						</Text>
+						<Text>{details.PlacedOrder.DeliveredBy}</Text>
+					</Text>
+					<Text style={{ marginBottom: 5 }}>
+						<Text style={{ fontWeight: "bold" }}>DATE: </Text>
+						<Text>{new Date().toLocaleString()}</Text>
 					</Text>
 				</View>
 			</Page>

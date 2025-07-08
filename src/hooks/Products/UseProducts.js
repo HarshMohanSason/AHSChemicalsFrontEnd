@@ -25,7 +25,6 @@ const useProducts = () => {
 	const { alert } = useAlertContext();
 	const { user } = useAuth();
 	const loadingOverlay = useLoadingOverlayContext();
-
 	const fetchProducts = useCallback(async () => {
 		loadingOverlay.trigger();
 		try {
@@ -239,7 +238,7 @@ const useProducts = () => {
 		selectedFilters,
 		filters,
 		toggleFilter,
-		getProductFromGroupedProducts,
+		getProductFromGroupedProducts
 	};
 };
 

@@ -3,12 +3,9 @@ import {
   doc,
   getDoc,
   setDoc,
-  deleteDoc,
-  getDocs,
-  where,
-  query,
-  collection,
+  deleteDoc
 } from "firebase/firestore";
+import { getProductsByIDsFromFirestore } from "./Products";
 
 async function saveCartItemsToFirestore(userID, cartItems) {
   try {
@@ -22,27 +19,6 @@ async function saveCartItemsToFirestore(userID, cartItems) {
     throw error;
   }
 }
-async function getCartItemsByIDFromFirestore(cartIDs) {
-  const chunks = [];
-  const CHUNK_SIZE = 10; //Firestore only allows to fetch in max batches of 10
-
-  for (let i = 0; i < cartIDs.length; i += CHUNK_SIZE) {
-    chunks.push(cartIDs.slice(i, i + CHUNK_SIZE));
-  }
-  const allDocs = [];
-
-  for (const chunk of chunks) {
-    const q = query(
-      collection(firestoreDb, "products"),
-      where("__name__", "in", chunk), //Fetch all the documents with the docIDs in the chunk
-    );
-    const snapshot = await getDocs(q);
-    snapshot.forEach((doc) => {
-      allDocs.push(doc.data());
-    });
-  }
-  return allDocs;
-}
 
 async function getSavedCartItemsFromFirestore(userID) {
   try {
@@ -52,7 +28,7 @@ async function getSavedCartItemsFromFirestore(userID) {
     if (docSnapshot.exists()) {
       const items = docSnapshot.data().Items;
       const mappedIDs = items.map((item) => item.Id);
-      const cartItems = await getCartItemsByIDFromFirestore(mappedIDs);
+      const cartItems = await getProductsByIDsFromFirestore(mappedIDs);
 
       const finalCartItems = cartItems
         .map((cartItem) => {
@@ -69,7 +45,8 @@ async function getSavedCartItemsFromFirestore(userID) {
     throw error;
   }
 }
-async function clearCartFromFirestore(userID) {
+
+async function clearCurrentCartFromFirestore(userID) {
   try {
     const cartDocRef = doc(firestoreDb, "users", userID, "cart", "current");
     await deleteDoc(cartDocRef);
@@ -81,5 +58,5 @@ async function clearCartFromFirestore(userID) {
 export {
   saveCartItemsToFirestore,
   getSavedCartItemsFromFirestore,
-  clearCartFromFirestore,
+  clearCurrentCartFromFirestore,
 };

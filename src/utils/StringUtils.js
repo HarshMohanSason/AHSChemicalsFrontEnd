@@ -1,9 +1,14 @@
-function toTitleCase (text) {
-	return text
-		.toLowerCase()
-		.split(" ")
-		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-		.join(" ");
-};
+/**
+ * Converts a string to Title Case
+ * @param {string} str - The string to convert
+ * @returns {string} - The converted string
+ * @example toTitleCase('hello world');
+ * // 'Hello World'
+ */
+function toTitleCase(str) {
+	return str.replace(/\w\S*/g, function (txt) {
+		return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+	});
+}
 
-export {toTitleCase}
+export { toTitleCase };
